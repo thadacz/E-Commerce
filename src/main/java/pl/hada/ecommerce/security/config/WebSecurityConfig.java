@@ -47,6 +47,7 @@ public class WebSecurityConfig {
                         auth
                                 .requestMatchers(AntPathRequestMatcher.antMatcher("/registration/**")).permitAll()
                                 .requestMatchers(AntPathRequestMatcher.antMatcher("/h2-console/**")).permitAll()
+                                .requestMatchers(AntPathRequestMatcher.antMatcher("/api/**")).permitAll()
                                // .requestMatchers(AntPathRequestMatcher.antMatcher("/login/**")).permitAll()
                                 .anyRequest().authenticated()
                 )

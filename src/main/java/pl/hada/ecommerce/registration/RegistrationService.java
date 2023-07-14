@@ -20,23 +20,23 @@ public class RegistrationService {
     private final EmailSender emailSender;
     public String register(RegistrationRequest request) {
         boolean isValidEmail = emailValidator
-                .test(request.getEmail());
+                .test(request.email());
         if (!isValidEmail){
             throw new IllegalStateException("Email not valid");
         }
         String token = userService.singUpUser(
                 new User(
-                        request.getFirstName(),
-                        request.getLastName(),
-                        request.getEmail(),
-                        request.getPassword(),
+                        request.firstName(),
+                        request.lastName(),
+                        request.email(),
+                        request.password(),
                         Role.USER
                 )
         );
         String link = "http://localhost:8080/registration/confirm?token=" + token;
         emailSender.send(
-                request.getEmail(),
-                buildEmail(request.getFirstName(),link));
+                request.email(),
+                buildEmail(request.firstName(),link));
         return token;
     }
     @Transactional

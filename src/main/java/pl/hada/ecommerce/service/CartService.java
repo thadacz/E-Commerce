@@ -32,13 +32,12 @@ public class CartService {
   }
 
   public List<CartItem> getAllCartItemsByCart(Long customerId) {
-    Cart cart = cartRepository.findCartByCustomer_IdAndIsOrderedFalse(customerId);
-    return cart.getCartItems();
+    return cartRepository.findCartByUser_IdAndIsOrderedFalse(customerId).getCartItems();
   }
 
   @Transactional
   public List<CartItem> addProductToCart(Long productId, Long customerId) {
-    Cart cart = cartRepository.findCartByCustomer_IdAndIsOrderedFalse(customerId);
+    Cart cart = cartRepository.findCartByUser_IdAndIsOrderedFalse(customerId);
     Product newProduct =
         productRepository
             .findById(productId)
@@ -46,7 +45,10 @@ public class CartService {
     List<CartItem> cartItems = cart.getCartItems();
 
     Optional<CartItem> existingCartItem =
-        cartItems.stream().filter(cartItem -> cartItem.getProduct().equals(newProduct)).findFirst();
+            cartItems
+                .stream()
+                .filter(cartItem -> cartItem.getProduct().equals(newProduct))
+                .findFirst();
 
     if (existingCartItem.isPresent()) {
       CartItem cartItem = existingCartItem.get();
@@ -57,9 +59,7 @@ public class CartService {
       cartItems.add(newCartItem);
     }
     cartRepository.save(cart);
-
     BigDecimal totalAmount = getTotalAmount(cartItems);
-
     cart.setTotalAmount(totalAmount);
 
     return cartItems;
@@ -69,12 +69,9 @@ public class CartService {
   @Transactional
   public List<CartItem> updateCart(Long customerId, List<CartItem> newCartItems) {
 
-    Cart cart = cartRepository.findCartByCustomer_IdAndIsOrderedFalse(customerId);
-
+    Cart cart = cartRepository.findCartByUser_IdAndIsOrderedFalse(customerId);
     cart.getCartItems().clear();
-
     cart.getCartItems().addAll(newCartItems);
-
     cartRepository.save(cart);
 
     return cart.getCartItems();
@@ -83,10 +80,8 @@ public class CartService {
   @Transactional
   public List<CartItem> clearCart(Long customerId) {
 
-    Cart cart = cartRepository.findCartByCustomer_IdAndIsOrderedFalse(customerId);
-
+    Cart cart = cartRepository.findCartByUser_IdAndIsOrderedFalse(customerId);
     cart.getCartItems().clear();
-
     cartRepository.save(cart);
 
     return cart.getCartItems();
@@ -95,17 +90,15 @@ public class CartService {
   @Transactional
   public List<CartItem> removeProductFromCart(Long customerId, Long productId) {
 
-    Cart cart = cartRepository.findCartByCustomer_IdAndIsOrderedFalse(customerId);
+    Cart cart = cartRepository.findCartByUser_IdAndIsOrderedFalse(customerId);
 
     Product product =
-        productRepository
+            productRepository
             .findById(productId)
             .orElseThrow(() -> new RuntimeException("Product not found"));
 
     List<CartItem> cartItems = cart.getCartItems();
-
     cartItems.removeIf(cartItem -> cartItem.getProduct().equals(product));
-
     cartRepository.save(cart);
 
     return cart.getCartItems();
@@ -113,7 +106,7 @@ public class CartService {
 
   @Transactional
   public BigDecimal getTotalAmount(Long customerId) {
-    Cart cart = cartRepository.findCartByCustomer_IdAndIsOrderedFalse(customerId);
+    Cart cart = cartRepository.findCartByUser_IdAndIsOrderedFalse(customerId);
     List<CartItem> cartItems = cart.getCartItems();
 
     return getTotalAmount(cartItems);

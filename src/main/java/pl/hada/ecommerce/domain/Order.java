@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import pl.hada.ecommerce.registration.User;
 
 @Getter
 @Setter
@@ -22,7 +23,9 @@ public class Order {
   @ManyToOne
   @JoinColumn(name = "customer_id")
   @JsonBackReference
-  private Customer customer;
+  private User user;
 
   @OneToOne private Address address;
+
+  // TODO: Create createdAt, updatedAt, status, payment
 }

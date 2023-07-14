@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;
 import lombok.*;
+import pl.hada.ecommerce.registration.User;
 
 @Getter
 @Setter
@@ -21,9 +22,9 @@ public class Cart {
   List<CartItem> cartItems;
 
   @ManyToOne
-  @JoinColumn(name = "customer_id")
+  @JoinColumn(name = "user_id")
   @JsonBackReference
-  private Customer customer;
+  private User user;
 
   @OneToOne Order order;
 
@@ -31,8 +32,8 @@ public class Cart {
 
   private BigDecimal totalAmount;
 
-  public Cart(List<CartItem> cartItems, Customer customer) {
+  public Cart(List<CartItem> cartItems, User user) {
     this.cartItems = cartItems;
-    this.customer = customer;
+    this.user = user;
   }
 }

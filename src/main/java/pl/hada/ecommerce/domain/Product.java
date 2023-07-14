@@ -40,6 +40,8 @@ public class Product {
   @Enumerated(EnumType.STRING)
   private Color color = Color.NO_COLOR;
 
+  // TODO: Drop time
+
   public Product(
       String name, String imageUrl, BigDecimal price, Size size, Color color, Integer stock) {
     this.name = name;

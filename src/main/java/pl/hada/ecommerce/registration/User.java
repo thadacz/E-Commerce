@@ -1,21 +1,23 @@
 package pl.hada.ecommerce.registration;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.Hibernate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import pl.hada.ecommerce.domain.Address;
+import pl.hada.ecommerce.domain.Cart;
+import pl.hada.ecommerce.domain.Order;
 import pl.hada.ecommerce.domain.Role;
 
-import java.util.Collection;
-import java.util.Collections;
+import java.util.*;
 
 @Getter
 @Setter
-@EqualsAndHashCode
 @NoArgsConstructor
 @Entity
 @Table(name = "_user")
@@ -32,6 +34,17 @@ public class User implements UserDetails {
     private Role role;
     private Boolean locked = false;
     private Boolean enabled = false;
+
+    @OneToMany
+    List<Address> addresses;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Cart> carts = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<Order> orders;
 
     public User(String firstName, String lastName, String email, String password, Role role) {
         this.firstName = firstName;
@@ -84,5 +97,18 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return enabled;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        User user = (User) o;
+        return id != null && Objects.equals(id, user.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
     }
 }
