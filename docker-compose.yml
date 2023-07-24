@@ -5,6 +5,7 @@ services:
     environment:
       POSTGRES_USER: hades
       POSTGRES_PASSWORD: password
+      POSTGRES_DB: store
       PGDATA: /data/postgres
     volumes:
       - db:/data/postgres

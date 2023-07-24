@@ -55,7 +55,6 @@ public class UserService implements UserDetailsService {
                 confirmationToken
         );
 
-        // TODO: SEND EMAIL
         return token;
 
     }

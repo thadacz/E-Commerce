@@ -1,3 +1,4 @@
+/*
 package pl.hada.ecommerce.registration;
 
 import org.springframework.context.annotation.Bean;
@@ -29,3 +30,4 @@ public class EmailConfiguration {
     }
 
 }
+*/
