@@ -19,7 +19,7 @@ public class UserService implements UserDetailsService {
     private final static String USER_NOT_FOUND_MSG =
             "User with email %s not found";
     private final UserRepository userRepository;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    //private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final ConfirmationTokenService confirmationTokenService;
 
     @Override
@@ -37,7 +37,7 @@ public class UserService implements UserDetailsService {
             throw new IllegalStateException("Email already taken");
         }
 
-        String encodedPassword = bCryptPasswordEncoder.encode(user.getPassword());
+        String encodedPassword = new BCryptPasswordEncoder().encode(user.getPassword());
 
         user.setPassword(encodedPassword);
 
