@@ -9,6 +9,7 @@ import pl.hada.ecommerce.domain.Product;
 import pl.hada.ecommerce.service.ProductService;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -21,7 +22,7 @@ public class ProductController {
   }
 
   @GetMapping
-  public ResponseEntity<List<Product>> getAllProducts() {
+  public ResponseEntity<List<Product>> getAllProducts(@RequestHeader Map<String,String> token) {
     List<Product> products = productService.getAllProducts();
     return new ResponseEntity<>(products, HttpStatus.OK);
   }

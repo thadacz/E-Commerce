@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/registration")
+@RequestMapping("api/auth/register")
 @AllArgsConstructor
 @CrossOrigin(origins = "*" )
 public class RegistrationController {

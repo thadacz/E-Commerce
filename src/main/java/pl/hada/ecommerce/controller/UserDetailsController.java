@@ -6,10 +6,12 @@ import org.springframework.web.bind.annotation.*;
 import pl.hada.ecommerce.domain.Address;
 import pl.hada.ecommerce.registration.User;
 import pl.hada.ecommerce.service.UserDetailsService;
+
+import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/userDetails")
+@RequestMapping("/api/users")
 public class UserDetailsController {
   private final UserDetailsService userDetailsService;
 
@@ -22,6 +24,12 @@ public class UserDetailsController {
     User newUser = userDetailsService.register(user);
     return new ResponseEntity<>(newUser, HttpStatus.CREATED);
   }*/
+
+  @GetMapping
+  public ResponseEntity<List<User>> getAllUsers(){
+    List<User> users = userDetailsService.getAllUsers();
+    return new ResponseEntity<>(users, HttpStatus.OK);
+  }
 
   @GetMapping("/{id}")
   public ResponseEntity<User> getCustomerById(@PathVariable("id") Long id) {
