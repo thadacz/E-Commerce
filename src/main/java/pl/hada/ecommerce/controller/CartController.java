@@ -9,7 +9,7 @@ import pl.hada.ecommerce.domain.CartItem;
 import pl.hada.ecommerce.service.CartService;
 
 @RestController
-@RequestMapping("/cart")
+@RequestMapping("/api/cart")
 public class CartController {
   private final CartService cartService;
 
@@ -33,6 +33,13 @@ public class CartController {
       @PathVariable Long productId, @PathVariable Long customerId) {
     List<CartItem> cartItems = cartService.addProductToCart(productId, customerId);
     return new ResponseEntity<>(cartItems, HttpStatus.CREATED);
+  }
+
+  @PostMapping("/{customerId}/decrease/{productId}")
+  public ResponseEntity<List<CartItem>> decreaseProductQuantityInCart(
+          @PathVariable Long productId, @PathVariable Long customerId) {
+    List<CartItem> cartItems = cartService.decreaseProductQuantityInCart(productId, customerId);
+    return new ResponseEntity<>(cartItems, HttpStatus.OK);
   }
 
   @PatchMapping("/{customerId}")

@@ -55,9 +55,13 @@ public class SecurityFilterChainConfig {
                                         "/api/auth/register/**"
                                 ).permitAll()
                                 .requestMatchers(
-                                        "/api/products/**",
-                                        "/api/products"
+                                        "/api/products",
+                                        "/api/products/**"
                                 ).hasAnyAuthority(USER.name())
+                                .requestMatchers(
+                                        "/api/cart",
+                                        "/api/cart/**"
+                                ).permitAll()
                                 .requestMatchers("/api/test/admin").hasAnyAuthority(USER.name())
                                 .requestMatchers("/api/test/mod").hasAnyAuthority(USER.name())
                                 .requestMatchers("/api/test/home/**").permitAll()

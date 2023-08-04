@@ -3,12 +3,15 @@ package pl.hada.ecommerce.registration;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pl.hada.ecommerce.domain.Cart;
 import pl.hada.ecommerce.domain.Role;
 import pl.hada.ecommerce.email.EmailSender;
 import pl.hada.ecommerce.registration.token.ConfirmationToken;
 import pl.hada.ecommerce.registration.token.ConfirmationTokenService;
+import pl.hada.ecommerce.repository.CartRepository;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 
 @Service
 @AllArgsConstructor
@@ -18,6 +21,9 @@ public class RegistrationService {
     private EmailValidator emailValidator;
     private final ConfirmationTokenService confirmationTokenService;
     private final EmailSender emailSender;
+
+    private final UserRepository userRepository;
+    private final CartRepository cartRepository;
     public String register(RegistrationRequest request) {
         boolean isValidEmail = emailValidator
                 .test(request.email());
@@ -59,6 +65,12 @@ public class RegistrationService {
         confirmationTokenService.setConfirmedAt(token);
         userService.enableUser(
                 confirmationToken.getUser().getEmail());
+
+
+        // Create cart for user
+        Cart newCart = new Cart(Collections.emptyList(), confirmationToken.getUser());
+        cartRepository.save(newCart);
+
         return "confirmed";
     }
 

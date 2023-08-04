@@ -65,6 +65,43 @@ public class CartService {
     return cartItems;
   }
 
+  @Transactional
+  public List<CartItem> decreaseProductQuantityInCart(Long productId, Long customerId) {
+    Cart cart = cartRepository.findCartByUser_IdAndIsOrderedFalse(customerId);
+    Product product =
+            productRepository
+                    .findById(productId)
+                    .orElseThrow(() -> new RuntimeException("Product not found"));
+    List<CartItem> cartItems = cart.getCartItems();
+
+    Optional<CartItem> existingCartItem =
+            cartItems
+                    .stream()
+                    .filter(cartItem -> cartItem.getProduct().equals(product))
+                    .findFirst();
+
+    if (existingCartItem.isPresent()) {
+      CartItem cartItem = existingCartItem.get();
+      int newQuantity = cartItem.getQuantity() - 1;
+      if (newQuantity > 0) {
+        cartItem.setQuantity(newQuantity);
+        cartItemRepository.save(cartItem);
+      } else {
+        cartItems.remove(cartItem);
+        cartItemRepository.delete(cartItem);
+      }
+    } else {
+      throw new RuntimeException("Product not found in the cart");
+    }
+
+    cartRepository.save(cart);
+    BigDecimal totalAmount = getTotalAmount(cartItems);
+    cart.setTotalAmount(totalAmount);
+
+    return cartItems;
+  }
+
+
 
   @Transactional
   public List<CartItem> updateCart(Long customerId, List<CartItem> newCartItems) {

@@ -3,6 +3,7 @@ package pl.hada.ecommerce.domain;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.*;
 import pl.hada.ecommerce.registration.User;
