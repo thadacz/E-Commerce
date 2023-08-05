@@ -8,7 +8,7 @@ import pl.hada.ecommerce.domain.Order;
 import pl.hada.ecommerce.service.OrderService;
 
 @RestController
-@RequestMapping("/order")
+@RequestMapping("/api/order")
 public class OrderController {
 
   private final OrderService orderService;
