@@ -3,12 +3,15 @@ package pl.hada.ecommerce.registration;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import pl.hada.ecommerce.domain.Cart;
-import pl.hada.ecommerce.domain.Role;
+import pl.hada.ecommerce.shop.domain.Cart;
+import pl.hada.ecommerce.user.Role;
 import pl.hada.ecommerce.email.EmailSender;
 import pl.hada.ecommerce.registration.token.ConfirmationToken;
 import pl.hada.ecommerce.registration.token.ConfirmationTokenService;
-import pl.hada.ecommerce.repository.CartRepository;
+import pl.hada.ecommerce.shop.repository.CartRepository;
+import pl.hada.ecommerce.user.User;
+import pl.hada.ecommerce.user.UserRepository;
+import pl.hada.ecommerce.user.UserService;
 
 import java.time.LocalDateTime;
 import java.util.Collections;

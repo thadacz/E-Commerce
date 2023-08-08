@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import pl.hada.ecommerce.registration.User;
+import pl.hada.ecommerce.user.User;
 
 import java.time.LocalDateTime;
 

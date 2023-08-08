@@ -5,9 +5,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import pl.hada.ecommerce.jwt.JWTUtil;
-import pl.hada.ecommerce.registration.User;
-import pl.hada.ecommerce.registration.UserDTO;
-import pl.hada.ecommerce.registration.UserDTOMapper;
+import pl.hada.ecommerce.user.User;
+import pl.hada.ecommerce.user.UserDTO;
+import pl.hada.ecommerce.user.UserDTOMapper;
 
 @Service
 public class AuthenticationService {
