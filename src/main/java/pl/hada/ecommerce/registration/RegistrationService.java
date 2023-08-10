@@ -77,7 +77,7 @@ public class RegistrationService {
         return "confirmed";
     }
 
-    private String buildEmail(String name, String link) {
+    /*private String buildEmail(String name, String link) {
         return "<div style=\"font-family:Helvetica,Arial,sans-serif;font-size:16px;margin:0;color:#0b0c0c\">\n" +
                 "\n" +
                 "<span style=\"display:none;font-size:1px;color:#fff;max-height:0\"></span>\n" +
@@ -144,5 +144,12 @@ public class RegistrationService {
                 "  </tbody></table><div class=\"yj6qo\"></div><div class=\"adL\">\n" +
                 "\n" +
                 "</div></div>";
+    }*/
+    private String buildEmail(String name, String link) {
+        return "Hi " + name + ",<br>"
+                + "Thank you for registering. Please click on the below link to activate your account:<br>"
+                + "<a href=" + link + ">Activate Now</a><br>"
+                + "Link will expire in 24 hours.<br>"
+                + "See you soon";
     }
 }

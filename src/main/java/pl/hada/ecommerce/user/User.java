@@ -53,6 +53,16 @@ public class User implements UserDetails {
         this.role = role;
     }
 
+    public User(String firstName, String lastName, String email, String password, Role role, Boolean locked, Boolean enabled) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+        this.locked = locked;
+        this.enabled = enabled;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         SimpleGrantedAuthority authority =
