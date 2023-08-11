@@ -4,6 +4,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.security.Key;
@@ -17,8 +18,13 @@ import static java.time.temporal.ChronoUnit.DAYS;
 @Service
 public class JWTUtil {
 
-    private static final String SECRET_KEY =
-            "foobar_123456789_foobar_123456789_foobar_123456789_foobar_123456789";
+    /*private static final String JWT_SECRET_KEY =
+            "foobar_123456789_foobar_123456789_foobar_123456789_foobar_123456789";*/
+
+    @Value("${JWT_SECRET_KEY}")
+    private String JWT_SECRET_KEY;
+    @Value("${host}")
+    private String host;
 
 
     public String issueToken(String subject) {
@@ -37,11 +43,11 @@ public class JWTUtil {
     public String issueToken(
             String subject,
             Map<String, Object> claims) {
-        String token = Jwts
+        return Jwts
                 .builder()
                 .setClaims(claims)
                 .setSubject(subject)
-                .setIssuer("https://localhost:8080")
+                .setIssuer(host)
                 .setIssuedAt(Date.from(Instant.now()))
                 .setExpiration(
                         Date.from(
@@ -50,7 +56,6 @@ public class JWTUtil {
                 )
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256)
                 .compact();
-        return token;
     }
 
     public String getSubject(String token) {
@@ -58,17 +63,16 @@ public class JWTUtil {
     }
 
     private Claims getClaims(String token) {
-        Claims claims = Jwts
+        return Jwts
                 .parserBuilder()
                 .setSigningKey(getSigningKey())
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
-        return claims;
     }
 
     private Key getSigningKey() {
-        return Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
+        return Keys.hmacShaKeyFor(JWT_SECRET_KEY.getBytes());
     }
 
     public boolean isTokenValid(String jwt, String username) {
