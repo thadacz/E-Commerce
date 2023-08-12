@@ -8,7 +8,7 @@ import {
   addProductToCart,
   decreaseProductQuantityInCart,
   removeProductFromCart,
-} from "../services/cart.service"; // Step 1
+} from "../services/cart.service";
 
 type StoreItemProps = {
   id: number;
@@ -17,12 +17,14 @@ type StoreItemProps = {
 export function StoreItem({ id }: StoreItemProps) {
   const {
     getItemQuantity,
+    getItemStock,
     increaseCartQuantity,
     decreaseCartQuantity,
     removeFromCart,
   } = useShoppingCart();
     const user = getCurrentUser();
   const quantity = getItemQuantity(id);
+  const stock = getItemStock(id);
   const [product, setProduct] = useState<any | null>(null);
 
 
@@ -43,6 +45,7 @@ export function StoreItem({ id }: StoreItemProps) {
     addProductToCart(productId, user.id)
       .then(() => {
         increaseCartQuantity(productId);
+        //window.location.reload();
       })
       .catch((error) => {
         console.error("Error while adding product to cart:", error);
@@ -94,7 +97,7 @@ export function StoreItem({ id }: StoreItemProps) {
           {quantity === 0 ? (
             <Button className="w-100" onClick={() => handleAddToCart(id)}>
               {" "}
-              {/* Step 3 */}+ Add To Cart
+              {}+ Add To Cart
             </Button>
           ) : (
             <div
@@ -111,9 +114,13 @@ export function StoreItem({ id }: StoreItemProps) {
                 <div>
                   <span className="fs-3">{quantity}</span> in cart
                 </div>
-                <Button onClick={() => handleIncreaseCartQuantity(id)}>
-                  +
-                </Button>
+                {quantity < stock ? (
+                  <Button onClick={() => handleIncreaseCartQuantity(id)}>
+                    +
+                  </Button>
+                ) : (
+                  <Button disabled>+</Button>
+                )}
               </div>
               <Button
                 onClick={() => handleRemove(id)}

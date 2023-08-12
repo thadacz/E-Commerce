@@ -1,7 +1,5 @@
 package pl.hada.ecommerce.security;
 
-import com.google.gson.Gson;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,8 +13,6 @@ import java.util.List;
 @Configuration
 public class CorsConfig {
 
-    @Autowired
-    private Gson gson;
     @Value("#{'${cors.allowed-origins}'.split(',')}")
     private List<String> allowedOrigins;
 
@@ -28,9 +24,7 @@ public class CorsConfig {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(allowedOrigins);
         configuration.setAllowedMethods(Arrays.asList("GET","POST", "DELETE", "PUT","PATCH"));
-        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Cache-Control", "Content-Type"
-        //        ,"stripetoken", "amount"
-        ));//(allowedHeaders);
+        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Cache-Control", "Content-Type"));//(allowedHeaders);
         configuration.setExposedHeaders(expectedHeaders);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/api/**", configuration);

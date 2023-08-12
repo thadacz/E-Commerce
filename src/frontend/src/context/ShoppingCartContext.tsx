@@ -29,6 +29,7 @@ type CartItem = {
 
 type ShoppingCartContext = {
   getItemQuantity: (id: number) => number;
+  getItemStock: (id: number) => number;
   increaseCartQuantity: (id: number) => void;
   decreaseCartQuantity: (id: number) => void;
   removeFromCart: (id: number) => void;
@@ -81,6 +82,13 @@ function getItemQuantity(id: number) {
   return itemInCart ? itemInCart.quantity : 0;
 }
 
+function getItemStock(id: number) {
+  const itemInCart = cartItems.find(
+    (item) => item.product && item.product.id === id
+  );
+  return itemInCart ? itemInCart.product.stock : 0;
+}
+
 function increaseCartQuantity(id: number) {
   setCartItems((currItems) => {
     const existingItem = currItems.find(
@@ -129,6 +137,7 @@ function removeFromCart(id: number) {
     <ShoppingCartContext.Provider
       value={{
         getItemQuantity,
+        getItemStock,
         increaseCartQuantity,
         decreaseCartQuantity,
         removeFromCart,

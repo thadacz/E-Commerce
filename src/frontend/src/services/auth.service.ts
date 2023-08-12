@@ -1,14 +1,11 @@
-import axios from "axios";
 
-const API_URL = "http://localhost:8080/api/auth/";
+import { axiosInstance, setAuthToken } from "./http";
 
-export const setAuthToken = (token: string | null) => {
-  if (token) {
-    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-  } else {
-    delete axios.defaults.headers.common["Authorization"];
-  }
-};
+const AUTH_BASE_PATH = "/api/auth/";
+const AUTH_REGISTER_PATH = `${AUTH_BASE_PATH}register`;
+const AUTH_LOGIN_PATH = `${AUTH_BASE_PATH}login`;
+const AUTH_USER_PATH = `${AUTH_BASE_PATH}user`;
+
 
 export const register = (
   firstName: string,
@@ -16,7 +13,7 @@ export const register = (
   email: string,
   password: string
 ) => {
-  return axios.post(API_URL + "register", {
+  return axiosInstance.post(AUTH_REGISTER_PATH, {
     firstName,
     lastName,
     email,
@@ -25,11 +22,10 @@ export const register = (
 };
 
 export const login = async (username: string, password: string) => {
-  const response = await axios
-    .post(API_URL + "login", {
-      username,
-      password,
-    });
+  const response = await axiosInstance.post(AUTH_LOGIN_PATH, {
+    username,
+    password,
+  });
   if (response.data.token) {
     const token = response.data.token;
     console.log(token);
