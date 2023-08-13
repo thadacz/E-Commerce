@@ -24,13 +24,18 @@ public class Product {
   private Long id;
 
   @NotBlank private String name;
- // @NotBlank private String imageUrl;
+  //@NotBlank
+  private String imageUrl;
+    private String description;
 
   @DecimalMin(value = "0.0", inclusive = false)
   // @Digits(integer = 5, fraction = 2)
   private BigDecimal price;
 
   @NotNull private Integer stock;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "category_id")
+  private Category category;
 
 /*  @Column(columnDefinition = "varchar(255) default 'ONE SIZE'")
   @Enumerated(EnumType.STRING)

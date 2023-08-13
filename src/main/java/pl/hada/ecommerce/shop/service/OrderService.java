@@ -2,14 +2,13 @@ package pl.hada.ecommerce.shop.service;
 
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
+import pl.hada.ecommerce.exeption.InsufficientStockException;
 import pl.hada.ecommerce.shop.domain.*;
 import pl.hada.ecommerce.shop.repository.*;
 import pl.hada.ecommerce.user.User;
 
 import java.math.BigDecimal;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -38,7 +37,7 @@ public class OrderService {
   }
 
 @Transactional
-public Order createOrderFromCart(Long customerId, Address address) throws Exception {
+public Order createOrderFromCart(Long customerId, Address address) {
 
   Address newAddress = addressRepository.save(address);
   Cart cart = cartRepository.findCartByUser_IdAndIsOrderedFalse(customerId);
@@ -68,7 +67,7 @@ public Order createOrderFromCart(Long customerId, Address address) throws Except
       product.setStock(product.getStock() - quantityOrdered);
       productRepository.save(product);
     } else {
-      throw new Exception("Insufficient stock for product: " + product.getName());
+      throw new InsufficientStockException(product.getName());
     }
   }
 
@@ -116,7 +115,32 @@ public Order createOrderFromCart(Long customerId, Address address) throws Except
             orderTotalAmount
     );
   }
+
+  public List<ProductSalesReportDTO> generateProductSalesReport() {
+    List<Order> completedOrders = orderRepository.findByStatus(OrderStatus.COMPLETED);
+
+    Map<String, ProductSalesReportDTO> productSalesMap = new HashMap<>();
+
+    for (Order order : completedOrders) {
+      for (CartItem cartItem : order.getCart().getCartItems()) {
+        String productName = cartItem.getProduct().getName();
+        int quantitySold = cartItem.getQuantity();
+        BigDecimal productPrice = cartItem.getProduct().getPrice();
+
+        ProductSalesReportDTO productSalesReportDTO = productSalesMap.getOrDefault(productName,
+                new ProductSalesReportDTO(productName, 0, BigDecimal.ZERO));
+
+        int updatedQuantity = productSalesReportDTO.getTotalQuantitySold() + quantitySold;
+        BigDecimal updatedRevenue = productSalesReportDTO.getTotalRevenue()
+                .add(productPrice.multiply(BigDecimal.valueOf(quantitySold)));
+
+        productSalesReportDTO.setTotalQuantitySold(updatedQuantity);
+        productSalesReportDTO.setTotalRevenue(updatedRevenue);
+
+        productSalesMap.put(productName, productSalesReportDTO);
+      }
+    }
+
+    return new ArrayList<>(productSalesMap.values());
+  }
 }
-
-
-

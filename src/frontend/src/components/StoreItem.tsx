@@ -45,7 +45,7 @@ export function StoreItem({ id }: StoreItemProps) {
     addProductToCart(productId, user.id)
       .then(() => {
         increaseCartQuantity(productId);
-        //window.location.reload();
+        window.location.reload();
       })
       .catch((error) => {
         console.error("Error while adding product to cart:", error);

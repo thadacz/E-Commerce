@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { getOrderReport } from "../services/order.service";
 import { getCurrentUser } from "../services/auth.service";
+import { createOrderRating } from "../services/order-rating.service";
+import  { Rating } from "react-simple-star-rating";
 
 interface Address {
   id: number;
@@ -34,6 +36,57 @@ interface OrderReportDTO {
 const Completion: React.FC = () => {
   const [orderReports, setOrderReports] = useState<OrderReportDTO[]>([]);
   const user = getCurrentUser();
+  const [rating, setRating] = useState<number>(0);
+  const [comment, setComment] = useState<string>("");
+  const [ratingSubmitted, setRatingSubmitted] = useState<boolean>(false);
+  const [ratingError, setRatingError] = useState<string | null>(null);
+    
+const handleRatingChange = (rate: number) => {
+  setRating(rate);
+};
+
+    const handleCommentChange = (
+      event: React.ChangeEvent<HTMLTextAreaElement>
+    ) => {
+      setComment(event.target.value);
+    };
+
+    const handleSubmitRating = () => {
+      const orderRatingData: any = {
+        rating: rating,
+        comment: comment,
+      };
+
+      createOrderRating(orderRatingData, user.id)
+        .then((response) => {
+          console.log("Order rating added:", response.data);
+          loadOrderReports();
+          setRating(0);
+          setComment("");
+          alert("Rating submitted. Thank you!");
+        })
+        .catch((error) => {
+          console.error("Error adding order rating:", error);
+          alert(
+            "Error submitting rating. Please try again if you haven't submitted a review before."
+          );
+        });
+    };
+
+    const loadOrderReports = () => {
+      getOrderReport(user.id)
+        .then((response) => {
+          setOrderReports(response.data);
+        })
+        .catch((error) => {
+          console.error("Error fetching order reports:", error);
+        });
+    };
+
+    useEffect(() => {
+      loadOrderReports();
+    }, []);
+    
   useEffect(() => {
     getOrderReport(user.id)
       .then((response) => {
@@ -43,6 +96,8 @@ const Completion: React.FC = () => {
         console.error("Error fetching order reports:", error);
       });
   }, []);
+
+
 
   return (
     <div>
@@ -60,8 +115,8 @@ const Completion: React.FC = () => {
             <ul>
               {report.products.map((product, productIndex) => (
                 <li key={productIndex}>
-                  {product.productName} : {product.quantity}x 
-                  {product.price}$ = {product.quantity*product.price}$
+                  {product.productName} : {product.quantity}x{product.price}$ ={" "}
+                  {product.quantity * product.price}$
                 </li>
               ))}
             </ul>
@@ -84,10 +139,36 @@ const Completion: React.FC = () => {
               Email: {report.deliveryAddress.emailAddress}
             </p>
             <p>Order Status: {report.orderStatus}</p>
+            {report.orderStatus === "COMPLETED" && (
+              <div>
+                <h3>Rate this Order:</h3>
+                <div className="d-flex flex-column">
+                  <div className="mb-3">
+                    <Rating onClick={handleRatingChange} />
+                  </div>
+                  <div className="mb-3">
+                    <textarea
+                      className="form-control"
+                      placeholder="Leave a comment..."
+                      value={comment}
+                      onChange={handleCommentChange}
+                    />
+                  </div>
+                  <div>
+                    <button
+                      className="btn btn-primary "
+                      onClick={() => handleSubmitRating()}
+                    >
+                      Submit Rating
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
           </li>
         ))}
+        <h2>Thank you! 🎉</h2>
       </ul>
-      <h2>Thank you! 🎉</h2>
     </div>
   );
 };

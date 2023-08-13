@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import pl.hada.ecommerce.shop.domain.Address;
 import pl.hada.ecommerce.shop.domain.Order;
 import pl.hada.ecommerce.shop.domain.OrderReportDTO;
+import pl.hada.ecommerce.shop.domain.ProductSalesReportDTO;
 import pl.hada.ecommerce.shop.service.OrderService;
 
 import java.math.BigDecimal;
@@ -23,7 +24,7 @@ public class OrderController {
 
   @PostMapping("/{customerId}")
   public ResponseEntity<Order> createOrder(
-          @RequestBody Address address, @PathVariable Long customerId) throws Exception {
+          @RequestBody Address address, @PathVariable Long customerId) {
     Order newOrder = orderService.createOrderFromCart(customerId, address);
     return new ResponseEntity<>(newOrder, HttpStatus.CREATED);
   }
@@ -54,6 +55,12 @@ public class OrderController {
     } else {
       return ResponseEntity.badRequest().body("Failed to complete order.");
     }
+  }
+
+  @GetMapping("/product-sales")
+  public ResponseEntity<List<ProductSalesReportDTO>> generateProductSalesReport() {
+    List<ProductSalesReportDTO> productSalesReport = orderService.generateProductSalesReport();
+    return ResponseEntity.ok(productSalesReport);
   }
 
 }

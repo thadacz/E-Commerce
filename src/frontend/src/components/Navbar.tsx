@@ -7,6 +7,7 @@ export function Navbar() {
   const navigate = useNavigate()
   const handleClick = () => navigate('/cart')
   const user = getCurrentUser()
+  console.log(user);
   const token = localStorage.getItem("token")
 
     const handleLogout = () => {
@@ -14,8 +15,8 @@ export function Navbar() {
       navigate("/login");
     };
 
-
   return (
+    
     <NavbarBs sticky="top" className="bg-white shadow-sm mb-3">
       <Container>
         <Nav className="me-auto">

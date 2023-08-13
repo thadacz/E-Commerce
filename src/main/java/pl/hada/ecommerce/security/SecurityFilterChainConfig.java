@@ -86,6 +86,9 @@ public class SecurityFilterChainConfig {
                                 .requestMatchers("/checkout-data").permitAll()
                                 .requestMatchers("/api/payment").permitAll()
                                 .requestMatchers("/api/payment/**").permitAll()
+                                .requestMatchers("/api/categories/**").permitAll()
+                                .requestMatchers("/api/order-ratings/**").permitAll()
+                                .requestMatchers("/api/order-ratings").permitAll()
                                 .requestMatchers(
                                         HttpMethod.POST,
                                         "/api/users",

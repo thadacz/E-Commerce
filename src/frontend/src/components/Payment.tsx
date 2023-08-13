@@ -1,7 +1,7 @@
 import  { useEffect, useState } from "react";
 import Stripe from "react-stripe-checkout";
 import axios, { AxiosResponse } from "axios";
-import { getCurrentUser, setAuthToken } from "../services/auth.service";
+import { getCurrentUser } from "../services/auth.service";
 import { completeOrder, getOrderTotalAmount } from "../services/order.service";
 import { useNavigate } from "react-router-dom";
 
@@ -30,10 +30,13 @@ function Payment() {
 
   const handleToken = async (token: { id: any; }) => {
     try {
-      await axios.post("http://localhost:8080/api/payment/charge", {
-        token: token.id,
-        amount: totalAmount,
-      });
+      await axios.post(
+        `${import.meta.env.VITE_APP_BASE_URL}` + "/api/payment/charge",
+        {
+          token: token.id,
+          amount: totalAmount,
+        }
+      );
       alert("Payment Success");
       completeOrder(user.id);
       navigate("/completion");

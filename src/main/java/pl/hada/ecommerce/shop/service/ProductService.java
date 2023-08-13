@@ -1,6 +1,7 @@
 package pl.hada.ecommerce.shop.service;
 
 import org.springframework.stereotype.Service;
+import pl.hada.ecommerce.exeption.ResourceNotFoundException;
 import pl.hada.ecommerce.shop.domain.Product;
 import pl.hada.ecommerce.shop.repository.ProductRepository;
 
@@ -38,7 +39,7 @@ public class ProductService{
       //      existingProduct.setColor(product.getColor());
             return productRepository.save(existingProduct);
         } else {
-            throw new IllegalArgumentException("Product not found with id: " + id);
+            throw new ResourceNotFoundException("Product","id", id);
         }
     }
 

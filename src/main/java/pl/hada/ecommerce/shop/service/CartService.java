@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
+import pl.hada.ecommerce.exeption.ResourceNotFoundException;
 import pl.hada.ecommerce.shop.domain.Cart;
 import pl.hada.ecommerce.shop.domain.CartItem;
 import pl.hada.ecommerce.shop.domain.Product;
@@ -88,7 +89,7 @@ public class CartService {
         cartItemRepository.delete(cartItem);
       }
     } else {
-      throw new RuntimeException("Product not found in the cart");
+      throw new ResourceNotFoundException("Product not found in the cart");
     }
 
     cartRepository.save(cart);
@@ -101,7 +102,7 @@ public class CartService {
   private Product getProductById(Long productId) {
     return productRepository
             .findById(productId)
-            .orElseThrow(() -> new RuntimeException("Product not found"));
+            .orElseThrow(() -> new ResourceNotFoundException("Product", "id", productId));
   }
 
 
