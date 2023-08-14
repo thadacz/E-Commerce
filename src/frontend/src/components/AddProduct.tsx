@@ -1,9 +1,8 @@
 import React, { useState, ChangeEvent, useEffect } from "react";
 import { addProduct } from "../services/product.service";
 import IProduct from "../types/product.type";
-import { uploadFile } from "../services/blob.service";
-import { getCategoriesNames } from "../services/category.service";
 import Category from "../types/category.type";
+import { getCategoriesNames } from "../services/category.service";
 
 const AddProduct: React.FC = () => {
   const initialProductState = {
@@ -11,109 +10,66 @@ const AddProduct: React.FC = () => {
     description: "",
     price: 0,
     stock: 0,
-    imageUrl: "", // Zmiana nazwy zmiennej
+    image: null as File | null,
     category: { id: "" },
   };
 
   const [product, setProduct] = useState<IProduct>(initialProductState);
-  const [categoryNames, setCategoryNames] = useState<Category[]>([]);
   const [submitted, setSubmitted] = useState<boolean>(false);
-  const [imageUrl, setImageUrl] = useState<string>("");
+  const [categoryNames, setCategoryNames] = useState<Category[]>([]);
 
-  useEffect(() => {
-    getCategoriesNames()
+    useEffect(() => {
+      getCategoriesNames()
+        .then((response: any) => {
+          setCategoryNames(response.data);
+        })
+        .catch((error: Error) => {
+          console.log(error);
+        });
+    }, []);
+
+  const handleInputChange = (
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = event.target;
+    setProduct({ ...product, [name]: value });
+  };
+
+  const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files.length > 0) {
+      setProduct({ ...product, image: event.target.files[0] });
+    }
+  };
+
+   const handleCategoryChange = (event: ChangeEvent<HTMLSelectElement>) => {
+     const { value } = event.target;
+     const selectedCategory = categoryNames.find(
+       (category) => category.id.toString() === value
+     );
+     if (selectedCategory) {
+       setProduct({ ...product, category: { id: selectedCategory.id } });
+     }
+   };
+
+  const saveProduct = () => {
+    const formData = new FormData();
+    formData.append("name", product.name);
+    formData.append("description", product.description);
+    formData.append("price", product.price.toString());
+    formData.append("stock", product.stock.toString());
+    if (product.image) {
+      formData.append("image", product.image);
+    }
+
+    addProduct(formData)
       .then((response: any) => {
-        setCategoryNames(response.data);
+        setProduct(initialProductState);
+        setSubmitted(true);
+        console.log(response.data);
       })
       .catch((error: Error) => {
         console.log(error);
       });
-  }, []);
-
-  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const { name, value, files } = event.target;
-    if (name === "image") {
-      if (files && files.length > 0) {
-        setImageUrl(URL.createObjectURL(files[0]));
-        setProduct({ ...product, imageUrl: files[0] }); // Zmiana nazwy zmiennej
-      } else {
-        setImageUrl("");
-        setProduct({ ...product, imageUrl: "" }); // Zmiana nazwy zmiennej
-      }
-    } else {
-      setProduct({ ...product, [name]: value });
-    }
-  };
-
-  const handleCategoryChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    const { value } = event.target;
-    const selectedCategory = categoryNames.find(
-      (category) => category.id.toString() === value
-    );
-    if (selectedCategory) {
-      setProduct({ ...product, category: { id: selectedCategory.id } });
-    }
-  };
-
-  const saveProduct = () => {
-    const { name, description, price, stock, imageUrl, category } = product; // Zmiana nazwy zmiennej
-
-    if (imageUrl instanceof File) {
-      uploadFile(imageUrl)
-        .then((uploadResponse: any) => {
-          const uploadedImageUrl = uploadResponse.data.url;
-          const data = {
-            name,
-            description,
-            imageUrl: uploadedImageUrl,
-            price,
-            stock,
-            category,
-          };
-
-          addProduct(data)
-            .then((response: any) => {
-              setProduct({
-                ...product,
-                imageUrl: uploadedImageUrl, // Zmiana nazwy zmiennej
-                name: response.data.name,
-                description: response.data.description,
-                price: response.data.price,
-                stock: response.data.stock,
-                category: response.data.category, // Assuming the API returns the created category object
-              });
-              setImageUrl("");
-              setSubmitted(true);
-              console.log(response.data);
-            })
-            .catch((e: Error) => {
-              console.log(e);
-            });
-        })
-        .catch((uploadError: Error) => {
-          console.log(uploadError);
-        });
-    } else {
-      const data = { name, description, price, stock, category };
-
-      addProduct(data)
-        .then((response: any) => {
-          setProduct({
-            name: response.data.name,
-            description: response.data.description,
-            price: response.data.price,
-            stock: response.data.stock,
-            imageUrl, // Zmiana nazwy zmiennej
-            category: response.data.category,
-          });
-          setImageUrl("");
-          setSubmitted(true);
-          console.log(response.data);
-        })
-        .catch((e: Error) => {
-          console.log(e);
-        });
-    }
   };
 
   const newProduct = () => {
@@ -126,9 +82,8 @@ const AddProduct: React.FC = () => {
       {submitted ? (
         <div>
           <h4>You submitted successfully!</h4>
-          {imageUrl && <img src={imageUrl} alt="Product" />} {}
           <button className="btn btn-success" onClick={newProduct}>
-            Add
+            Add Another Product
           </button>
         </div>
       ) : (
@@ -145,13 +100,12 @@ const AddProduct: React.FC = () => {
               name="name"
             />
           </div>
+
           <div className="form-group">
             <label htmlFor="description">Description</label>
-            <input
-              type="text"
+            <textarea
               className="form-control"
               id="description"
-              required
               value={product.description}
               onChange={handleInputChange}
               name="description"
@@ -178,18 +132,6 @@ const AddProduct: React.FC = () => {
           </div>
 
           <div className="form-group">
-            <label htmlFor="image">Image</label>
-            <input
-              type="file"
-              className="form-control"
-              id="image"
-              accept="image/*"
-              onChange={handleInputChange}
-              name="image"
-            />
-          </div>
-
-          <div className="form-group">
             <label htmlFor="price">Price</label>
             <input
               type="number"
@@ -212,6 +154,17 @@ const AddProduct: React.FC = () => {
               value={product.stock}
               onChange={handleInputChange}
               name="stock"
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="image">Image</label>
+            <input
+              type="file"
+              accept="image/*"
+              className="form-control"
+              id="image"
+              onChange={handleImageChange}
             />
           </div>
 

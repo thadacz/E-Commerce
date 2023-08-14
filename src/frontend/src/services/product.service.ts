@@ -12,8 +12,12 @@ export const getProductById = (productId: number) => {
   return axiosInstance.get(`${PRODUCT_BASE_URL}/${productId}`);
 };
 
-export const addProduct = (productData: any) => {
-  return axiosInstance.post(`${PRODUCT_BASE_URL}`, productData);
+export const addProduct = (productData: FormData) => {
+  return axiosInstance.post(`${PRODUCT_BASE_URL}`, productData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
 };
 
 export const updateProduct = (productId: number, productData: any) => {

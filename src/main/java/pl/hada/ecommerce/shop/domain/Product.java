@@ -36,7 +36,6 @@ public class Product {
   @JsonBackReference
   private Category category;
 
-  // TODO: Drop time
 
   public Product(String name,
                  String description,

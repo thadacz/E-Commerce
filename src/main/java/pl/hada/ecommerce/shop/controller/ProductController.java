@@ -4,8 +4,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.hada.ecommerce.shop.domain.Product;
+import pl.hada.ecommerce.shop.domain.ProductRequest;
 import pl.hada.ecommerce.shop.service.ProductService;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -46,12 +48,21 @@ public class ProductController {
   }
 
   @PostMapping
+  public Product createProduct(@ModelAttribute ProductRequest productRequest) throws IOException {
+    return productService.createProduct(productRequest);
+  }
+
+
+  /*@PostMapping
   public ResponseEntity<Product> createProduct(@RequestBody Product product) {
     Product createdProduct = productService.createProduct(product);
     return new ResponseEntity<>(createdProduct, HttpStatus.CREATED);
-  }
+  }*/
 
-  @PatchMapping("/{id}")
+
+
+
+/*  @PatchMapping("/{id}")
   public ResponseEntity<Product> updateProduct(
       @PathVariable("id") Long id, @RequestBody Product updatedProduct) {
     Product updated = productService.updateProduct(id, updatedProduct);
@@ -60,7 +71,7 @@ public class ProductController {
     } else {
       return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-  }
+  }*/
 
   @DeleteMapping("/{id}")
   public ResponseEntity<Void> deleteProduct(@PathVariable("id") Long id) {
