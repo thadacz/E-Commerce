@@ -12,6 +12,7 @@ import AddProduct from "./components/AddProduct"
 import ProductsList from "./components/ProductList"
 import Product from "./components/Product"
 import Completion from "./pages/Completion"
+import { CategoryProducts } from "./pages/CategoryProducts"
 
 function App() {
   
@@ -30,6 +31,7 @@ function App() {
           <Route path="/products" element={<ProductsList />} />
           <Route path="/products/:id" element={<Product />} />
           <Route path="/completion" element={<Completion />} />
+          <Route path="/category/:categoryId" element={<CategoryProducts />} />
         </Routes>
       </Container>
     </ShoppingCartProvider>

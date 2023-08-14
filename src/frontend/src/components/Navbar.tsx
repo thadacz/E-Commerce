@@ -1,14 +1,31 @@
-import { Button, Container, Nav, Navbar as NavbarBs } from "react-bootstrap"
+import { Button, Container, Nav, NavDropdown, Navbar as NavbarBs } from "react-bootstrap"
 import { NavLink, useNavigate } from "react-router-dom"
 import { getCurrentUser, logout } from "../services/auth.service";
+import { useEffect, useState } from "react";
+import { getCategoriesNames } from "../services/category.service";
+import Category from "../types/category.type";
 
 export function Navbar() {
   
   const navigate = useNavigate()
+  const [categories, setCategories] = useState<Category[]>([]);
   const handleClick = () => navigate('/cart')
   const user = getCurrentUser()
   console.log(user);
   const token = localStorage.getItem("token")
+
+    useEffect(() => {
+      fetchCategoriesNames();
+    }, []);
+
+    const fetchCategoriesNames = async () => {
+      try {
+        const response = await getCategoriesNames();
+        setCategories(response.data); 
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      }
+    };
 
     const handleLogout = () => {
       logout();
@@ -16,13 +33,24 @@ export function Navbar() {
     };
 
   return (
-    
     <NavbarBs sticky="top" className="bg-white shadow-sm mb-3">
       <Container>
         <Nav className="me-auto">
           <Nav.Link to="/" as={NavLink}>
             Store
           </Nav.Link>
+        </Nav>
+        <Nav className="me-auto">
+          <NavDropdown title="Category" id="basic-nav-dropdown">
+            {categories.map((category) => (
+              <NavDropdown.Item
+                key={category.id}
+                onClick={() => navigate(`/category/${category.id}`)}
+              >
+                {category.name}
+              </NavDropdown.Item>
+            ))}
+          </NavDropdown>
         </Nav>
         {user && token ? (
           user.roles.includes("ADMIN") ? (

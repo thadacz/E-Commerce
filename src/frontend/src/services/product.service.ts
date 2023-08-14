@@ -22,3 +22,7 @@ export const updateProduct = (productId: number, productData: any) => {
 export const deleteProduct = (productId: number) => {
   return axiosInstance.delete(`${PRODUCT_BASE_URL}/${productId}`);
 };
+
+export const getProductsByCategoryId = (categoryId: number) => {
+  return axiosInstance.get(`${PRODUCT_BASE_URL}/category/${categoryId}`);
+};

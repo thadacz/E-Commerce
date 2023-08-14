@@ -84,15 +84,24 @@ export function StoreItem({ id }: StoreItemProps) {
 
   if (!product) return null;
 
-  const { name, price } = product;
+  const { name, imageUrl,description, price } = product;
 
   return (
     <Card className="h-100">
+      <Card.Img
+        variant="top"
+        src={imageUrl}
+        height="200px"
+        style={{ objectFit: "cover" }}
+      />
       <Card.Body className="d-flex flex-column">
         <Card.Title className="d-flex justify-content-between align-items-baseline mb-4">
           <span className="fs-2">{name}</span>
           <span className="ms-2 text-muted">{formatCurrency(price)}</span>
         </Card.Title>
+        <Card.Text>
+          <span className="card-text text-muted">{description}</span>
+        </Card.Text>
         <div className="mt-auto">
           {quantity === 0 ? (
             <Button className="w-100" onClick={() => handleAddToCart(id)}>

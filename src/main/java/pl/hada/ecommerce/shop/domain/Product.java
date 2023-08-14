@@ -1,5 +1,6 @@
 package pl.hada.ecommerce.shop.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
@@ -12,6 +13,7 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.BatchSize;
 
 @Getter
 @Setter
@@ -33,8 +35,9 @@ public class Product {
   private BigDecimal price;
 
   @NotNull private Integer stock;
-  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "category_id")
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JsonBackReference
   private Category category;
 
 /*  @Column(columnDefinition = "varchar(255) default 'ONE SIZE'")

@@ -1,9 +1,6 @@
 package pl.hada.ecommerce.security;
 
-import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -14,17 +11,9 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import pl.hada.ecommerce.jwt.JWTAuthenticationFilter;
-import pl.hada.ecommerce.user.Role;
-
-import java.util.List;
 
 import static pl.hada.ecommerce.user.Role.ADMIN;
 import static pl.hada.ecommerce.user.Role.USER;
@@ -35,26 +24,9 @@ import static pl.hada.ecommerce.user.Role.USER;
 @RequiredArgsConstructor
 public class SecurityFilterChainConfig {
 
-    @Autowired
-    private Gson gson;
     private final AuthenticationProvider authenticationProvider;
     private final JWTAuthenticationFilter jwtAuthenticationFilter;
 
-   /* @Bean
-    public InMemoryUserDetailsManager userDetailsService(PasswordEncoder passwordEncoder) {
-        UserDetails user = User.withUsername("user")
-                .password(passwordEncoder.encode("password"))
-                .roles("USER")
-                .build();
-
-        UserDetails admin = User.withUsername("admin@example.com")
-                .password(passwordEncoder.encode("admin"))
-                .roles(USER.name(),Role.ADMIN.name())
-                .authorities(List.of(new SimpleGrantedAuthority(Role.ADMIN.name()),new SimpleGrantedAuthority(USER.name())))
-                .build();
-
-        return new InMemoryUserDetailsManager(user, admin);
-    }*/
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -89,6 +61,10 @@ public class SecurityFilterChainConfig {
                                 .requestMatchers("/api/categories/**").permitAll()
                                 .requestMatchers("/api/order-ratings/**").permitAll()
                                 .requestMatchers("/api/order-ratings").permitAll()
+                                .requestMatchers("/api/blob/**").permitAll()
+                                .requestMatchers("/api/blob").permitAll()
+                                .requestMatchers("/api/categories/**").permitAll()
+                                .requestMatchers("/api/categories").permitAll()
                                 .requestMatchers(
                                         HttpMethod.POST,
                                         "/api/users",

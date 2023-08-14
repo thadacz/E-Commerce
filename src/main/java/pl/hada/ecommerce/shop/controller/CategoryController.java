@@ -2,6 +2,7 @@ package pl.hada.ecommerce.shop.controller;
 
 import org.springframework.web.bind.annotation.*;
 import pl.hada.ecommerce.shop.domain.Category;
+import pl.hada.ecommerce.shop.domain.CategoryDTO;
 import pl.hada.ecommerce.shop.service.CategoryService;
 
 import java.util.List;
@@ -39,5 +40,9 @@ public class CategoryController {
     @DeleteMapping("/{id}")
     public void deleteCategory(@PathVariable Long id) {
         categoryService.deleteCategory(id);
+    }
+    @GetMapping("/names")
+    public List<CategoryDTO> getCategoryNames() {
+        return categoryService.getCategoryNames();
     }
 }

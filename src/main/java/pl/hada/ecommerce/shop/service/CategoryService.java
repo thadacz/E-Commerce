@@ -3,9 +3,11 @@ package pl.hada.ecommerce.shop.service;
 import org.springframework.stereotype.Service;
 import pl.hada.ecommerce.exeption.ResourceNotFoundException;
 import pl.hada.ecommerce.shop.domain.Category;
+import pl.hada.ecommerce.shop.domain.CategoryDTO;
 import pl.hada.ecommerce.shop.repository.CategoryRepository;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CategoryService {
@@ -38,5 +40,12 @@ public class CategoryService {
     public void deleteCategory(Long id) {
         Category category = getCategoryById(id);
         categoryRepository.delete(category);
+    }
+
+    public List<CategoryDTO> getCategoryNames() {
+        List<Category> categories = categoryRepository.findAll();
+        return categories.stream()
+                .map(category -> new CategoryDTO(category.getId(), category.getName()))
+                .collect(Collectors.toList());
     }
 }

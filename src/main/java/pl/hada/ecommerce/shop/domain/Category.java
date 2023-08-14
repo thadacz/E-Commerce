@@ -1,5 +1,6 @@
 package pl.hada.ecommerce.shop.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,10 +20,11 @@ public class Category {
     private String name;
 
     @OneToMany(
-            //cascade = CascadeType.ALL,
+            cascade = CascadeType.ALL,
             mappedBy = "category"
-            //,orphanRemoval = true
+            ,orphanRemoval = true
              )
+    @JsonManagedReference
     private List<Product> products;
 
     public Category(String name) {

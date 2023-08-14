@@ -47,8 +47,13 @@ public class DbInit {
         cartRepository.save(userCart);
         Category music = new Category("Music");
         categoryRepository.save(music);
+        Category technology = new Category("Technology");
+        categoryRepository.save(technology);
         Product mac = new Product("Mac Miller - K.I.D.S", new BigDecimal(20),5);
+        mac.setImageUrl("https://s21423.blob.core.windows.net/s21423/Mac_Miller_K.I.D.S._cover_art.jpg");
+        mac.setDescription("It's Mac Miller's debutant album.");
         Product rocky = new Product("A$AP Rocky - Testing", new BigDecimal(30),10);
+        rocky.setImageUrl("https://s21423.blob.core.windows.net/s21423/asap-rocky-testing.jpg");
         Product schoolboy = new Product("Schoolboy Q - OXYMORON", new BigDecimal(10),20);
         mac.setCategory(music);
         rocky.setCategory(music);
