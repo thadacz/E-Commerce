@@ -3,10 +3,7 @@ package pl.hada.ecommerce.shop.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import pl.hada.ecommerce.shop.domain.Product;
-import pl.hada.ecommerce.shop.repository.ProductRepository;
 import pl.hada.ecommerce.shop.service.ProductService;
 
 import java.util.ArrayList;
@@ -27,9 +24,9 @@ public class ProductController {
     try {
       List<Product> products = new ArrayList<>();
       if (name == null) {
-        productService.getAllProducts().forEach(products::add);
+        products.addAll(productService.getAllProducts());
       } else {
-        productService.findByNameContaining(name).forEach(products::add);
+        products.addAll(productService.findByNameContaining(name));
       }
       if (products.isEmpty()){
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

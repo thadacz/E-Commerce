@@ -48,4 +48,8 @@ public class CategoryService {
                 .map(category -> new CategoryDTO(category.getId(), category.getName()))
                 .collect(Collectors.toList());
     }
+
+    public List<Category> findByNameContaining(String name) {
+        return categoryRepository.findByNameContaining(name);
+    }
 }
