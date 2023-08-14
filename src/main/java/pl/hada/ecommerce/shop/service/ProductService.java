@@ -67,6 +67,7 @@ public class ProductService{
       Product product = new Product();
       product.setName(productRequest.name());
       product.setDescription(productRequest.description());
+      product.setCategory(productRequest.category());
       product.setImageUrl(imageUrl);
       product.setPrice(productRequest.price());
       product.setStock(productRequest.stock());

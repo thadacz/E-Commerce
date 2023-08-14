@@ -57,6 +57,7 @@ const AddProduct: React.FC = () => {
     formData.append("description", product.description);
     formData.append("price", product.price.toString());
     formData.append("stock", product.stock.toString());
+    formData.append("category", product.category?.id);
     if (product.image) {
       formData.append("image", product.image);
     }
