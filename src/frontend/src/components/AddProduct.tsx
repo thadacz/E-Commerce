@@ -11,9 +11,10 @@ const AddProduct: React.FC = () => {
     description: "",
     price: 0,
     stock: 0,
-    image: "",
+    imageUrl: "", // Zmiana nazwy zmiennej
     category: { id: "" },
   };
+
   const [product, setProduct] = useState<IProduct>(initialProductState);
   const [categoryNames, setCategoryNames] = useState<Category[]>([]);
   const [submitted, setSubmitted] = useState<boolean>(false);
@@ -34,10 +35,10 @@ const AddProduct: React.FC = () => {
     if (name === "image") {
       if (files && files.length > 0) {
         setImageUrl(URL.createObjectURL(files[0]));
-        setProduct({ ...product, image: files[0] });
+        setProduct({ ...product, imageUrl: files[0] }); // Zmiana nazwy zmiennej
       } else {
         setImageUrl("");
-        setProduct({ ...product, image: "" });
+        setProduct({ ...product, imageUrl: "" }); // Zmiana nazwy zmiennej
       }
     } else {
       setProduct({ ...product, [name]: value });
@@ -55,16 +56,16 @@ const AddProduct: React.FC = () => {
   };
 
   const saveProduct = () => {
-    const { name, description, price, stock, image, category } = product;
+    const { name, description, price, stock, imageUrl, category } = product; // Zmiana nazwy zmiennej
 
-    if (image instanceof File) {
-      uploadFile(image)
+    if (imageUrl instanceof File) {
+      uploadFile(imageUrl)
         .then((uploadResponse: any) => {
-          const imageUrl = uploadResponse.data.url;
+          const uploadedImageUrl = uploadResponse.data.url;
           const data = {
             name,
             description,
-            imageUrl,
+            imageUrl: uploadedImageUrl,
             price,
             stock,
             category,
@@ -74,7 +75,7 @@ const AddProduct: React.FC = () => {
             .then((response: any) => {
               setProduct({
                 ...product,
-                image: imageUrl,
+                imageUrl: uploadedImageUrl, // Zmiana nazwy zmiennej
                 name: response.data.name,
                 description: response.data.description,
                 price: response.data.price,
@@ -102,7 +103,7 @@ const AddProduct: React.FC = () => {
             description: response.data.description,
             price: response.data.price,
             stock: response.data.stock,
-            image: imageUrl,
+            imageUrl, // Zmiana nazwy zmiennej
             category: response.data.category,
           });
           setImageUrl("");
