@@ -6,7 +6,7 @@ export default interface IProduct {
   description: any;
   price: number;
   stock: number;
-  image: File | string;
+  imageUrl: File | string;
   category: Category | null;
 }
 

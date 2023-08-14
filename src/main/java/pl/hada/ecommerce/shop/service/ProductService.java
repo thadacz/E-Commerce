@@ -1,6 +1,7 @@
 package pl.hada.ecommerce.shop.service;
 
 import org.springframework.stereotype.Service;
+import pl.hada.ecommerce.azure.BlobStorageService;
 import pl.hada.ecommerce.exeption.ResourceNotFoundException;
 import pl.hada.ecommerce.shop.domain.Product;
 import pl.hada.ecommerce.shop.repository.ProductRepository;
@@ -11,9 +12,10 @@ import java.util.Optional;
 @Service
 public class ProductService{
     private final ProductRepository productRepository;
-
-    public ProductService(ProductRepository productRepository) {
+    private final BlobStorageService blobStorageService;
+    public ProductService(ProductRepository productRepository, BlobStorageService blobStorageService) {
         this.productRepository = productRepository;
+        this.blobStorageService = blobStorageService;
     }
 
     public List<Product> getAllProducts() {
@@ -24,7 +26,13 @@ public class ProductService{
     }
 
     public Product createProduct(Product product) {
-        return productRepository.save(product);
+        Product createdProduct = productRepository.save(product);
+        if (product.getImageUrl() != null && !product.getImageUrl().isEmpty()) {
+            String imageUrl = blobStorageService.getImageUrl(product.getImageUrl());
+            createdProduct.setImageUrl(imageUrl);
+            productRepository.save(createdProduct);
+        }
+        return createdProduct;
     }
 
     public Product updateProduct(Long id, Product product) {
@@ -32,16 +40,23 @@ public class ProductService{
         if (existingProductOptional.isPresent()) {
             Product existingProduct = existingProductOptional.get();
             existingProduct.setName(product.getName());
-         //   existingProduct.setImageUrl(product.getImageUrl());
+            existingProduct.setDescription(product.getDescription());
+            existingProduct.setCategory(product.getCategory());
+
+            if (product.getImageUrl() != null && !product.getImageUrl().isEmpty()) {
+                String imageUrl = blobStorageService.getImageUrl(product.getImageUrl());
+                existingProduct.setImageUrl(imageUrl);
+            }
+
             existingProduct.setPrice(product.getPrice());
-         //   existingProduct.setSize(product.getSize());
             existingProduct.setStock(product.getStock());
-      //      existingProduct.setColor(product.getColor());
+
             return productRepository.save(existingProduct);
         } else {
-            throw new ResourceNotFoundException("Product","id", id);
+            throw new ResourceNotFoundException("Product", "id", id);
         }
     }
+
 
     public void deleteProduct(Long id) {
         productRepository.deleteById(id);

@@ -1,3 +1,4 @@
+import Category from "../types/category.type";
 import { axiosInstance } from "./http";
 
 const CATEGORY_BASE_URL = "/api/categories";
@@ -27,4 +28,10 @@ export const deleteCategory = (categoryId: number) => {
 
 export const getCategoriesNames = () => {
   return axiosInstance.get(`${CATEGORY_BASE_URL}/names`);
+};
+
+export const findByName = (categoryName: string) => {
+  return axiosInstance.get<Array<Category>>(
+    `${CATEGORY_BASE_URL}?name=${categoryName}`
+  );
 };

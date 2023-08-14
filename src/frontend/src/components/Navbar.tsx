@@ -56,13 +56,23 @@ export function Navbar() {
           user.roles.includes("ADMIN") ? (
             <>
               <Nav className="me-auto">
-                <Nav.Link to="/add" as={NavLink}>
-                  Add Products
+                <Nav.Link to="/products/add" as={NavLink}>
+                  Add Product
                 </Nav.Link>
               </Nav>
               <Nav className="me-auto">
                 <Nav.Link to="/products" as={NavLink}>
                   Manage Products
+                </Nav.Link>
+              </Nav>
+              <Nav className="me-auto">
+                <Nav.Link to="/categories/add" as={NavLink}>
+                  Add Category
+                </Nav.Link>
+              </Nav>
+              <Nav className="me-auto">
+                <Nav.Link to="/categories" as={NavLink}>
+                  Manage Categories
                 </Nav.Link>
               </Nav>
             </>

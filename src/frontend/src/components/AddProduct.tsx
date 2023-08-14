@@ -12,7 +12,7 @@ const AddProduct: React.FC = () => {
     price: 0,
     stock: 0,
     image: "",
-    category: { id: "" }, // Category ID only
+    category: { id: "" },
   };
   const [product, setProduct] = useState<IProduct>(initialProductState);
   const [categoryNames, setCategoryNames] = useState<Category[]>([]);
@@ -103,7 +103,7 @@ const AddProduct: React.FC = () => {
             price: response.data.price,
             stock: response.data.stock,
             image: imageUrl,
-            category: response.data.category, 
+            category: response.data.category,
           });
           setImageUrl("");
           setSubmitted(true);
