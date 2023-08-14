@@ -6,8 +6,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.hada.ecommerce.shop.domain.Product;
+import pl.hada.ecommerce.shop.repository.ProductRepository;
 import pl.hada.ecommerce.shop.service.ProductService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,9 +23,21 @@ public class ProductController {
   }
 
   @GetMapping
-  public ResponseEntity<List<Product>> getAllProducts() {
-    List<Product> products = productService.getAllProducts();
-    return new ResponseEntity<>(products, HttpStatus.OK);
+  public ResponseEntity<List<Product>> getAllProducts(@RequestParam(required = false) String name) {
+    try {
+      List<Product> products = new ArrayList<>();
+      if (name == null) {
+        productService.getAllProducts().forEach(products::add);
+      } else {
+        productService.findByNameContaining(name).forEach(products::add);
+      }
+      if (products.isEmpty()){
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+      }
+      return new ResponseEntity<>(products, HttpStatus.OK);
+    } catch (Exception e) {
+      return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
   }
 
   @GetMapping("/{id}")
@@ -61,5 +75,4 @@ public class ProductController {
   public List<Product> getProductsByCategoryId(@PathVariable Long categoryId) {
     return productService.getProductsByCategoryId(categoryId);
   }
-
 }

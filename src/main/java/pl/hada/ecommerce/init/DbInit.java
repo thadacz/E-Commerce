@@ -49,23 +49,9 @@ public class DbInit {
         categoryRepository.save(music);
         Category technology = new Category("Technology");
         categoryRepository.save(technology);
-        Product mac = new Product("Mac Miller - K.I.D.S", new BigDecimal(20),5);
-        mac.setImageUrl("https://s21423.blob.core.windows.net/s21423/Mac_Miller_K.I.D.S._cover_art.jpg");
-        mac.setDescription("It's Mac Miller's debutant album.");
-        Product rocky = new Product("A$AP Rocky - Testing", new BigDecimal(30),10);
-        rocky.setImageUrl("https://s21423.blob.core.windows.net/s21423/asap-rocky-testing.jpg");
-        Product schoolboy = new Product("Schoolboy Q - OXYMORON", new BigDecimal(10),20);
-        mac.setCategory(music);
-        rocky.setCategory(music);
-        schoolboy.setCategory(music);
+        Product mac = new Product("Mac Miller - K.I.D.S","It's Mac Miller's debutant album.","https://s21423.blob.core.windows.net/s21423/Mac_Miller_K.I.D.S._cover_art.jpg",music, new BigDecimal(20),5);
+        Product rocky = new Product("A$AP Rocky - Testing","Rocky latest album","https://s21423.blob.core.windows.net/s21423/asap-rocky-testing.jpg",music, new BigDecimal(30),10);
+        Product schoolboy = new Product("Schoolboy Q - OXYMORON","The cooolest Schoolboy Q album.","https://s21423.blob.core.windows.net/s21423/ScHoolboy-q-oxymoron.jpg",music, new BigDecimal(10),20);
         productRepository.saveAll(List.of(mac,rocky,schoolboy));
-        /*music.setProducts(List.of(mac,rocky,schoolboy));
-        categoryRepository.save(music);*/
-        //Product product = productRepository.save(mac);
-
-
-
-
-
     }
 }

@@ -1,19 +1,15 @@
 package pl.hada.ecommerce.shop.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
-import java.math.BigDecimal;
-import java.util.List;
 import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.BatchSize;
+
+import java.math.BigDecimal;
 
 @Getter
 @Setter
@@ -40,33 +36,17 @@ public class Product {
   @JsonBackReference
   private Category category;
 
-/*  @Column(columnDefinition = "varchar(255) default 'ONE SIZE'")
-  @Enumerated(EnumType.STRING)
-  private Size size = Size.ONE_SIZE;*/
-
-/*  @Column(columnDefinition = "varchar(255) default 'NO COLOR'")
-  @Enumerated(EnumType.STRING)
-  private Color color = Color.NO_COLOR;*/
-
   // TODO: Drop time
 
-/*  public Product(
-      String name, String imageUrl, BigDecimal price,
-      //Size size, Color color,
-      Integer stock) {
-    this.name = name;
-    this.imageUrl = imageUrl;
-    this.price = price;
-   // this.size = size;
-  //  this.color = color;
-    this.stock = stock;
-  }*/
-
   public Product(String name,
-                // String imageUrl,
+                 String description,
+                 String imageUrl,
+                 Category category,
                  BigDecimal price, Integer stock) {
     this.name = name;
-   // this.imageUrl = imageUrl;
+    this.description = description;
+    this.imageUrl = imageUrl;
+    this.category = category;
     this.price = price;
     this.stock = stock;
   }

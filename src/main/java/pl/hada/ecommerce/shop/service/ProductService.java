@@ -50,4 +50,8 @@ public class ProductService{
     public List<Product> getProductsByCategoryId(Long categoryId) {
         return productRepository.findByCategoryId(categoryId);
     }
+
+    public List<Product> findByNameContaining(String name){
+        return  productRepository.findByNameContaining(name);
+    }
 }

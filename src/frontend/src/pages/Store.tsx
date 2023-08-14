@@ -11,6 +11,7 @@ interface Product {
   stock: number;
   size: string;
   color: string;
+  categoryId: number;
 }
 
 export function Store() {

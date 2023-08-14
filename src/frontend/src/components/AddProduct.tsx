@@ -1,7 +1,9 @@
-import React, { useState, ChangeEvent } from "react";
+import React, { useState, ChangeEvent, useEffect } from "react";
 import { addProduct } from "../services/product.service";
-import IProduct from "../types/product.type"; 
+import IProduct from "../types/product.type";
 import { uploadFile } from "../services/blob.service";
+import { getCategoriesNames } from "../services/category.service";
+import Category from "../types/category.type";
 
 const AddProduct: React.FC = () => {
   const initialProductState = {
@@ -10,80 +12,108 @@ const AddProduct: React.FC = () => {
     price: 0,
     stock: 0,
     image: "",
+    category: { id: "" }, // Category ID only
   };
   const [product, setProduct] = useState<IProduct>(initialProductState);
+  const [categoryNames, setCategoryNames] = useState<Category[]>([]);
   const [submitted, setSubmitted] = useState<boolean>(false);
   const [imageUrl, setImageUrl] = useState<string>("");
+
+  useEffect(() => {
+    getCategoriesNames()
+      .then((response: any) => {
+        setCategoryNames(response.data);
+      })
+      .catch((error: Error) => {
+        console.log(error);
+      });
+  }, []);
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value, files } = event.target;
     if (name === "image") {
       if (files && files.length > 0) {
         setImageUrl(URL.createObjectURL(files[0]));
-        setProduct({ ...product, image: files[0] }); // Update 'image' field
+        setProduct({ ...product, image: files[0] });
       } else {
         setImageUrl("");
-        setProduct({ ...product, image: "" }); // Clear 'image' field
+        setProduct({ ...product, image: "" });
       }
     } else {
       setProduct({ ...product, [name]: value });
     }
   };
 
+  const handleCategoryChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    const { value } = event.target;
+    const selectedCategory = categoryNames.find(
+      (category) => category.id.toString() === value
+    );
+    if (selectedCategory) {
+      setProduct({ ...product, category: { id: selectedCategory.id } });
+    }
+  };
 
+  const saveProduct = () => {
+    const { name, description, price, stock, image, category } = product;
 
+    if (image instanceof File) {
+      uploadFile(image)
+        .then((uploadResponse: any) => {
+          const imageUrl = uploadResponse.data.url;
+          const data = {
+            name,
+            description,
+            imageUrl,
+            price,
+            stock,
+            category,
+          };
 
-const saveProduct = () => {
-  const { name, description, price, stock, image } = product;
-
-  if (image instanceof File) {
-    uploadFile(image)
-      .then((uploadResponse: any) => {
-        const imageUrl = uploadResponse.data.url; 
-        const data = { name, description, imageUrl, price, stock };
-
-        addProduct(data)
-          .then((response: any) => {
-            setProduct({
-              name: response.data.name,
-              description: response.data.description,
-              price: response.data.price,
-              stock: response.data.stock,
-              image: imageUrl,
+          addProduct(data)
+            .then((response: any) => {
+              setProduct({
+                ...product,
+                image: imageUrl,
+                name: response.data.name,
+                description: response.data.description,
+                price: response.data.price,
+                stock: response.data.stock,
+                category: response.data.category, // Assuming the API returns the created category object
+              });
+              setImageUrl("");
+              setSubmitted(true);
+              console.log(response.data);
+            })
+            .catch((e: Error) => {
+              console.log(e);
             });
-            setImageUrl("");
-            setSubmitted(true);
-            console.log(response.data);
-          })
-          .catch((e: Error) => {
-            console.log(e);
-          });
-      })
-      .catch((uploadError: Error) => {
-        console.log(uploadError);
-      });
-  } else {
-    const data = { name, description, price, stock };
-
-    addProduct(data)
-      .then((response: any) => {
-        setProduct({
-          name: response.data.name,
-          description: response.data.description,
-          price: response.data.price,
-          stock: response.data.stock,
-          image: imageUrl,
+        })
+        .catch((uploadError: Error) => {
+          console.log(uploadError);
         });
-        setImageUrl("");
-        setSubmitted(true);
-        console.log(response.data);
-      })
-      .catch((e: Error) => {
-        console.log(e);
-      });
-  }
-};
+    } else {
+      const data = { name, description, price, stock, category };
 
+      addProduct(data)
+        .then((response: any) => {
+          setProduct({
+            name: response.data.name,
+            description: response.data.description,
+            price: response.data.price,
+            stock: response.data.stock,
+            image: imageUrl,
+            category: response.data.category, 
+          });
+          setImageUrl("");
+          setSubmitted(true);
+          console.log(response.data);
+        })
+        .catch((e: Error) => {
+          console.log(e);
+        });
+    }
+  };
 
   const newProduct = () => {
     setProduct(initialProductState);
@@ -95,8 +125,7 @@ const saveProduct = () => {
       {submitted ? (
         <div>
           <h4>You submitted successfully!</h4>
-          {imageUrl && <img src={imageUrl} alt="Product" />}{" "}
-          {}
+          {imageUrl && <img src={imageUrl} alt="Product" />} {}
           <button className="btn btn-success" onClick={newProduct}>
             Add
           </button>
@@ -126,6 +155,25 @@ const saveProduct = () => {
               onChange={handleInputChange}
               name="description"
             />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="category">Category</label>
+            <select
+              className="form-control"
+              id="category"
+              value={product.category?.id || ""}
+              onChange={handleCategoryChange}
+              name="category"
+              required
+            >
+              <option value="">Select a category</option>
+              {categoryNames.map((category) => (
+                <option key={category.id} value={category.id}>
+                  {category.name}
+                </option>
+              ))}
+            </select>
           </div>
 
           <div className="form-group">

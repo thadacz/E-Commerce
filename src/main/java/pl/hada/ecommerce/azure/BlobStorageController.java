@@ -9,7 +9,6 @@ import java.util.List;
 @RequestMapping("/api/blob")
 public class BlobStorageController {
 
-
     private final BlobStorageService blobStorageService;
 
     public BlobStorageController(BlobStorageService blobStorageService) {

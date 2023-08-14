@@ -11,6 +11,7 @@ import java.util.List;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
+    List<Product> findByNameContaining(String name);
     List<Product> findByCategoryId(Long categoryId);
 
     @Query("SELECT p FROM Product p WHERE p.name LIKE %?1%" + " OR p.name LIKE %?1%" + " OR p.description LIKE %?1%")

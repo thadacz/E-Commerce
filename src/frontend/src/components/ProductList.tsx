@@ -1,7 +1,7 @@
 import React, { useState, useEffect, ChangeEvent } from "react";
 import { Link } from "react-router-dom";
 import IProductData from "../types/product.type";
-import { getAllProducts } from "../services/product.service";
+import { getAllProducts,findByName } from "../services/product.service";
 
 const ProductsList: React.FC = () => {
   const [products, setProducts] = useState<Array<IProductData>>([]);
@@ -9,12 +9,16 @@ const ProductsList: React.FC = () => {
     null
   );
   const [currentIndex, setCurrentIndex] = useState<number>(-1);
-  const [searchTitle, setSearchTitle] = useState<string>("");
+  const [searchName, setSearchName] = useState<string>("");
 
   useEffect(() => {
     retrieveProducts();
   }, []);
 
+  const onChangeSearchName = (e: ChangeEvent<HTMLInputElement>) => {
+    const searchName = e.target.value;
+    setSearchName(searchName);
+  };
 
 
   const retrieveProducts = () => {
@@ -39,9 +43,43 @@ const ProductsList: React.FC = () => {
     setCurrentIndex(index);
   };
 
+    const findByNameContaining = () => {
+      findByName(searchName)
+        .then((response: any) => {
+          setProducts(response.data);
+          setCurrentProduct(null);
+          setCurrentIndex(-1);
+          console.log(response.data);
+        })
+        .catch((e: Error) => {
+          console.log(e);
+        });
+    };
+
+
 
   return (
     <div className="list row">
+      <div className="col-md-8">
+        <div className="input-group mb-3">
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Search by name"
+            value={searchName}
+            onChange={onChangeSearchName}
+          />
+          <div className="input-group-append">
+            <button
+              className="btn btn-outline-secondary"
+              type="button"
+              onClick={findByNameContaining}
+            >
+              Search
+            </button>
+          </div>
+        </div>
+      </div>
       <div className="col-md-6">
         <h4>Products List</h4>
 
@@ -85,7 +123,7 @@ const ProductsList: React.FC = () => {
 
             <Link
               to={"/products/" + currentProduct.id}
-              className="link-success"
+              className="btn btn-success"
             >
               Edit
             </Link>

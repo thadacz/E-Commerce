@@ -1,3 +1,5 @@
+import Category from "./category.type";
+
 export default interface IProduct {
   id?: any | null;
   name: string;
@@ -5,6 +7,7 @@ export default interface IProduct {
   price: number;
   stock: number;
   image: File | string;
+  category: Category | null;
 }
 
 

@@ -1,3 +1,4 @@
+import IProduct from "../types/product.type";
 import { axiosInstance} from "./http";
 
 const PRODUCT_BASE_URL = "/api/products";
@@ -25,4 +26,10 @@ export const deleteProduct = (productId: number) => {
 
 export const getProductsByCategoryId = (categoryId: number) => {
   return axiosInstance.get(`${PRODUCT_BASE_URL}/category/${categoryId}`);
+};
+
+export const findByName = (productName: string) => {
+  return axiosInstance.get<Array<IProduct>>(
+    `${PRODUCT_BASE_URL}?name=${productName}`
+  );
 };
