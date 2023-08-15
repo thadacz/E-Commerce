@@ -1,5 +1,5 @@
 import React, { useState, ChangeEvent, useEffect } from "react";
-import { addProduct } from "../services/product.service";
+import productApi from "../services/product.service";
 import IProduct from "../types/product.type";
 import Category from "../types/category.type";
 import { getCategoriesNames } from "../services/category.service";
@@ -11,7 +11,7 @@ const AddProduct: React.FC = () => {
     price: 0,
     stock: 0,
     image: null as File | null,
-    category: { id: "" },
+    category: { id: "", },
   };
 
   const [product, setProduct] = useState<IProduct>(initialProductState);
@@ -62,7 +62,7 @@ const AddProduct: React.FC = () => {
       formData.append("image", product.image);
     }
 
-    addProduct(formData)
+    productApi.addProduct(formData)
       .then((response: any) => {
         setProduct(initialProductState);
         setSubmitted(true);

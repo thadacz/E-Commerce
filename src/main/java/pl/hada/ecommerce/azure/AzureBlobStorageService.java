@@ -22,7 +22,6 @@ public class AzureBlobStorageService {
     public String uploadImage(MultipartFile imageFile, String imageName) throws IOException {
         BlobServiceClient blobServiceClient = new BlobServiceClientBuilder().connectionString(connectionString).buildClient();
         BlockBlobClient blobClient = blobServiceClient.getBlobContainerClient(containerName).getBlobClient(imageName).getBlockBlobClient();
-
         try (InputStream imageStream = new BufferedInputStream(imageFile.getInputStream())) {
             blobClient.upload(imageStream, imageFile.getSize(), true);
         }

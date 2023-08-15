@@ -15,52 +15,42 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/products")
 public class ProductController {
-  private final ProductService productService;
+    private final ProductService productService;
 
-  public ProductController(ProductService productService) {
-    this.productService = productService;
-  }
-
-  @GetMapping
-  public ResponseEntity<List<Product>> getAllProducts(@RequestParam(required = false) String name) {
-    try {
-      List<Product> products = new ArrayList<>();
-      if (name == null) {
-        products.addAll(productService.getAllProducts());
-      } else {
-        products.addAll(productService.findByNameContaining(name));
-      }
-      if (products.isEmpty()){
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-      }
-      return new ResponseEntity<>(products, HttpStatus.OK);
-    } catch (Exception e) {
-      return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+    public ProductController(ProductService productService) {
+        this.productService = productService;
     }
-  }
 
-  @GetMapping("/{id}")
-  public ResponseEntity<Product> getProductById(@PathVariable("id") Long id) {
-    Optional<Product> productOptional = productService.getProductById(id);
-    return productOptional
-        .map(product -> new ResponseEntity<>(product, HttpStatus.OK))
-        .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
-  }
+    @GetMapping
+    public ResponseEntity<List<Product>> getAllProducts(@RequestParam(required = false) String name) {
+        try {
+            List<Product> products = new ArrayList<>();
+            if (name == null) {
+                products.addAll(productService.getAllProducts());
+            } else {
+                products.addAll(productService.findByNameContaining(name));
+            }
+            if (products.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+            return new ResponseEntity<>(products, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
-  @PostMapping
-  public Product createProduct(@ModelAttribute ProductRequest productRequest) throws IOException {
-    return productService.createProduct(productRequest);
-  }
+    @GetMapping("/{id}")
+    public ResponseEntity<Product> getProductById(@PathVariable("id") Long id) {
+        Optional<Product> productOptional = productService.getProductById(id);
+        return productOptional
+                .map(product -> new ResponseEntity<>(product, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
 
-
-  /*@PostMapping
-  public ResponseEntity<Product> createProduct(@RequestBody Product product) {
-    Product createdProduct = productService.createProduct(product);
-    return new ResponseEntity<>(createdProduct, HttpStatus.CREATED);
-  }*/
-
-
-
+    @PostMapping
+    public Product createProduct(@ModelAttribute ProductRequest productRequest) throws IOException {
+        return productService.createProduct(productRequest);
+    }
 
 /*  @PatchMapping("/{id}")
   public ResponseEntity<Product> updateProduct(
@@ -73,14 +63,27 @@ public class ProductController {
     }
   }*/
 
-  @DeleteMapping("/{id}")
-  public ResponseEntity<Void> deleteProduct(@PathVariable("id") Long id) {
-    productService.deleteProduct(id);
-    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-  }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteProduct(@PathVariable("id") Long id) {
+        productService.deleteProduct(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 
-  @GetMapping("/category/{categoryId}")
-  public List<Product> getProductsByCategoryId(@PathVariable Long categoryId) {
-    return productService.getProductsByCategoryId(categoryId);
-  }
+    @GetMapping("/category/{categoryId}")
+    public List<Product> getProductsByCategoryId(@PathVariable Long categoryId) {
+        return productService.getProductsByCategoryId(categoryId);
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<Product>> fullTextSearch(@RequestParam String query) {
+        try {
+            List<Product> products = productService.fullTextSearch(query);
+            if (products.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+            return new ResponseEntity<>(products, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

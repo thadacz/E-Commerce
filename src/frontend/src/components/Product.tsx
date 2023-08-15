@@ -1,8 +1,7 @@
 import React, { useState, useEffect, ChangeEvent } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-
-import { deleteProduct, getProductById, updateProduct } from "../services/product.service";
 import IProductData from "../types/product.type"; 
+import productApi from "../services/product.service";
 
 const Product: React.FC = () => {
   const { id } = useParams();
@@ -18,7 +17,7 @@ const Product: React.FC = () => {
   const [message, setMessage] = useState<string>("");
 
   const getProduct = (id: number) => {
-    getProductById(id)
+    productApi.getProductById(id)
       .then((response: any) => {
         setCurrentProduct(response.data);
         console.log(response.data);
@@ -38,7 +37,7 @@ const Product: React.FC = () => {
   };
 
   const updateProductById = () => {
-    updateProduct(currentProduct.id, currentProduct)
+    productApi.updateProduct(currentProduct.id, currentProduct)
       .then((response: any) => {
         console.log(response.data);
         setMessage("The product was updated successfully!");
@@ -49,7 +48,7 @@ const Product: React.FC = () => {
   };
 
   const deleteProductById = () => {
-    deleteProduct(currentProduct.id)
+   productApi.deleteProduct(currentProduct.id)
       .then((response: any) => {
         console.log(response.data);
         navigate("/products");

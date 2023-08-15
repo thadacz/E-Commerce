@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Col, Row } from "react-bootstrap";
 import { StoreItem } from "../components/StoreItem";
-import { getProductsByCategoryId } from "../services/product.service";
-
+import productApi from "../services/product.service";
 interface Product {
   id: number;
   name: string;
@@ -23,7 +22,7 @@ export function CategoryProducts() {
   useEffect(() => {
     async function fetchProducts() {
       try {
-        const response = await getProductsByCategoryId(Number(categoryId));
+        const response = await productApi.getProductsByCategoryId(Number(categoryId));
         setProducts(response.data);
       } catch (error) {
         console.error("Error fetching products:", error);

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Button, Card } from "react-bootstrap";
 import { useShoppingCart } from "../context/ShoppingCartContext";
 import { formatCurrency } from "../utilities/formatCurrency";
-import { getProductById } from "../services/product.service";
+import productApi from "../services/product.service";
 import { getCurrentUser, logout } from "../services/auth.service";
 import {
   addProductToCart,
@@ -30,7 +30,7 @@ export function StoreItem({ id }: StoreItemProps) {
 
 
   useEffect(() => {
-    getProductById(id)
+    productApi.getProductById(id)
       .then((response) => {
         setProduct(response.data);
       })

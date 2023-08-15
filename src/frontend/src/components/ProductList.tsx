@@ -1,8 +1,7 @@
 import React, { useState, useEffect, ChangeEvent } from "react";
 import { Link } from "react-router-dom";
 import IProductData from "../types/product.type";
-import { getAllProducts,findByName } from "../services/product.service";
-
+import productApi from "../services/product.service";
 const ProductsList: React.FC = () => {
   const [products, setProducts] = useState<Array<IProductData>>([]);
   const [currentProduct, setCurrentProduct] = useState<IProductData | null>(
@@ -22,7 +21,7 @@ const ProductsList: React.FC = () => {
 
 
   const retrieveProducts = () => {
-    getAllProducts()
+    productApi.getAllProducts()
       .then((response: any) => {
         setProducts(response.data);
         console.log(response.data);
@@ -32,11 +31,6 @@ const ProductsList: React.FC = () => {
       });
   };
 
-  const refreshList = () => {
-    retrieveProducts();
-    setCurrentProduct(null);
-    setCurrentIndex(-1);
-  };
 
   const setActiveProduct = (product: IProductData, index: number) => {
     setCurrentProduct(product);
@@ -44,7 +38,7 @@ const ProductsList: React.FC = () => {
   };
 
     const findByNameContaining = () => {
-      findByName(searchName)
+      productApi.findByName(searchName)
         .then((response: any) => {
           setProducts(response.data);
           setCurrentProduct(null);
@@ -55,8 +49,6 @@ const ProductsList: React.FC = () => {
           console.log(e);
         });
     };
-
-
 
   return (
     <div className="list row">

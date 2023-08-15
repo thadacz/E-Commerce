@@ -1,7 +1,7 @@
 import React, { useState, useEffect, ChangeEvent } from "react";
 import { Link } from "react-router-dom";
-import ICategoryData from "../types/category.type"; // Załóżmy, że jest taki typ
-import { getAllCategories, findByName } from "../services/category.service"; // Załóżmy, że jest taka usługa
+import ICategoryData from "../types/category.type"; 
+import { getAllCategories, findByName } from "../services/category.service"; 
 
 const CategoriesList: React.FC = () => {
   const [categories, setCategories] = useState<Array<ICategoryData>>([]);
@@ -29,12 +29,6 @@ const CategoriesList: React.FC = () => {
       .catch((e: Error) => {
         console.log(e);
       });
-  };
-
-  const refreshList = () => {
-    retrieveCategories();
-    setCurrentCategory(null);
-    setCurrentIndex(-1);
   };
 
   const setActiveCategory = (category: ICategoryData, index: number) => {

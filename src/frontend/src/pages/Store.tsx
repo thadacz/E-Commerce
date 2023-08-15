@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { StoreItem } from "../components/StoreItem";
-import { getAllProducts } from "../services/product.service";
+import productApi from "../services/product.service";
 
 interface Product {
   id: number;
@@ -9,8 +9,6 @@ interface Product {
   imageUrl: string;
   price: number;
   stock: number;
-  size: string;
-  color: string;
   categoryId: number;
 }
 
@@ -20,7 +18,7 @@ export function Store() {
   useEffect(() => {
     async function fetchProducts() {
       try {
-        const response = await getAllProducts();
+        const response = await productApi.getAllProducts();
         setProducts(response.data);
       } catch (error) {
         console.error("Error fetching products:", error);
@@ -33,6 +31,7 @@ export function Store() {
   return (
     <>
       <h1>Store</h1>
+      
       <Row md={2} xs={1} lg={3} className="g-3">
         {products.map((item) => (
           <Col key={item.id}>
