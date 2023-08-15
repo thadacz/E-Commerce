@@ -37,6 +37,12 @@ const productApi = {
       `${PRODUCT_BASE_URL}?name=${productName}`
     );
   },
+
+  searchProducts: (text: string) => {
+    return axiosInstance.get<Array<IProduct>>(
+      `${PRODUCT_BASE_URL}/search?text=${text}`
+    );
+  },
 };
 
 export default productApi;

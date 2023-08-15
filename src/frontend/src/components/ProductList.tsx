@@ -2,11 +2,10 @@ import React, { useState, useEffect, ChangeEvent } from "react";
 import { Link } from "react-router-dom";
 import IProductData from "../types/product.type";
 import productApi from "../services/product.service";
+
 const ProductsList: React.FC = () => {
   const [products, setProducts] = useState<Array<IProductData>>([]);
-  const [currentProduct, setCurrentProduct] = useState<IProductData | null>(
-    null
-  );
+  const [currentProduct, setCurrentProduct] = useState<IProductData | null>(null);
   const [currentIndex, setCurrentIndex] = useState<number>(-1);
   const [searchName, setSearchName] = useState<string>("");
 

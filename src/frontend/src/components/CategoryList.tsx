@@ -100,8 +100,6 @@ const CategoriesList: React.FC = () => {
               {currentCategory.name}
             </div>
 
-            {/* Dodaj dowolne inne informacje o kategorii, jeśli są dostępne */}
-
             <Link
               to={"/categories/" + currentCategory.id}
               className="btn btn-success"

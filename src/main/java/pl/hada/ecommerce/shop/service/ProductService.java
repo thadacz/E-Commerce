@@ -3,6 +3,7 @@ package pl.hada.ecommerce.shop.service;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import pl.hada.ecommerce.azure.AzureBlobStorageService;
+import pl.hada.ecommerce.exeption.ResourceNotFoundException;
 import pl.hada.ecommerce.shop.domain.Product;
 import pl.hada.ecommerce.shop.domain.ProductRequest;
 import pl.hada.ecommerce.shop.repository.ProductRepository;
@@ -43,6 +44,27 @@ public class ProductService {
         return productRepository.save(product);
     }
 
+    public Product updateProduct(Long id, ProductRequest productRequest) throws IOException {
+        Optional<Product> optionalProduct = productRepository.findById(id);
+
+        if (optionalProduct.isPresent()) {
+            Product existingProduct = optionalProduct.get();
+            MultipartFile newImage = productRequest.image();
+            if (newImage != null && !newImage.isEmpty()) {
+                String newImageUrl = blobStorageService.uploadImage(newImage, newImage.getOriginalFilename());
+                existingProduct.setImageUrl(newImageUrl);
+            }
+            existingProduct.setName(productRequest.name());
+            existingProduct.setDescription(productRequest.description());
+            existingProduct.setCategory(productRequest.category());
+            existingProduct.setPrice(productRequest.price());
+            existingProduct.setStock(productRequest.stock());
+
+            return productRepository.save(existingProduct);
+        } else {
+            throw new ResourceNotFoundException("Product", "id", id);
+        }
+    }
 
     public void deleteProduct(Long id) {
         productRepository.deleteById(id);
@@ -54,9 +76,5 @@ public class ProductService {
 
     public List<Product> findByNameContaining(String name) {
         return productRepository.findByNameContaining(name);
-    }
-
-    public List<Product> fullTextSearch(String query) {
-        return productRepository.fullTextSearch(query);
     }
 }

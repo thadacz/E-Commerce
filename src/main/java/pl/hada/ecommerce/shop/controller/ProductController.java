@@ -52,16 +52,17 @@ public class ProductController {
         return productService.createProduct(productRequest);
     }
 
-/*  @PatchMapping("/{id}")
-  public ResponseEntity<Product> updateProduct(
-      @PathVariable("id") Long id, @RequestBody Product updatedProduct) {
-    Product updated = productService.updateProduct(id, updatedProduct);
-    if (updated != null) {
-      return new ResponseEntity<>(updated, HttpStatus.OK);
-    } else {
-      return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    @PatchMapping("/{id}")
+    public ResponseEntity<Product> updateProduct(
+            @PathVariable Long id,
+            @ModelAttribute ProductRequest productRequest) {
+        try {
+            Product updatedProduct = productService.updateProduct(id, productRequest);
+            return new ResponseEntity<>(updatedProduct, HttpStatus.OK);
+        } catch (IOException e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
-  }*/
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProduct(@PathVariable("id") Long id) {
@@ -72,18 +73,5 @@ public class ProductController {
     @GetMapping("/category/{categoryId}")
     public List<Product> getProductsByCategoryId(@PathVariable Long categoryId) {
         return productService.getProductsByCategoryId(categoryId);
-    }
-
-    @GetMapping("/search")
-    public ResponseEntity<List<Product>> fullTextSearch(@RequestParam String query) {
-        try {
-            List<Product> products = productService.fullTextSearch(query);
-            if (products.isEmpty()) {
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-            }
-            return new ResponseEntity<>(products, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
     }
 }
