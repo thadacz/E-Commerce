@@ -23,3 +23,7 @@ export const createOrder = (customerId: number, formData: any) => {
   };
   return axiosInstance.post(`${ORDER_BASE_URL}/${customerId}`, deliveryData);
 };
+
+export const salesView = (() => {
+  return axiosInstance.get(`${ORDER_BASE_URL}/product-sales`);
+})

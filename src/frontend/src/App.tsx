@@ -16,6 +16,7 @@ import { CategoryProducts } from "./pages/CategoryProducts"
 import AddCategory from "./components/AddCategory"
 import CategoriesList from "./components/CategoryList"
 import Category from "./components/Category"
+import SalesView  from "./components/SalesView"
 
 function App() {
   
@@ -38,6 +39,7 @@ function App() {
           <Route path="/categories/add" element={<AddCategory />} />
           <Route path="/categories" element={<CategoriesList />} />
           <Route path="/categories/:id" element={<Category />} />
+          <Route path="/sales-view" element={<SalesView />} />
         </Routes>
       </Container>
     </ShoppingCartProvider>
