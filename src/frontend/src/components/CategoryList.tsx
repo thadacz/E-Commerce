@@ -1,8 +1,8 @@
 import React, { useState, useEffect, ChangeEvent } from "react";
 import { Link } from "react-router-dom";
 import ICategoryData from "../types/category.type"; 
-import { getAllCategories, findByName } from "../services/category.service"; 
-
+import categoryApi
+ from "../services/category.service";
 const CategoriesList: React.FC = () => {
   const [categories, setCategories] = useState<Array<ICategoryData>>([]);
   const [currentCategory, setCurrentCategory] = useState<ICategoryData | null>(
@@ -21,7 +21,7 @@ const CategoriesList: React.FC = () => {
   };
 
   const retrieveCategories = () => {
-    getAllCategories()
+    categoryApi.getAllCategories()
       .then((response: any) => {
         setCategories(response.data);
         console.log(response.data);
@@ -37,7 +37,7 @@ const CategoriesList: React.FC = () => {
   };
 
   const findByNameContaining = () => {
-    findByName(searchName)
+    categoryApi.findCategoryByName(searchName)
       .then((response: any) => {
         setCategories(response.data);
         setCurrentCategory(null);

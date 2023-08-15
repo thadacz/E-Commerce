@@ -1,11 +1,6 @@
 import React, { useState, useEffect, ChangeEvent } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-
-import {
-  deleteCategory,
-  getCategoryById,
-  updateCategory,
-} from "../services/category.service";
+import categoryApi from "../services/category.service";
 import ICategoryData from "../types/category.type";
 
 const Category: React.FC = () => {
@@ -20,7 +15,7 @@ const Category: React.FC = () => {
   const [message, setMessage] = useState<string>("");
 
   const getCategory = (id: number) => {
-    getCategoryById(id)
+   categoryApi.getCategoryById(id)
       .then((response: any) => {
         setCurrentCategory(response.data);
         console.log(response.data);
@@ -40,7 +35,7 @@ const Category: React.FC = () => {
   };
 
   const updateCategoryById = () => {
-    updateCategory(currentCategory.id, currentCategory)
+    categoryApi.updateCategory(currentCategory.id, currentCategory)
       .then((response: any) => {
         console.log(response.data);
         setMessage("The category was updated successfully!");
@@ -51,7 +46,7 @@ const Category: React.FC = () => {
   };
 
   const deleteCategoryById = () => {
-    deleteCategory(currentCategory.id)
+    categoryApi.deleteCategory(currentCategory.id)
       .then((response: any) => {
         console.log(response.data);
         navigate("/categories");

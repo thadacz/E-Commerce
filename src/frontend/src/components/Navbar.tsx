@@ -2,8 +2,8 @@ import { Button, Container, Nav, NavDropdown, Navbar as NavbarBs } from "react-b
 import { NavLink, useNavigate } from "react-router-dom"
 import { getCurrentUser, logout } from "../services/auth.service";
 import { useEffect, useState } from "react";
-import { getCategoriesNames } from "../services/category.service";
 import Category from "../types/category.type";
+import categoryApi from "../services/category.service";
 
 export function Navbar() {
   
@@ -20,7 +20,7 @@ export function Navbar() {
 
     const fetchCategoriesNames = async () => {
       try {
-        const response = await getCategoriesNames();
+        const response = await categoryApi.getCategoriesNames();
         setCategories(response.data); 
       } catch (error) {
         console.error("Error fetching categories:", error);

@@ -2,7 +2,7 @@ import React, { useState, ChangeEvent, useEffect } from "react";
 import productApi from "../services/product.service";
 import IProduct from "../types/product.type";
 import Category from "../types/category.type";
-import { getCategoriesNames } from "../services/category.service";
+import categoryApi from "../services/category.service";
 
 const AddProduct: React.FC = () => {
   const initialProductState = {
@@ -19,7 +19,7 @@ const AddProduct: React.FC = () => {
   const [categoryNames, setCategoryNames] = useState<Category[]>([]);
 
     useEffect(() => {
-      getCategoriesNames()
+      categoryApi.getCategoriesNames()
         .then((response: any) => {
           setCategoryNames(response.data);
         })

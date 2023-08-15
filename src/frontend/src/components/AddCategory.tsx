@@ -1,6 +1,6 @@
 import React, { useState, ChangeEvent } from "react";
-import { addCategory } from "../services/category.service"; 
 import ICategory from "../types/category.type"; 
+import categoryApi from "../services/category.service";
 
 const AddCategory: React.FC = () => {
   const initialCategoryState = {
@@ -19,7 +19,7 @@ const AddCategory: React.FC = () => {
       name: category.name,
     };
 
-    addCategory(data)
+    categoryApi.addCategory(data)
       .then((response: any) => {
         setCategory({
           name: response.data.name,
