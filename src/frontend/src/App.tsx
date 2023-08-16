@@ -1,18 +1,18 @@
 import { Routes, Route } from "react-router-dom"
 import { Container } from "react-bootstrap"
-import { Store } from "./pages/Store"
+import { Store } from "./components/Store";
 import { Navbar } from "./components/Navbar"
 import { ShoppingCartProvider } from "./context/ShoppingCartContext"
-import { Cart } from "./pages/Cart"
-import Login from "./pages/Login";
-import  Registration  from "./pages/Registration"
+import { Cart } from "./components/Cart"
+import Login from "./components/Login";
+import Registration from "./components/Registration";
 import DeliveryForm from "./components/DeliveryForm";
 import Payment from "./components/Payment";
 import AddProduct from "./components/AddProduct"
 import ProductsList from "./components/ProductList"
 import Product from "./components/Product"
-import Completion from "./pages/Completion"
-import { CategoryProducts } from "./pages/CategoryProducts"
+import Completion from "./components/Completion";
+import { CategoryProducts } from "./components/CategoryProducts";
 import AddCategory from "./components/AddCategory"
 import CategoriesList from "./components/CategoryList"
 import Category from "./components/Category"

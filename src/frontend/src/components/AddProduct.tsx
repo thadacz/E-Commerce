@@ -89,6 +89,7 @@ const AddProduct: React.FC = () => {
         </div>
       ) : (
         <div>
+          <h4>Add new product</h4>
           <div className="form-group">
             <label htmlFor="name">Name</label>
             <input

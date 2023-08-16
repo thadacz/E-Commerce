@@ -1,3 +1,4 @@
+import Category from "../types/category.type";
 import { axiosInstance } from "./http";
 
 const CATEGORY_BASE_URL = "/api/categories";

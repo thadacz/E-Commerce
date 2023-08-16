@@ -2,7 +2,7 @@ import  { useEffect, useState } from "react";
 import Stripe from "react-stripe-checkout";
 import axios, { AxiosResponse } from "axios";
 import { getCurrentUser } from "../services/auth.service";
-import { completeOrder, getOrderTotalAmount } from "../services/order.service";
+import orderApi from "../services/order.service";
 import { useNavigate } from "react-router-dom";
 
 function Payment() {
@@ -15,7 +15,7 @@ function Payment() {
   useEffect(() => {
     const fetchTotalAmount = async () => {
       try {
-        const response: AxiosResponse<any, any> = await getOrderTotalAmount(
+        const response: AxiosResponse<any, any> = await orderApi.getOrderTotalAmount(
           user.id
         );
         const total = parseFloat(response.data);
@@ -38,7 +38,7 @@ function Payment() {
         }
       );
       alert("Payment Success");
-      completeOrder(user.id);
+      orderApi.completeOrder(user.id);
       navigate("/completion");
     } catch (error) {
       alert("Payment Failed. Please try again later.");
