@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { Col, Row, Button } from "react-bootstrap";
 import { StoreItem } from "../components/StoreItem";
 import productApi from "../services/product.service";

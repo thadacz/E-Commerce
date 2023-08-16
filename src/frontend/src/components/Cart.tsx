@@ -3,21 +3,7 @@ import axios from "axios";
 import { formatCurrency } from "../utilities/formatCurrency";
 import { getCurrentUser } from "../services/auth.service";
 import { Link } from "react-router-dom";
-
-
-interface CartItem {
-  id: number;
-  product: {
-    id: number;
-    name: string;
-    imageUrl: string;
-    price: number;
-    stock: number;
-    size: string;
-    color: string;
-  };
-  quantity: number;
-}
+import CartItem from "../types/cart-item.types";
 
 export function Cart() {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);

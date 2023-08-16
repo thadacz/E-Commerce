@@ -76,4 +76,8 @@ public class UserShopService {
     public void deleteUser(Long id) {
         userShopRepository.deleteById(id);
     }
+
+    public List<User> findByEmailContaining(String email) {
+        return userShopRepository.findByEmailContaining(email);
+    }
 }

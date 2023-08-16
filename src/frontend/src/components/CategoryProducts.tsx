@@ -1,16 +1,15 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Col, Row } from "react-bootstrap";
 import { StoreItem } from "../components/StoreItem";
 import productApi from "../services/product.service";
+
 interface Product {
   id: number;
   name: string;
   imageUrl: string;
   price: number;
   stock: number;
-  size: string;
-  color: string;
 }
 
 

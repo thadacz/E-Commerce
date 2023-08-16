@@ -27,61 +27,49 @@ public class SecurityFilterChainConfig {
     private final AuthenticationProvider authenticationProvider;
     private final JWTAuthenticationFilter jwtAuthenticationFilter;
 
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth ->
                         auth
                                 .requestMatchers(
-                                        "/api/auth/register"
+                                        HttpMethod.GET,
+                                        "/api/products/**",
+                                        "/api/categories/**",
+                                        "/api/order/**",
+                                        "/api/order-ratings/**",
+                                        "/api/cart/**",
+                                        "/api/users/**"
+                                ).hasAnyAuthority(ADMIN.name(), USER.name())
+                                .requestMatchers(
+                                        HttpMethod.POST,
+                                        "/api/order/**",
+                                        "/api/order-ratings/**",
+                                        "/api/cart/**"
+                                ).hasAnyAuthority(ADMIN.name(), USER.name())
+                                .requestMatchers(
+                                        HttpMethod.GET,
+                                        "/api/products/**",
+                                        "/api/categories/**",
+                                        "/api/order/**",
+                                        "/api/order-ratings/**",
+                                        "/api/cart/**",
+                                        "/api/users/**"
+                                ).hasAuthority(ADMIN.name())
+                                .requestMatchers(
+                                        "/checkout-data",
+                                        "/charge",
+                                        "/api/payment/**"
+                                ).permitAll()
+                                .requestMatchers(
+                                        "/api/auth/**"
                                 ).permitAll()
                                 .requestMatchers(
                                         HttpMethod.GET,
-                                        "/api/auth/register/**"
-                                ).permitAll()
-                                .requestMatchers(
-                                        "/api/products",
-                                        "/api/products/**"
-                                ).hasAnyAuthority(USER.name(), ADMIN.name())
-                                .requestMatchers(
-                                        "/api/cart",
-                                        "/api/cart/**"
-                                ).hasAnyAuthority(ADMIN.name(), USER.name())
-                                .requestMatchers("/api/test/admin").hasAnyAuthority(USER.name())
-                                .requestMatchers("/api/test/mod").hasAnyAuthority(USER.name())
-                                .requestMatchers("/api/test/home/**").permitAll()
-                                .requestMatchers("/api/test/all/**").permitAll()
-                                .requestMatchers("/api/test/home").permitAll()
-                                .requestMatchers("/api/test/all").permitAll()
-                                .requestMatchers("/charge").permitAll()
-                                .requestMatchers("/checkout-data").permitAll()
-                                .requestMatchers("/api/payment").permitAll()
-                                .requestMatchers("/api/payment/**").permitAll()
-                                .requestMatchers("/api/categories/**").permitAll()
-                                .requestMatchers("/api/order-ratings/**").permitAll()
-                                .requestMatchers("/api/order-ratings").permitAll()
-                                .requestMatchers("/api/blob/**").permitAll()
-                                .requestMatchers("/api/blob").permitAll()
-                                .requestMatchers("/api/categories/**").permitAll()
-                                .requestMatchers("/api/categories").permitAll()
-                                .requestMatchers(
-                                        HttpMethod.POST,
-                                        "/api/users",
-                                        "/api/auth/login"
-                                ).permitAll()
-                                .requestMatchers(
-                                        "/api/payment",
-                                        "/api/payment/**"
-                                ).permitAll()
-                                .requestMatchers("/api/order",
-                                        "/api/order/**"
-                                ).hasAnyAuthority(ADMIN.name(), USER.name())
-                                .requestMatchers(HttpMethod.GET, "/actuator/**").permitAll()
-                                .requestMatchers("/swagger-ui/**",
+                                        "/actuator/**","/swagger-ui/**",
                                         "/swagger-resources/*",
-                                        "/v3/api-docs/**")
-                                .permitAll()
+                                        "/v3/api-docs/**"
+                                ).permitAll()
                                 .anyRequest().authenticated()
                 )
                 .csrf(AbstractHttpConfigurer::disable)

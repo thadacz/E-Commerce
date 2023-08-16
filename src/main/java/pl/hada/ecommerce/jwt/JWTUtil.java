@@ -18,13 +18,10 @@ import static java.time.temporal.ChronoUnit.DAYS;
 @Service
 public class JWTUtil {
 
-    /*private static final String JWT_SECRET_KEY =
-            "foobar_123456789_foobar_123456789_foobar_123456789_foobar_123456789";*/
-
     @Value("${JWT_SECRET_KEY}")
     private String JWT_SECRET_KEY;
     @Value("${host}")
-    private String host;
+    private String HOST;
 
 
     public String issueToken(String subject) {
@@ -47,7 +44,7 @@ public class JWTUtil {
                 .builder()
                 .setClaims(claims)
                 .setSubject(subject)
-                .setIssuer(host)
+                .setIssuer(HOST)
                 .setIssuedAt(Date.from(Instant.now()))
                 .setExpiration(
                         Date.from(
