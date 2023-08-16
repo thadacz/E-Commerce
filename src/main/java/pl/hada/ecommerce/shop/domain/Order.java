@@ -9,6 +9,8 @@ import lombok.Setter;
 import pl.hada.ecommerce.user.Role;
 import pl.hada.ecommerce.user.User;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @Entity
@@ -30,4 +32,6 @@ public class Order {
 
   @Enumerated(EnumType.STRING)
   private OrderStatus status;
+
+  private LocalDateTime executionDate;
 }

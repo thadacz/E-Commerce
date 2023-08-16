@@ -7,9 +7,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import pl.hada.ecommerce.shop.domain.Cart;
 import pl.hada.ecommerce.shop.domain.Category;
+import pl.hada.ecommerce.shop.domain.Order;
 import pl.hada.ecommerce.shop.domain.Product;
 import pl.hada.ecommerce.shop.repository.CartRepository;
 import pl.hada.ecommerce.shop.repository.CategoryRepository;
+import pl.hada.ecommerce.shop.repository.OrderRepository;
 import pl.hada.ecommerce.shop.repository.ProductRepository;
 import pl.hada.ecommerce.user.Role;
 import pl.hada.ecommerce.user.User;
@@ -31,6 +33,9 @@ public class DbInit {
     private CategoryRepository categoryRepository;
     @Autowired
     private CartRepository cartRepository;
+
+    @Autowired
+    private OrderRepository orderRepository;
 
     @PostConstruct
     private void postConstruct() {

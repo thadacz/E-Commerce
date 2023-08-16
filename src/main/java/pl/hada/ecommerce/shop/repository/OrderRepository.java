@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import pl.hada.ecommerce.shop.domain.Order;
 import pl.hada.ecommerce.shop.domain.OrderStatus;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,4 +18,5 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     Optional<Order> findMaxIdOrderForUser(Long userId);
     Order findOrderByUserId(Long id);
     List<Order> findByStatus(OrderStatus orderStatus);
+    List<Order> findByStatusAndExecutionDateBetween(OrderStatus status, LocalDateTime startDate, LocalDateTime endDate);
 }

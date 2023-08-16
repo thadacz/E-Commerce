@@ -1,15 +1,14 @@
 package pl.hada.ecommerce.shop.controller;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pl.hada.ecommerce.shop.domain.Address;
-import pl.hada.ecommerce.shop.domain.Order;
-import pl.hada.ecommerce.shop.domain.OrderReportDTO;
-import pl.hada.ecommerce.shop.domain.ProductSalesReportDTO;
+import pl.hada.ecommerce.shop.domain.*;
 import pl.hada.ecommerce.shop.service.OrderService;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -58,9 +57,13 @@ public class OrderController {
   }
 
   @GetMapping("/product-sales")
-  public ResponseEntity<List<ProductSalesReportDTO>> generateProductSalesReport() {
-    List<ProductSalesReportDTO> productSalesReport = orderService.generateProductSalesReport();
-    return ResponseEntity.ok(productSalesReport);
+  public ResponseEntity<List<ProductSalesReportDTO>> getProductSalesReport(
+          @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
+          @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate) {
+
+    List<ProductSalesReportDTO> salesReport = orderService.generateProductSalesReport(startDate, endDate);
+
+    return ResponseEntity.ok(salesReport);
   }
 
 }

@@ -1,3 +1,4 @@
+import ProductReport from "../types/product-report";
 import { axiosInstance } from "./http";
 
 const ORDER_BASE_URL = "/api/order";
@@ -25,9 +26,15 @@ const orderApi = {
     return axiosInstance.post(`${ORDER_BASE_URL}/${customerId}`, deliveryData);
   },
 
-  getSalesView: () => {
-    return axiosInstance.get(`${ORDER_BASE_URL}/product-sales`);
-  },
+  getSalesView: (startDate: string, endDate: string) => {
+    return axiosInstance.get<Array<ProductReport>>(`${ORDER_BASE_URL}/product-sales`, {
+      params: {
+        startDate: startDate,
+        endDate: endDate,
+      },
+    });
+  }
 };
+
 
 export default orderApi;

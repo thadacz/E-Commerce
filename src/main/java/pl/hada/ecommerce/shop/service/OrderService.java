@@ -8,6 +8,7 @@ import pl.hada.ecommerce.shop.repository.*;
 import pl.hada.ecommerce.user.User;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -79,6 +80,7 @@ public Order createOrderFromCart(Long customerId, Address address) {
     Order order = orderRepository.findMaxIdOrderForUser(userId).orElse(null);
     if (order != null && order.getStatus() != OrderStatus.COMPLETED) {
       order.setStatus(OrderStatus.COMPLETED);
+      order.setExecutionDate(LocalDateTime.now());
       orderRepository.save(order);
       return true;
     }
@@ -116,8 +118,14 @@ public Order createOrderFromCart(Long customerId, Address address) {
     );
   }
 
-  public List<ProductSalesReportDTO> generateProductSalesReport() {
-    List<Order> completedOrders = orderRepository.findByStatus(OrderStatus.COMPLETED);
+  public List<ProductSalesReportDTO> generateProductSalesReport(LocalDateTime startDate, LocalDateTime endDate) {
+    List<Order> completedOrders;
+
+    if (startDate != null && endDate != null) {
+      completedOrders = orderRepository.findByStatusAndExecutionDateBetween(OrderStatus.COMPLETED, startDate, endDate);
+    } else {
+      completedOrders = orderRepository.findByStatus(OrderStatus.COMPLETED);
+    }
 
     Map<String, ProductSalesReportDTO> productSalesMap = new HashMap<>();
 
