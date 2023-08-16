@@ -6,9 +6,7 @@ import ISalesReport from "../types/sales.types";
 const SalesView: React.FC = () => {
   const [salesReports, setSalesReports] = useState<ISalesReport[]>([]);
   const [filteredReports, setFilteredReports] = useState<ISalesReport[]>([]);
-  const [selectedProduct, setSelectedProduct] = useState<ISalesReport | null>(
-    null
-  );
+  const [selectedProduct, setSelectedProduct] = useState<ISalesReport | null>(null);
   const [searchTerm, setSearchTerm] = useState<string>("");
 
   useEffect(() => {

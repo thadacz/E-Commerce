@@ -17,6 +17,7 @@ import AddCategory from "./components/AddCategory"
 import CategoriesList from "./components/CategoryList"
 import Category from "./components/Category"
 import SalesView  from "./components/SalesView"
+import UsersList from "./components/UserList";
 
 function App() {
   
@@ -40,6 +41,7 @@ function App() {
           <Route path="/categories" element={<CategoriesList />} />
           <Route path="/categories/:id" element={<Category />} />
           <Route path="/sales-view" element={<SalesView />} />
+          <Route path="/users" element={<UsersList/>}/>
         </Routes>
       </Container>
     </ShoppingCartProvider>

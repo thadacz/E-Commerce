@@ -66,6 +66,11 @@ export function Navbar() {
                 </Nav.Link>
               </Nav>
               <Nav className="me-auto">
+                <Nav.Link to="/users" as={NavLink}>
+                  Users
+                </Nav.Link>
+              </Nav>
+              <Nav className="me-auto">
                 <Nav.Link to="/sales-view" as={NavLink}>
                   Sales View
                 </Nav.Link>
