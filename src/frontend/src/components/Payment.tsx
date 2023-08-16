@@ -1,7 +1,7 @@
 import  { useEffect, useState } from "react";
 import Stripe from "react-stripe-checkout";
 import axios, { AxiosResponse } from "axios";
-import { getCurrentUser } from "../services/auth.service";
+import authApi from "../services/auth.service";
 import orderApi from "../services/order.service";
 import { useNavigate } from "react-router-dom";
 
@@ -9,7 +9,7 @@ function Payment() {
   const [totalAmount, setTotalAmount] = useState<number>(0);
   const navigate = useNavigate();
 
-  const user = getCurrentUser();
+  const user = authApi.getCurrentUser();
 
 
   useEffect(() => {

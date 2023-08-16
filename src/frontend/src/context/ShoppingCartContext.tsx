@@ -7,7 +7,7 @@ import {
 } from "react";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import { getCart } from "../services/cart.service";
-import { getCurrentUser } from "../services/auth.service";
+import authApi from "../services/auth.service";
 
 type ShoppingCartProviderProps = {
   children: ReactNode;
@@ -48,7 +48,7 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
       "shopping-cart",
       []
     );
-    const user = getCurrentUser();
+    const user = authApi.getCurrentUser();
    
 
    useEffect(() => {

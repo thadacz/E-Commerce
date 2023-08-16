@@ -3,7 +3,7 @@ import { Button, Card } from "react-bootstrap";
 import { useShoppingCart } from "../context/ShoppingCartContext";
 import { formatCurrency } from "../utilities/formatCurrency";
 import productApi from "../services/product.service";
-import { getCurrentUser, logout } from "../services/auth.service";
+import authApi, { getCurrentUser, logout } from "../services/auth.service";
 import {
   addProductToCart,
   decreaseProductQuantityInCart,
@@ -22,7 +22,7 @@ export function StoreItem({ id }: StoreItemProps) {
     decreaseCartQuantity,
     removeFromCart,
   } = useShoppingCart();
-    const user = getCurrentUser();
+    const user = authApi.getCurrentUser();
   const quantity = getItemQuantity(id);
   const stock = getItemStock(id);
   const [product, setProduct] = useState<any | null>(null);

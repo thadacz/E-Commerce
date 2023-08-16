@@ -2,7 +2,7 @@ import React from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import orderApi from "../services/order.service";
-import { getCurrentUser } from "../services/auth.service";
+import authApi from "../services/auth.service";
 import { Link, useNavigate } from "react-router-dom";
 
 function DeliveryForm() {
@@ -36,7 +36,7 @@ function DeliveryForm() {
 
 
   const handleSubmit = async (values: any, { setSubmitting }: any) => {
-    const user = getCurrentUser();
+    const user = authApi.getCurrentUser();
     orderApi.createOrder(user.id, values)
       .then((response) => {
         console.log("Order created successfully:", response.data);

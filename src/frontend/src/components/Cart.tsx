@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import axios from "axios"; 
 import { formatCurrency } from "../utilities/formatCurrency";
-import { getCurrentUser } from "../services/auth.service";
 import { Link } from "react-router-dom";
 import CartItem from "../types/cart-item.types";
+import authApi from "../services/auth.service";
 
 export function Cart() {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
-  const user = getCurrentUser();
+  const user = authApi.getCurrentUser();
   const customerId = user.id;
   const token = localStorage.getItem("token");
   const calculateTotal = () => {

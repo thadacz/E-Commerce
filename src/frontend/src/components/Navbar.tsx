@@ -1,6 +1,6 @@
 import { Button, Container, Nav, NavDropdown, Navbar as NavbarBs } from "react-bootstrap"
 import { NavLink, useNavigate } from "react-router-dom"
-import { getCurrentUser, logout } from "../services/auth.service";
+import authApi from "../services/auth.service";
 import { useEffect, useState } from "react";
 import Category from "../types/category.type";
 import categoryApi from "../services/category.service";
@@ -10,8 +10,7 @@ export function Navbar() {
   const navigate = useNavigate()
   const [categories, setCategories] = useState<Category[]>([]);
   const handleClick = () => navigate('/cart')
-  const user = getCurrentUser()
-  console.log(user);
+  const user = authApi.getCurrentUser()
   const token = localStorage.getItem("token")
 
     useEffect(() => {
@@ -28,7 +27,7 @@ export function Navbar() {
     };
 
     const handleLogout = () => {
-      logout();
+      authApi.logout();
       navigate("/login");
     };
 

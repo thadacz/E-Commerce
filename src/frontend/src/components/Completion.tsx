@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import orderApi from "../services/order.service";
-import { getCurrentUser } from "../services/auth.service";
+
 import orderRatingApi from "../services/order-rating.service";
 import  { Rating } from "react-simple-star-rating";
+import authApi from "../services/auth.service";
 
 interface Address {
   id: number;
@@ -35,7 +36,7 @@ interface OrderReportDTO {
 
 const Completion: React.FC = () => {
   const [orderReports, setOrderReports] = useState<OrderReportDTO[]>([]);
-  const user = getCurrentUser();
+  const user = authApi.getCurrentUser();
   const [rating, setRating] = useState<number>(0);
   const [comment, setComment] = useState<string>("");
   const [ratingSubmitted, setRatingSubmitted] = useState<boolean>(false);

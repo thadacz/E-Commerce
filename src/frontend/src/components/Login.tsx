@@ -3,7 +3,7 @@ import { NavigateFunction, useNavigate } from "react-router-dom";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
-import { login } from "../services/auth.service";
+import authApi  from "../services/auth.service";
 
 type Props = {};
 
@@ -32,7 +32,7 @@ const Login: React.FC<Props> = () => {
     setMessage("");
     setLoading(true);
 
-    login(username, password).then(
+    authApi.login(username, password).then(
       () => {
         navigate("/");
         window.location.reload();
