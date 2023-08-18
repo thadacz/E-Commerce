@@ -1,6 +1,6 @@
-import  { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Stripe from "react-stripe-checkout";
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 import authApi from "../services/auth.service";
 import orderApi from "../services/order.service";
 import { useNavigate } from "react-router-dom";
@@ -11,13 +11,10 @@ function Payment() {
 
   const user = authApi.getCurrentUser();
 
-
   useEffect(() => {
     const fetchTotalAmount = async () => {
       try {
-        const response: AxiosResponse<any, any> = await orderApi.getOrderTotalAmount(
-          user.id
-        );
+        const response = await orderApi.getOrderTotalAmount(user.id);
         const total = parseFloat(response.data);
         setTotalAmount(total);
       } catch (error) {
@@ -28,29 +25,33 @@ function Payment() {
     fetchTotalAmount();
   }, [user.id]);
 
-  const handleToken = async (token: { id: any; }) => {
-    try {
-      await axios.post(
-        `${import.meta.env.VITE_APP_BASE_URL}` + "/api/payment/charge",
-        {
-          token: token.id,
-          amount: totalAmount,
-        }
-      );
-      alert("Payment Success");
-      orderApi.completeOrder(user.id);
-      navigate("/completion");
-    } catch (error) {
-      alert("Payment Failed. Please try again later.");
-      console.error("Error processing payment:", error);
-    }
-  };
+const handleToken = async (token: any) => {
+  try {
+    await axios.post(
+      `${import.meta.env.VITE_APP_BASE_URL}` + "/api/payment/charge",
+      {
+        token: token.id,
+        amount: totalAmount,
+      }
+    );
+
+    // Zakończ zamówienie i pobierz zaktualizowane zamówienia z serwera
+    const updatedOrdersResponse = await orderApi.completeOrder(user.id);
+    const updatedOrders = updatedOrdersResponse.data;
+
+    alert("Payment Success");
+    navigate("/completion", { state: { updatedOrders } });
+  } catch (error) {
+    alert("Payment Failed. Please try again later.");
+    console.error("Error processing payment:", error);
+  }
+};
+
 
   return (
     <div>
       <h1>Payment</h1>
       <p>Total Amount: {totalAmount} USD</p>
-      {}
       <Stripe
         stripeKey={import.meta.env.VITE_APP_PUBLIC_KEY}
         token={handleToken}

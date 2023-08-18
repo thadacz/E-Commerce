@@ -34,10 +34,6 @@ export function History(){
         setCurrentIndex(index);
       };
 
-  const canContinueOrder = (product: any) => {
-    return product.stock >= product.quantity;
-  };
-
     return (
       <div>
         <div className="list row">
@@ -116,6 +112,7 @@ export function History(){
                       <li key={index}>
                         {product.productName} : {product.quantity}x
                         {product.price}$ = {product.quantity * product.price}$
+                        Product stock: {product.stock}
                       </li>
                     ))}
                   </ul>

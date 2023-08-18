@@ -1,7 +1,6 @@
 package pl.hada.ecommerce.shop.service;
 
 import jakarta.transaction.Transactional;
-import org.aspectj.weaver.ast.Or;
 import org.springframework.stereotype.Service;
 import pl.hada.ecommerce.exeption.InsufficientStockException;
 import pl.hada.ecommerce.shop.domain.*;
@@ -21,18 +20,20 @@ public class OrderService {
   private final AddressRepository addressRepository;
   private final UserShopRepository userShopRepository;
   private final ProductRepository productRepository;
+  private final CartItemRepository cartItemRepository;
 
 
   public OrderService(
           OrderRepository orderRepository,
           CartRepository cartRepository,
           AddressRepository addressRepository,
-          UserShopRepository userShopRepository, ProductRepository productRepository) {
+          UserShopRepository userShopRepository, ProductRepository productRepository, CartItemRepository cartItemRepository) {
     this.orderRepository = orderRepository;
     this.cartRepository = cartRepository;
     this.addressRepository = addressRepository;
     this.userShopRepository = userShopRepository;
     this.productRepository = productRepository;
+    this.cartItemRepository = cartItemRepository;
   }
   public Optional<Order> findMaxIdOrderForUser(Long userId) {
     return orderRepository.findMaxIdOrderForUser(userId);
@@ -62,7 +63,7 @@ public Order createOrderFromCart(Long customerId, Address address) {
   cartRepository.save(newCart);
 
   // Update Product Stock
-  for (CartItem cartItem : cart.getCartItems()) {
+  /*for (CartItem cartItem : cart.getCartItems()) {
     Product product = cartItem.getProduct();
     Integer quantityOrdered = cartItem.getQuantity();
 
@@ -72,13 +73,13 @@ public Order createOrderFromCart(Long customerId, Address address) {
     } else {
       throw new InsufficientStockException(product.getName());
     }
-  }
+  }*/
 
 
   return savedOrder;
 }
 
-  public boolean completeOrder(Long userId) {
+/*  public boolean completeOrder(Long userId) {
     Order order = orderRepository.findMaxIdOrderForUser(userId).orElse(null);
     if (order != null && order.getStatus() != OrderStatus.COMPLETED) {
       order.setStatus(OrderStatus.COMPLETED);
@@ -87,7 +88,43 @@ public Order createOrderFromCart(Long customerId, Address address) {
       return true;
     }
     return false;
+  }*/
+@Transactional
+public boolean completeOrder(Long userId) {
+  Order order = orderRepository.findMaxIdOrderForUser(userId).orElse(null);
+
+  if (order != null && order.getStatus() != OrderStatus.COMPLETED) {
+    List<CartItem> cartItems = order.getCart().getCartItems();
+
+    for (CartItem cartItem : cartItems) {
+      Product product = cartItem.getProduct();
+      Integer quantityOrdered = cartItem.getQuantity();
+
+      if (product.getStock() >= quantityOrdered) {
+        product.setStock(product.getStock() - quantityOrdered);
+        productRepository.save(product);
+
+        // Update stock for all cart items with the same product
+        List<CartItem> cartItemsWithSameProduct = cartItemRepository.findByProduct(product);
+        for (CartItem item : cartItemsWithSameProduct) {
+          item.setStock(product.getStock());
+          cartItemRepository.save(item);
+        }
+      } else {
+        throw new InsufficientStockException(product.getName());
+      }
+    }
+
+    order.setStatus(OrderStatus.COMPLETED);
+    order.setExecutionDate(LocalDateTime.now());
+    orderRepository.save(order);
+    return true;
   }
+
+  return false;
+}
+
+
 
   public Order findOrderByUserId(Long userId) {
     return orderRepository.findOrderByUserId(userId);
@@ -100,6 +137,7 @@ public Order createOrderFromCart(Long customerId, Address address) {
 
   public  List<OrderReportDTO> generateOrdersHistory(Long userId){
     List<Order> completedOrders = orderRepository.findByUser_Id(userId);
+
     return completedOrders.stream()
             .map(this::mapToOrderReportDTO)
             .collect(Collectors.toList());
