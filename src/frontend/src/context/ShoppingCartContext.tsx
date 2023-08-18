@@ -43,7 +43,7 @@ export function useShoppingCart() {
 
 export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
     const [cartItems, setCartItems] = useState<CartItem[]>([]);
-    const user = authApi.getCurrentUser();
+    const user = authApi.getCurrentUser() || { id: 2 }; 
 
     useEffect(() => {
       async function fetchData() {

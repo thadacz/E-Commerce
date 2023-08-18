@@ -10,7 +10,7 @@ export function History(){
   const [orders, setOrders] = useState<Array<OrderReport>>([]);
   const [currentOrder, setCurrentOrder] = useState<OrderReport | null>(null);
   const [currentIndex, setCurrentIndex] = useState<number>(-1);
-  const user = authApi.getCurrentUser();
+  const user = authApi.getCurrentUser() || { id: 2 }; 
   const navigate = useNavigate();
 
 
