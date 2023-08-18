@@ -1,86 +1,86 @@
-import { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Card } from "react-bootstrap";
-import { useShoppingCart } from "../context/ShoppingCartContext";
 import { formatCurrency } from "../utilities/formatCurrency";
 import productApi from "../services/product.service";
 import authApi from "../services/auth.service";
-import {addProductToCart, decreaseProductQuantityInCart, removeProductFromCart} from "../services/cart.service";
+import cartApi from "../services/cart.service";
 
 type StoreItemProps = {
   id: number;
 };
 
 export function StoreItem({ id }: StoreItemProps) {
-  const {
-    getItemQuantity,
-    getItemStock,
-    increaseCartQuantity,
-    decreaseCartQuantity,
-    removeFromCart,
-  } = useShoppingCart();
-    const user = authApi.getCurrentUser();
-  const quantity = getItemQuantity(id);
-  const stock = getItemStock(id);
+  const user = authApi.getCurrentUser();
   const [product, setProduct] = useState<any | null>(null);
-
-
+  const [quantity, setQuantity] = useState<number>(0);
+  const [stock, setStock] = useState<number>(0);
 
   useEffect(() => {
-    productApi.getProductById(id)
+    productApi
+      .getProductById(id)
       .then((response) => {
-        setProduct(response.data);
+        const productData = response.data;
+        setProduct(productData);
+        setStock(productData.stock);
+        // Pobierz ilość tego produktu w koszyku
+        // i ustaw stan komponentu
+        fetchCartItemQuantity();
       })
       .catch((error) => {
         console.error("Error while fetching product:", error);
       });
   }, [id]);
 
-  console.log("Product:", product);
+  const fetchCartItemQuantity = async () => {
+    try {
+      const cartResponse = await cartApi.getCart(user.id);
+      const cartItemsData = cartResponse.data || [];
+      const cartItem = cartItemsData.find((item) => item.product.id === id);
+      setQuantity(cartItem ? cartItem.quantity : 0);
+    } catch (error) {
+      console.error("Error fetching cart items:", error);
+    }
+  };
 
-  const handleAddToCart = (productId: number) => {
-    addProductToCart(productId, user.id)
+  const handleAddToCart = () => {
+    cartApi.increaseCartQuantity(id, user.id)
       .then(() => {
-        increaseCartQuantity(productId);
-        window.location.reload();
+        setQuantity((prevQuantity) => prevQuantity + 1);
+        fetchCartItemQuantity();
       })
       .catch((error) => {
         console.error("Error while adding product to cart:", error);
       });
   };
 
-  const handleDecreaseCartQuantity = (productId: number) => {
-    decreaseProductQuantityInCart(productId, user.id)
+  const handleDecreaseCartQuantity = () => {
+    cartApi.decreaseCartQuantity(id, user.id)
       .then(() => {
-        decreaseCartQuantity(productId);
+        setQuantity((prevQuantity) => Math.max(prevQuantity - 1, 0));
+        fetchCartItemQuantity();
       })
       .catch((error) => {
-        console.error("Error while adding product to cart:", error);
+        console.error(
+          "Error while decreasing product quantity in cart:",
+          error
+        );
       });
   };
 
-  const handleIncreaseCartQuantity = (productId: number) => {
-    addProductToCart(productId, user.id)
+  const handleRemove = () => {
+    cartApi.removeFromCart(id, user.id)
       .then(() => {
-        increaseCartQuantity(productId);
+        setQuantity(0);
+        fetchCartItemQuantity();
       })
       .catch((error) => {
-        console.error("Error while adding product to cart:", error);
-      });
-  };
-
-  const handleRemove = (productId: number) => {
-    removeProductFromCart(productId, user.id)
-      .then(() => {
-        removeFromCart(productId);
-      })
-      .catch((error) => {
-        console.error("Error while adding product to cart:", error);
+        console.error("Error while removing product from cart:", error);
       });
   };
 
   if (!product) return null;
 
-  const { name, imageUrl,description, price } = product;
+  const { name, imageUrl, description, price } = product;
 
   return (
     <Card className="h-100">
@@ -100,9 +100,8 @@ export function StoreItem({ id }: StoreItemProps) {
         </Card.Text>
         <div className="mt-auto">
           {quantity === 0 ? (
-            <Button className="w-100" onClick={() => handleAddToCart(id)}>
-              {" "}
-              {}+ Add To Cart
+            <Button className="w-100" onClick={handleAddToCart}>
+              + Add To Cart
             </Button>
           ) : (
             <div
@@ -113,25 +112,17 @@ export function StoreItem({ id }: StoreItemProps) {
                 className="d-flex align-items-center justify-content-center"
                 style={{ gap: ".5rem" }}
               >
-                <Button onClick={() => handleDecreaseCartQuantity(id)}>
-                  -
-                </Button>
+                <Button onClick={handleDecreaseCartQuantity}>-</Button>
                 <div>
                   <span className="fs-3">{quantity}</span> in cart
                 </div>
                 {quantity < stock ? (
-                  <Button onClick={() => handleIncreaseCartQuantity(id)}>
-                    +
-                  </Button>
+                  <Button onClick={handleAddToCart}>+</Button>
                 ) : (
                   <Button disabled>+</Button>
                 )}
               </div>
-              <Button
-                onClick={() => handleRemove(id)}
-                variant="danger"
-                size="sm"
-              >
+              <Button onClick={handleRemove} variant="danger" size="sm">
                 Remove
               </Button>
             </div>

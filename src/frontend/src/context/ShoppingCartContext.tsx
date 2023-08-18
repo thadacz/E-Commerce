@@ -6,7 +6,7 @@ import {
   useState,
 } from "react";
 import { useLocalStorage } from "../hooks/useLocalStorage";
-import { getCart } from "../services/cart.service";
+import cartApi from "../services/cart.service";
 import authApi from "../services/auth.service";
 
 type ShoppingCartProviderProps = {
@@ -21,8 +21,6 @@ type CartItem = {
     imageUrl: string;
     price: number;
     stock: number;
-    size: string;
-    color: string;
   };
   quantity: number;
 };
@@ -44,26 +42,22 @@ export function useShoppingCart() {
 }
 
 export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
-    const [cartItems, setCartItems] = useLocalStorage<CartItem[]>(
-      "shopping-cart",
-      []
-    );
+    const [cartItems, setCartItems] = useState<CartItem[]>([]);
     const user = authApi.getCurrentUser();
-   
 
-   useEffect(() => {
-     async function fetchData() {
-       try {
-         const response = await getCart(user.id);
-         const cartItemsData = response.data || [];
-         setCartItems(cartItemsData);
-       } catch (error) {
-         console.error("Error fetching cart items:", error);
-       }
-     }
+    useEffect(() => {
+      async function fetchData() {
+        try {
+          const response = await cartApi.getCart(user.id);
+          const cartItemsData = response.data || [];
+          setCartItems(cartItemsData);
+        } catch (error) {
+          console.error("Error fetching cart items:", error);
+        }
+      }
 
-     fetchData();
-   }, []);
+      fetchData();
+    }, [user.id]);
 
    useEffect(() => {
      const updatedCartQuantity = cartItems.reduce(

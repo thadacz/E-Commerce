@@ -4,12 +4,12 @@ import { formatCurrency } from "../utilities/formatCurrency";
 import { Link } from "react-router-dom";
 import CartItem from "../types/cart-item.type";
 import authApi from "../services/auth.service";
+import cartApi from "../services/cart.service";
 
 export function Cart() {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const user = authApi.getCurrentUser();
   const customerId = user.id;
-  const token = localStorage.getItem("token");
   const calculateTotal = () => {
     let total = 0;
     cartItems.forEach((item) => {
@@ -23,10 +23,7 @@ export function Cart() {
   }, []);
 
   const fetchCartData = () => {
-    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-
-    axios
-      .get(`http://localhost:8080/api/cart/${customerId}`)
+      cartApi.getCart(customerId)
       .then((response) => {
         setCartItems(response.data);
       })
