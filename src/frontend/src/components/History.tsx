@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import OrderReport from "../types/orderReport.type"
 import orderApi from "../services/order.service";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { format } from "date-fns";
 import authApi from "../services/auth.service";
 
@@ -11,6 +11,7 @@ export function History(){
   const [currentOrder, setCurrentOrder] = useState<OrderReport | null>(null);
   const [currentIndex, setCurrentIndex] = useState<number>(-1);
   const user = authApi.getCurrentUser();
+  const navigate = useNavigate();
 
 
 
@@ -33,6 +34,40 @@ export function History(){
         setCurrentOrder(order);
         setCurrentIndex(index);
       };
+
+       const canContinueOrder = () => {
+         if (!currentOrder) {
+           return false;
+         }
+
+         for (const product of currentOrder.products) {
+           if (product.quantity > product.stock) {
+             return false;
+           }
+         }
+
+         return true;
+       };
+
+     const handleContinueOrder = (orderId: number) => {
+       if (canContinueOrder()) {
+         navigate("/payment/" + orderId);
+       } else {
+         const insufficientStockProducts = currentOrder.products.filter(
+           (product) => product.quantity > product.stock
+         );
+
+         const productNames = insufficientStockProducts.map(
+           (product) => product.productName
+         );
+
+         const errorMessage =
+           "Not enough stock for the following products: " +
+           productNames.join(", ");
+
+         alert(errorMessage);
+       }
+     };
 
     return (
       <div>
@@ -123,13 +158,13 @@ export function History(){
                   </label>{" "}
                   {currentOrder.orderTotalAmount} $
                 </div>
-                {currentOrder.orderStatus === "CREATED" && (
-                  <Link
-                    to={"/payment/" + currentOrder.id}
+                {currentOrder && currentOrder.orderStatus === "CREATED" && (
+                  <button
                     className="btn btn-success"
+                    onClick={() => handleContinueOrder(currentOrder.id)} 
                   >
                     Continue Ordering
-                  </Link>
+                  </button>
                 )}
               </div>
             ) : (
