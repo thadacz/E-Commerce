@@ -19,9 +19,11 @@ public class CartItem {
   @OnDelete(action = OnDeleteAction.CASCADE)
   @ManyToOne private Product product;
   private Integer quantity;
+  private int stock;
 
   public CartItem(Product product, Integer quantity) {
     this.product = product;
     this.quantity = quantity;
+    this.stock = product.getStock();
   }
 }

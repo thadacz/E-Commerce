@@ -1,4 +1,4 @@
-import Authority from "./authority.types";
+import Authority from "./authority.type";
 
 export default interface IUser {
   id: number;

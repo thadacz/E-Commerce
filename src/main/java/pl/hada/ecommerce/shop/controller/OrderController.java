@@ -34,10 +34,22 @@ public class OrderController {
     return ResponseEntity.ok(totalAmount);
   }
 
+  @GetMapping("/total-amount/{orderId}")
+  public ResponseEntity<BigDecimal> getLastOrderTotalAmountByOrderId(@PathVariable Long orderId) {
+    BigDecimal totalAmount = orderService.findOrderById(orderId).getCart().getTotalAmount();
+    return ResponseEntity.ok(totalAmount);
+  }
+
   @GetMapping("/user/{userId}")
   public ResponseEntity<Order> getOrderForUser(@PathVariable Long userId) {
     Order order = orderService.findOrderByUserId(userId);
     return ResponseEntity.ok(order);
+  }
+
+  @GetMapping("/{userId}/history")
+  public ResponseEntity<List<OrderReportDTO>> orderHistory(@PathVariable Long userId){
+    List<OrderReportDTO> history = orderService.generateOrdersHistory(userId);
+    return ResponseEntity.ok(history);
   }
 
   @GetMapping("/{userId}/report")

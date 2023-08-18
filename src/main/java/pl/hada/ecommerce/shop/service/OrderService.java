@@ -1,6 +1,7 @@
 package pl.hada.ecommerce.shop.service;
 
 import jakarta.transaction.Transactional;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.stereotype.Service;
 import pl.hada.ecommerce.exeption.InsufficientStockException;
 import pl.hada.ecommerce.shop.domain.*;
@@ -52,6 +53,7 @@ public Order createOrderFromCart(Long customerId, Address address) {
   order.setCart(cart);
   order.setUser(user);
   order.setStatus(OrderStatus.CREATED);
+  order.setExecutionDate(LocalDateTime.now());
   Order savedOrder = orderRepository.save(order);
   cart.setIsOrdered(true);
   cart.setOrder(order);
@@ -91,6 +93,18 @@ public Order createOrderFromCart(Long customerId, Address address) {
     return orderRepository.findOrderByUserId(userId);
   }
 
+
+  public Order findOrderById(Long orderId) {
+    return orderRepository.findOrderById(orderId);
+  }
+
+  public  List<OrderReportDTO> generateOrdersHistory(Long userId){
+    List<Order> completedOrders = orderRepository.findByUser_Id(userId);
+    return completedOrders.stream()
+            .map(this::mapToOrderReportDTO)
+            .collect(Collectors.toList());
+  }
+
   public List<OrderReportDTO> generateOrderReports(Long userId) {
     Optional<Order> completedOrders = orderRepository.findMaxIdOrderForUser(userId);
     return completedOrders.stream()
@@ -100,7 +114,7 @@ public Order createOrderFromCart(Long customerId, Address address) {
 
   private OrderReportDTO mapToOrderReportDTO(Order order) {
     List<ProductReportDTO> productReportDTOList = order.getCart().getCartItems().stream()
-            .map(item -> new ProductReportDTO(item.getProduct().getName(), item.getQuantity(), item.getProduct().getPrice()))
+            .map(item -> new ProductReportDTO(item.getProduct().getName(), item.getQuantity(), item.getProduct().getPrice(), item.getStock()))
             .collect(Collectors.toList());
 
     BigDecimal orderTotalAmount = productReportDTOList.stream()
@@ -108,12 +122,14 @@ public Order createOrderFromCart(Long customerId, Address address) {
             .reduce(BigDecimal.ZERO, BigDecimal::add);
 
     return new OrderReportDTO(
+            order.getId(),
             order.getUser().getFirstName(),
             order.getUser().getLastName(),
             order.getUser().getEmail(),
             productReportDTOList,
             order.getAddress(),
             order.getStatus(),
+            order.getExecutionDate(),
             orderTotalAmount
     );
   }

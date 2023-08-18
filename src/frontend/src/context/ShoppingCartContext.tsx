@@ -55,7 +55,7 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
      async function fetchData() {
        try {
          const response = await getCart(user.id);
-         const cartItemsData = response.data || []; // Handle the case when getCart returns nothing
+         const cartItemsData = response.data || [];
          setCartItems(cartItemsData);
        } catch (error) {
          console.error("Error fetching cart items:", error);

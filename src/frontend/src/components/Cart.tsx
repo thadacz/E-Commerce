@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios"; 
 import { formatCurrency } from "../utilities/formatCurrency";
 import { Link } from "react-router-dom";
-import CartItem from "../types/cart-item.types";
+import CartItem from "../types/cart-item.type.ts";
 import authApi from "../services/auth.service";
 
 export function Cart() {

@@ -3,12 +3,8 @@ import { Button, Card } from "react-bootstrap";
 import { useShoppingCart } from "../context/ShoppingCartContext";
 import { formatCurrency } from "../utilities/formatCurrency";
 import productApi from "../services/product.service";
-import authApi, { getCurrentUser, logout } from "../services/auth.service";
-import {
-  addProductToCart,
-  decreaseProductQuantityInCart,
-  removeProductFromCart,
-} from "../services/cart.service";
+import authApi from "../services/auth.service";
+import {addProductToCart, decreaseProductQuantityInCart, removeProductFromCart} from "../services/cart.service";
 
 type StoreItemProps = {
   id: number;

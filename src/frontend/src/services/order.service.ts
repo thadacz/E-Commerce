@@ -27,14 +27,25 @@ const orderApi = {
   },
 
   getSalesView: (startDate: string, endDate: string) => {
-    return axiosInstance.get<Array<ProductReport>>(`${ORDER_BASE_URL}/product-sales`, {
-      params: {
-        startDate: startDate,
-        endDate: endDate,
-      },
-    });
-  }
+    return axiosInstance.get<Array<ProductReport>>(
+      `${ORDER_BASE_URL}/product-sales`,
+      {
+        params: {
+          startDate: startDate,
+          endDate: endDate,
+        },
+      }
+    );
+  },
+
+  getHistory: (customerId: number) => {
+    return axiosInstance.get(`${ORDER_BASE_URL}/${customerId}/history`);
+  },
+  getOrderTotalAmountByOrderId: (orderId: number) => {
+    return axiosInstance.get(`${ORDER_BASE_URL}/total-amount/${orderId}`);
+  },
 };
+
 
 
 export default orderApi;

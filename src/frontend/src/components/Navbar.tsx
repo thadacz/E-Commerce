@@ -51,6 +51,11 @@ export function Navbar() {
             ))}
           </NavDropdown>
         </Nav>
+        <Nav className="me-auto">
+          <Nav.Link to="/history" as={NavLink}>
+            Order History
+          </Nav.Link>
+        </Nav>
         {user && token ? (
           user.roles.includes("ADMIN") ? (
             <>

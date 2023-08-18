@@ -18,6 +18,8 @@ import CategoriesList from "./components/CategoryList"
 import Category from "./components/Category"
 import SalesView  from "./components/SalesView"
 import UsersList from "./components/UserList";
+import { History } from "./components/History";
+import OutstandingPayment from "./components/OutstandingPayment";
 
 function App() {
   
@@ -32,6 +34,7 @@ function App() {
           <Route path="/registration" element={<Registration />} />
           <Route path="/delivery-form" element={<DeliveryForm />} />
           <Route path="/payment" element={<Payment />} />
+          <Route path="/payment/:id" element={<OutstandingPayment />} />
           <Route path="/products/add" element={<AddProduct />} />
           <Route path="/products" element={<ProductsList />} />
           <Route path="/products/:id" element={<Product />} />
@@ -41,7 +44,8 @@ function App() {
           <Route path="/categories" element={<CategoriesList />} />
           <Route path="/categories/:id" element={<Category />} />
           <Route path="/sales-view" element={<SalesView />} />
-          <Route path="/users" element={<UsersList/>}/>
+          <Route path="/users" element={<UsersList />} />
+          <Route path="/history" element={<History />} />
         </Routes>
       </Container>
     </ShoppingCartProvider>

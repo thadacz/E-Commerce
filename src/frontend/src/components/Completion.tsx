@@ -4,25 +4,10 @@ import orderApi from "../services/order.service";
 import orderRatingApi from "../services/order-rating.service";
 import  { Rating } from "react-simple-star-rating";
 import authApi from "../services/auth.service";
+import { format, parseISO } from "date-fns";
+import Address from "../types/address.type";
+import ProductReportDTO from "../types/product-report-dto.type";
 
-interface Address {
-  id: number;
-  firstName: string;
-  lastName: string;
-  companyName?: string | null;
-  streetAddress: string;
-  city: string;
-  department: string;
-  zip: string;
-  phone?: string | null;
-  emailAddress: string;
-}
-
-interface ProductReportDTO {
-  productName: string;
-  quantity: number;
-  price: number;
-}
 
 interface OrderReportDTO {
   customerFirstName: string;
@@ -31,6 +16,7 @@ interface OrderReportDTO {
   products: ProductReportDTO[];
   deliveryAddress: Address;
   orderStatus: string;
+  date: string ;
   orderTotalAmount: number;
 }
 
@@ -41,6 +27,7 @@ const Completion: React.FC = () => {
   const [comment, setComment] = useState<string>("");
   const [ratingSubmitted, setRatingSubmitted] = useState<boolean>(false);
   const [ratingError, setRatingError] = useState<string | null>(null);
+  
     
 const handleRatingChange = (rate: number) => {
   setRating(rate);
@@ -98,8 +85,16 @@ const handleRatingChange = (rate: number) => {
       });
   }, []);
 
+  {
+    orderReports.map((report, index) => {
+      console.log("Processing report at index", index, ":", report);
+
+      // ... rest of the mapping code ...
+    });
+  }
 
 
+  
   return (
     <div>
       <h1>Order Completion Report</h1>
@@ -121,7 +116,12 @@ const handleRatingChange = (rate: number) => {
                 </li>
               ))}
             </ul>
+            <p>
+              Execution Date:{" "}
+              {format(new Date(report.date), "yyyy-MM-dd HH:mm:ss")}
+            </p>
             <p>Total Amount: {report.orderTotalAmount}$</p>
+
             <h3>Delivery Address:</h3>
             <p>
               {report.deliveryAddress.firstName}{" "}
