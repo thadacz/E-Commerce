@@ -4,7 +4,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.hada.ecommerce.shop.domain.Address;
-import pl.hada.ecommerce.shop.domain.Category;
 import pl.hada.ecommerce.shop.service.UserShopService;
 import pl.hada.ecommerce.user.User;
 

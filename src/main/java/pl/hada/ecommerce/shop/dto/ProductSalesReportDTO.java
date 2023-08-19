@@ -1,4 +1,4 @@
-package pl.hada.ecommerce.shop.domain;
+package pl.hada.ecommerce.shop.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

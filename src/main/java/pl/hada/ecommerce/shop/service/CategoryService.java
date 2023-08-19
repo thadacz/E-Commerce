@@ -3,7 +3,7 @@ package pl.hada.ecommerce.shop.service;
 import org.springframework.stereotype.Service;
 import pl.hada.ecommerce.exeption.ResourceNotFoundException;
 import pl.hada.ecommerce.shop.domain.Category;
-import pl.hada.ecommerce.shop.domain.CategoryDTO;
+import pl.hada.ecommerce.shop.dto.CategoryDTO;
 import pl.hada.ecommerce.shop.repository.CategoryRepository;
 
 import java.util.List;

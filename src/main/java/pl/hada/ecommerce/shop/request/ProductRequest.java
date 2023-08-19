@@ -1,6 +1,7 @@
-package pl.hada.ecommerce.shop.domain;
+package pl.hada.ecommerce.shop.request;
 
 import org.springframework.web.multipart.MultipartFile;
+import pl.hada.ecommerce.shop.domain.Category;
 
 import java.math.BigDecimal;
 

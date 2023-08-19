@@ -5,6 +5,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.hada.ecommerce.shop.domain.*;
+import pl.hada.ecommerce.shop.dto.OrderReportDTO;
+import pl.hada.ecommerce.shop.dto.ProductSalesReportDTO;
 import pl.hada.ecommerce.shop.service.OrderService;
 
 import java.math.BigDecimal;

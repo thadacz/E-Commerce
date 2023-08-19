@@ -2,7 +2,6 @@ import { Routes, Route } from "react-router-dom"
 import { Container } from "react-bootstrap"
 import { Store } from "./components/Store";
 import { Navbar } from "./components/Navbar"
-import { ShoppingCartProvider } from "./context/ShoppingCartContext"
 import { Cart } from "./components/Cart"
 import Login from "./components/Login";
 import Registration from "./components/Registration";
@@ -24,31 +23,30 @@ import OutstandingPayment from "./components/OutstandingPayment";
 function App() {
   
   return (
-    <ShoppingCartProvider>
-      <Navbar />
-      <Container className="mb-4">
-        <Routes>
-          <Route path="/" element={<Store />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/registration" element={<Registration />} />
-          <Route path="/delivery-form" element={<DeliveryForm />} />
-          <Route path="/payment" element={<Payment />} />
-          <Route path="/payment/:id" element={<OutstandingPayment />} />
-          <Route path="/products/add" element={<AddProduct />} />
-          <Route path="/products" element={<ProductsList />} />
-          <Route path="/products/:id" element={<Product />} />
-          <Route path="/completion" element={<Completion />} />
-          <Route path="/category/:categoryId" element={<CategoryProducts />} />
-          <Route path="/categories/add" element={<AddCategory />} />
-          <Route path="/categories" element={<CategoriesList />} />
-          <Route path="/categories/:id" element={<Category />} />
-          <Route path="/sales-view" element={<SalesView />} />
-          <Route path="/users" element={<UsersList />} />
-          <Route path="/history" element={<History />} />
-        </Routes>
-      </Container>
-    </ShoppingCartProvider>
+      <>
+      <Navbar /><Container className="mb-4">
+      <Routes>
+        <Route path="/" element={<Store />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/registration" element={<Registration />} />
+        <Route path="/delivery-form" element={<DeliveryForm />} />
+        <Route path="/payment" element={<Payment />} />
+        <Route path="/payment/:id" element={<OutstandingPayment />} />
+        <Route path="/products/add" element={<AddProduct />} />
+        <Route path="/products" element={<ProductsList />} />
+        <Route path="/products/:id" element={<Product />} />
+        <Route path="/completion" element={<Completion />} />
+        <Route path="/category/:categoryId" element={<CategoryProducts />} />
+        <Route path="/categories/add" element={<AddCategory />} />
+        <Route path="/categories" element={<CategoriesList />} />
+        <Route path="/categories/:id" element={<Category />} />
+        <Route path="/sales-view" element={<SalesView />} />
+        <Route path="/users" element={<UsersList />} />
+        <Route path="/history" element={<History />} />
+      </Routes>
+    </Container>
+    </>
   );
 }
 

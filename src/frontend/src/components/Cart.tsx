@@ -1,15 +1,16 @@
 import { useEffect, useState } from "react";
-import axios from "axios"; 
 import { formatCurrency } from "../utilities/formatCurrency";
 import { Link } from "react-router-dom";
 import CartItem from "../types/cart-item.type";
 import authApi from "../services/auth.service";
 import cartApi from "../services/cart.service";
+import { Button } from "react-bootstrap";
 
 export function Cart() {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const user = authApi.getCurrentUser();
   const customerId = user.id;
+
   const calculateTotal = () => {
     let total = 0;
     cartItems.forEach((item) => {
@@ -55,16 +56,19 @@ export function Cart() {
               </div>
             </div>
             <div> {formatCurrency(item.product.price * item.quantity)}</div>
+            <Button
+              variant="outline-danger"
+              size="sm"
+              onClick={() => cartApi.removeFromCart(item.id,user.id)}
+            >
+              &times;
+            </Button>
           </div>
         ))
       )}
       {cartItems.length > 0 && (
         <div className="d-flex flex-column align-items-center mt-3">
-          <div
-            className="h3"
-          >
-            Total: {formatCurrency(calculateTotal())}
-          </div>
+          <div className="h3">Total: {formatCurrency(calculateTotal())}</div>
           <Link to="/delivery-form" className="btn btn-primary mt-3">
             Go to delivery form
           </Link>

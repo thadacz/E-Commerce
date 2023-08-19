@@ -88,8 +88,6 @@ const handleRatingChange = (rate: number) => {
   {
     orderReports.map((report, index) => {
       console.log("Processing report at index", index, ":", report);
-
-      // ... rest of the mapping code ...
     });
   }
 

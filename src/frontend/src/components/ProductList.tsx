@@ -54,6 +54,7 @@ const ProductsList: React.FC = () => {
       <Link to={"/products/add"} className="btn btn-success">
         Add new product
       </Link>
+      <p></p>
       <div className="list row">
         <div className="col-md-8">
           <div className="input-group mb-3">

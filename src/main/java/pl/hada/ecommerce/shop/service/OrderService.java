@@ -4,6 +4,9 @@ import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import pl.hada.ecommerce.exeption.InsufficientStockException;
 import pl.hada.ecommerce.shop.domain.*;
+import pl.hada.ecommerce.shop.dto.OrderReportDTO;
+import pl.hada.ecommerce.shop.dto.ProductReportDTO;
+import pl.hada.ecommerce.shop.dto.ProductSalesReportDTO;
 import pl.hada.ecommerce.shop.repository.*;
 import pl.hada.ecommerce.user.User;
 
@@ -62,33 +65,10 @@ public Order createOrderFromCart(Long customerId, Address address) {
   Cart newCart = new Cart(Collections.emptyList(), user);
   cartRepository.save(newCart);
 
-  // Update Product Stock
-  /*for (CartItem cartItem : cart.getCartItems()) {
-    Product product = cartItem.getProduct();
-    Integer quantityOrdered = cartItem.getQuantity();
-
-    if (product.getStock() >= quantityOrdered) {
-      product.setStock(product.getStock() - quantityOrdered);
-      productRepository.save(product);
-    } else {
-      throw new InsufficientStockException(product.getName());
-    }
-  }*/
-
 
   return savedOrder;
 }
 
-/*  public boolean completeOrder(Long userId) {
-    Order order = orderRepository.findMaxIdOrderForUser(userId).orElse(null);
-    if (order != null && order.getStatus() != OrderStatus.COMPLETED) {
-      order.setStatus(OrderStatus.COMPLETED);
-      order.setExecutionDate(LocalDateTime.now());
-      orderRepository.save(order);
-      return true;
-    }
-    return false;
-  }*/
 @Transactional
 public boolean completeOrder(Long userId) {
   Order order = orderRepository.findMaxIdOrderForUser(userId).orElse(null);
@@ -104,7 +84,7 @@ public boolean completeOrder(Long userId) {
         product.setStock(product.getStock() - quantityOrdered);
         productRepository.save(product);
 
-        // Update stock for all cart items with the same product
+        // Update stock for all cart items
         List<CartItem> cartItemsWithSameProduct = cartItemRepository.findByProduct(product);
         for (CartItem item : cartItemsWithSameProduct) {
           item.setStock(product.getStock());

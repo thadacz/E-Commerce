@@ -5,7 +5,7 @@ import org.springframework.web.multipart.MultipartFile;
 import pl.hada.ecommerce.azure.AzureBlobStorageService;
 import pl.hada.ecommerce.exeption.ResourceNotFoundException;
 import pl.hada.ecommerce.shop.domain.Product;
-import pl.hada.ecommerce.shop.domain.ProductRequest;
+import pl.hada.ecommerce.shop.request.ProductRequest;
 import pl.hada.ecommerce.shop.repository.ProductRepository;
 
 import java.io.IOException;

@@ -11,7 +11,7 @@ const AddProduct: React.FC = () => {
     price: 0,
     stock: 0,
     image: null as File | null,
-    category: { id: "", },
+    category: { id: "",name: "" },
   };
 
   const [product, setProduct] = useState<IProduct>(initialProductState);

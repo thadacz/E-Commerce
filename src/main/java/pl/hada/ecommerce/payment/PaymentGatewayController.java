@@ -13,10 +13,6 @@ public class PaymentGatewayController {
         this.stripeClient = stripeClient;
     }
 
-  /*  @PostMapping("/charge")
-    public Charge chargeCard(@RequestHeader(value="stripetoken") String token, @RequestHeader(value="amount") Double amount) throws Exception {
-        return this.stripeClient.chargeNewCard(token, amount);
-    }*/
   @PostMapping("/charge")
   public String chargeCard(@RequestBody Payment payment) throws Exception {
       String token = payment.getToken();

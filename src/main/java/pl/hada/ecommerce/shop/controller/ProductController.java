@@ -4,7 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.hada.ecommerce.shop.domain.Product;
-import pl.hada.ecommerce.shop.domain.ProductRequest;
+import pl.hada.ecommerce.shop.request.ProductRequest;
 import pl.hada.ecommerce.shop.service.ProductService;
 
 import java.io.IOException;

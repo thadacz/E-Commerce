@@ -22,8 +22,6 @@ export function StoreItem({ id }: StoreItemProps) {
         const productData = response.data;
         setProduct(productData);
         setStock(productData.stock);
-        // Pobierz ilość tego produktu w koszyku
-        // i ustaw stan komponentu
         fetchCartItemQuantity();
       })
       .catch((error) => {
@@ -35,7 +33,7 @@ export function StoreItem({ id }: StoreItemProps) {
     try {
       const cartResponse = await cartApi.getCart(user.id);
       const cartItemsData = cartResponse.data || [];
-      const cartItem = cartItemsData.find((item) => item.product.id === id);
+      const cartItem = cartItemsData.find((item: { product: { id: number; }; }) => item.product.id === id);
       setQuantity(cartItem ? cartItem.quantity : 0);
     } catch (error) {
       console.error("Error fetching cart items:", error);

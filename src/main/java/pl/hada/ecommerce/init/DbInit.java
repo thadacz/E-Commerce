@@ -41,22 +41,18 @@ public class DbInit {
     private void postConstruct() {
 
         String encodedPassword = new BCryptPasswordEncoder().encode("password");
-
         User admin = new User("admin","admin","admin@test.com", encodedPassword , Role.ADMIN,false,true);
         User normalUser = new User("user","user","user@test.com", encodedPassword , Role.USER,false,true);
-        userRepository.save(admin);
-        userRepository.save(normalUser);
+        userRepository.saveAll(List.of(admin,normalUser));
         Cart adminCart = new Cart(Collections.emptyList(), admin);
-        cartRepository.save(adminCart);
         Cart userCart = new Cart(Collections.emptyList(), normalUser);
-        cartRepository.save(userCart);
+        cartRepository.saveAll(List.of(userCart,adminCart));
         Category music = new Category("Music");
-        categoryRepository.save(music);
         Category technology = new Category("Technology");
-        categoryRepository.save(technology);
-        Product mac = new Product("Mac Miller - K.I.D.S","It's Mac Miller's debutant album.","https://s21423.blob.core.windows.net/s21423/Mac_Miller_K.I.D.S._cover_art.jpg",music, new BigDecimal(20),5);
-        Product rocky = new Product("A$AP Rocky - Testing","Rocky latest album","https://s21423.blob.core.windows.net/s21423/asap-rocky-testing.jpg",music, new BigDecimal(30),10);
-        Product schoolboy = new Product("Schoolboy Q - OXYMORON","The cooolest Schoolboy Q album.","https://s21423.blob.core.windows.net/s21423/ScHoolboy-q-oxymoron.jpg",music, new BigDecimal(10),20);
+        categoryRepository.saveAll(List.of(music,technology));
+        Product mac = new Product("Mac Miller - K.I.D.S","\"K.I.D.S\" is Mac Miller's youthful mixtape, capturing carefree spirit and coming-of-age vibes.","https://s21423.blob.core.windows.net/s21423/Mac_Miller_K.I.D.S._cover_art.jpg",music, new BigDecimal(20),5);
+        Product rocky = new Product("A$AP Rocky - Testing","\"Testing\" by A$AP Rocky: genre-blending, boundary-pushing musical journey.","https://s21423.blob.core.windows.net/s21423/asap-rocky-testing.jpg",music, new BigDecimal(30),10);
+        Product schoolboy = new Product("Schoolboy Q - OXYMORON","\"Oxymoron\" - Schoolboy Q's gritty, introspective portrayal of life's contradictions.","https://s21423.blob.core.windows.net/s21423/ScHoolboy-q-oxymoron.jpg",music, new BigDecimal(10),20);
         productRepository.saveAll(List.of(mac,rocky,schoolboy));
     }
 }

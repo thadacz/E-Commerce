@@ -12,8 +12,6 @@ interface Product {
   stock: number;
 }
 
-
-
 export function CategoryProducts() {
     const { categoryId } = useParams(); 
   const [products, setProducts] = useState<Product[]>([]);

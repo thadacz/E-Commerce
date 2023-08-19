@@ -4,7 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.hada.ecommerce.shop.domain.Category;
-import pl.hada.ecommerce.shop.domain.CategoryDTO;
+import pl.hada.ecommerce.shop.dto.CategoryDTO;
 import pl.hada.ecommerce.shop.service.CategoryService;
 
 import java.util.ArrayList;

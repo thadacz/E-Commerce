@@ -1,4 +1,4 @@
-package pl.hada.ecommerce.shop.domain;
+package pl.hada.ecommerce.shop.dto;
 
 public record CategoryDTO(
         Long id,

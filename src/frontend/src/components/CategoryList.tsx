@@ -57,6 +57,7 @@ const CategoriesList: React.FC = () => {
       >
         Add new category
       </Link>
+      <p></p>
       <div className="list row">
         <div className="col-md-8">
           <div className="input-group mb-3">
