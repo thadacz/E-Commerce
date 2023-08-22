@@ -24,7 +24,8 @@ export function Cart() {
   }, []);
 
   const fetchCartData = () => {
-      cartApi.getCart(customerId)
+    cartApi
+      .getCart(customerId)
       .then((response) => {
         setCartItems(response.data);
       })
@@ -33,6 +34,16 @@ export function Cart() {
       });
   };
 
+  const removeFromCart = (itemId: number) => {
+    cartApi
+      .removeFromCart(itemId, customerId)
+      .then(() => {
+        fetchCartData();
+      })
+      .catch((error) => {
+        console.error("Error removing item from cart:", error);
+      });
+  };
 
   return (
     <div>
@@ -41,7 +52,7 @@ export function Cart() {
         <p>Cart is empty</p>
       ) : (
         cartItems.map((item) => (
-          <div key={item.id} className="d-flex align-items-center">
+          <div key={item.product.id} className="d-flex align-items-center">
             <div className="me-auto">
               <div>
                 {item.product.name}{" "}
@@ -59,7 +70,7 @@ export function Cart() {
             <Button
               variant="outline-danger"
               size="sm"
-              onClick={() => cartApi.removeFromCart(item.id,user.id)}
+              onClick={() => removeFromCart(item.product.id)}
             >
               &times;
             </Button>
