@@ -127,11 +127,15 @@ public class CartService {
 
     @Transactional
     public List<CartItem> removeProductFromCart(Long customerId, Long productId) {
-
         Cart cart = cartRepository.findCartByUser_IdAndIsOrderedFalse(customerId);
         Product product = getProductById(productId);
         List<CartItem> cartItems = cart.getCartItems();
+
         cartItems.removeIf(cartItem -> cartItem.getProduct().equals(product));
+        cartRepository.save(cart);
+
+        BigDecimal updatedTotalAmount = getTotalAmount(cartItems);
+        cart.setTotalAmount(updatedTotalAmount);
         cartRepository.save(cart);
 
         return cart.getCartItems();

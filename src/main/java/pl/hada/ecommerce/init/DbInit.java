@@ -48,11 +48,13 @@ public class DbInit {
         Cart userCart = new Cart(Collections.emptyList(), normalUser);
         cartRepository.saveAll(List.of(userCart,adminCart));
         Category music = new Category("Music");
-        Category technology = new Category("Technology");
-        categoryRepository.saveAll(List.of(music,technology));
+        Category tickets = new Category("Tickets");
+        categoryRepository.saveAll(List.of(music,tickets));
         Product mac = new Product("Mac Miller - K.I.D.S","\"K.I.D.S\" is Mac Miller's youthful mixtape, capturing carefree spirit and coming-of-age vibes.","https://s21423.blob.core.windows.net/s21423/Mac_Miller_K.I.D.S._cover_art.jpg",music, new BigDecimal(20),5);
         Product rocky = new Product("A$AP Rocky - Testing","\"Testing\" by A$AP Rocky: genre-blending, boundary-pushing musical journey.","https://s21423.blob.core.windows.net/s21423/asap-rocky-testing.jpg",music, new BigDecimal(30),10);
         Product schoolboy = new Product("Schoolboy Q - OXYMORON","\"Oxymoron\" - Schoolboy Q's gritty, introspective portrayal of life's contradictions.","https://s21423.blob.core.windows.net/s21423/ScHoolboy-q-oxymoron.jpg",music, new BigDecimal(10),20);
-        productRepository.saveAll(List.of(mac,rocky,schoolboy));
+        Product miami = new Product("Rolling Loud - Miami 2023", "Rolling Loud returns to Miami, Florida from July 21st-23rd, 2023. The premier hip-hop festival features mix of legendary rappers and MCs and up-and-comers alike.","https://s21423.blob.core.windows.net/s21423/Miami 2023.jpg",tickets,new BigDecimal("99.99"),500);
+        Product california = new Product("Rolling Loud - California 2023","Rolling Loud California 2023 kicked off the spring festival season with a lineup of Hip-Hop and alternative music at Hollywood Park grounds, adjacent to SoFi Stadium in Inglewood, CA.","https://s21423.blob.core.windows.net/s21423/California 2023.jpg", tickets, new BigDecimal("89.99"),400);
+        productRepository.saveAll(List.of(mac,rocky,schoolboy,miami,california));
     }
 }

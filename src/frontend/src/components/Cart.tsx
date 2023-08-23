@@ -34,9 +34,9 @@ export function Cart() {
       });
   };
 
-  const removeFromCart = (itemId: number) => {
+  const removeFromCart = (productId: number, customerId: number) => {
     cartApi
-      .removeFromCart(itemId, customerId)
+      .removeFromCart(productId, customerId)
       .then(() => {
         fetchCartData();
       })
@@ -70,7 +70,7 @@ export function Cart() {
             <Button
               variant="outline-danger"
               size="sm"
-              onClick={() => removeFromCart(item.product.id)}
+              onClick={() => removeFromCart(item.product.id, user.id)}
             >
               &times;
             </Button>
