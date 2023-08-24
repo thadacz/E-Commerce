@@ -8,9 +8,9 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 import pl.hada.ecommerce.exeption.ResourceNotFoundException;
-import pl.hada.ecommerce.shop.domain.Cart;
-import pl.hada.ecommerce.shop.domain.CartItem;
-import pl.hada.ecommerce.shop.domain.Product;
+import pl.hada.ecommerce.shop.model.Cart;
+import pl.hada.ecommerce.shop.model.CartItem;
+import pl.hada.ecommerce.shop.model.Product;
 import pl.hada.ecommerce.shop.repository.CartItemRepository;
 import pl.hada.ecommerce.shop.repository.CartRepository;
 import pl.hada.ecommerce.shop.repository.ProductRepository;

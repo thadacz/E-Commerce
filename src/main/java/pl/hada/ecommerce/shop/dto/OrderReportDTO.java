@@ -1,7 +1,7 @@
 package pl.hada.ecommerce.shop.dto;
 
-import pl.hada.ecommerce.shop.domain.Address;
-import pl.hada.ecommerce.shop.domain.OrderStatus;
+import pl.hada.ecommerce.shop.model.Address;
+import pl.hada.ecommerce.shop.model.OrderStatus;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

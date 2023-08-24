@@ -1,8 +1,8 @@
 package pl.hada.ecommerce.shop.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import pl.hada.ecommerce.shop.domain.CartItem;
-import pl.hada.ecommerce.shop.domain.Product;
+import pl.hada.ecommerce.shop.model.CartItem;
+import pl.hada.ecommerce.shop.model.Product;
 
 import java.util.List;
 

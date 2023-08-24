@@ -1,4 +1,4 @@
-package pl.hada.ecommerce.shop.domain;
+package pl.hada.ecommerce.shop.model;
 
 import jakarta.annotation.Nullable;
 import jakarta.persistence.Entity;

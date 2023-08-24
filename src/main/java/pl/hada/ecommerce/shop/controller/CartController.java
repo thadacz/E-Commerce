@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pl.hada.ecommerce.shop.domain.CartItem;
+import pl.hada.ecommerce.shop.model.CartItem;
 import pl.hada.ecommerce.shop.service.CartService;
 
 @RestController

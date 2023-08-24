@@ -3,7 +3,7 @@ package pl.hada.ecommerce.shop.service;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import pl.hada.ecommerce.exeption.InsufficientStockException;
-import pl.hada.ecommerce.shop.domain.*;
+import pl.hada.ecommerce.shop.model.*;
 import pl.hada.ecommerce.shop.dto.OrderReportDTO;
 import pl.hada.ecommerce.shop.dto.ProductReportDTO;
 import pl.hada.ecommerce.shop.dto.ProductSalesReportDTO;

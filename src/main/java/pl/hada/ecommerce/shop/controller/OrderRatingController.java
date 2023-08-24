@@ -2,7 +2,7 @@ package pl.hada.ecommerce.shop.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pl.hada.ecommerce.shop.domain.OrderRating;
+import pl.hada.ecommerce.shop.model.OrderRating;
 import pl.hada.ecommerce.shop.service.OrderRatingService;
 
 import java.util.List;

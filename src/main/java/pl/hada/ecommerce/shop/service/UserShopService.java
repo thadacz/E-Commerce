@@ -3,7 +3,7 @@ package pl.hada.ecommerce.shop.service;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
-import pl.hada.ecommerce.shop.domain.Address;
+import pl.hada.ecommerce.shop.model.Address;
 import pl.hada.ecommerce.user.User;
 import pl.hada.ecommerce.shop.repository.AddressRepository;
 import pl.hada.ecommerce.shop.repository.CartRepository;

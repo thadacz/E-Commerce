@@ -4,13 +4,12 @@ package pl.hada.ecommerce.shop.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.hada.ecommerce.exeption.ResourceNotFoundException;
-import pl.hada.ecommerce.shop.domain.Order;
-import pl.hada.ecommerce.shop.domain.OrderRating;
+import pl.hada.ecommerce.shop.model.Order;
+import pl.hada.ecommerce.shop.model.OrderRating;
 import pl.hada.ecommerce.shop.repository.OrderRatingRepository;
 import pl.hada.ecommerce.shop.repository.OrderRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class OrderRatingService {

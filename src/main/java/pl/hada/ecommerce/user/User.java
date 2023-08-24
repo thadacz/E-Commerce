@@ -9,9 +9,9 @@ import org.hibernate.Hibernate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import pl.hada.ecommerce.shop.domain.Address;
-import pl.hada.ecommerce.shop.domain.Cart;
-import pl.hada.ecommerce.shop.domain.Order;
+import pl.hada.ecommerce.shop.model.Address;
+import pl.hada.ecommerce.shop.model.Cart;
+import pl.hada.ecommerce.shop.model.Order;
 
 import java.util.*;
 

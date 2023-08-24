@@ -1,4 +1,4 @@
-package pl.hada.ecommerce.shop.domain;
+package pl.hada.ecommerce.shop.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
@@ -28,7 +28,6 @@ public class Product {
     private String description;
 
     @DecimalMin(value = "0.0", inclusive = false)
-    // @Digits(integer = 5, fraction = 2)
     private BigDecimal price;
 
     @NotNull

@@ -1,4 +1,4 @@
-package pl.hada.ecommerce.shop.domain;
+package pl.hada.ecommerce.shop.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;

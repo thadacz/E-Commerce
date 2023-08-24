@@ -3,8 +3,8 @@ package pl.hada.ecommerce.shop.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-import pl.hada.ecommerce.shop.domain.Order;
-import pl.hada.ecommerce.shop.domain.OrderStatus;
+import pl.hada.ecommerce.shop.model.Order;
+import pl.hada.ecommerce.shop.model.OrderStatus;
 
 import java.time.LocalDateTime;
 import java.util.List;
