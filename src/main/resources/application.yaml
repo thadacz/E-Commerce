@@ -18,9 +18,9 @@ spring:
     password: puieplbayaiuslvn
   datasource:
     driverClassName: org.postgresql.Driver
-    password: password
-    username: hades
-    url: jdbc:postgresql://localhost:5332/store
+    password: Papier00)
+    username: s21423@s21423
+    url: jdbc:postgresql://s21423.postgres.database.azure.com:5432/store
 cors:
   allowed-origins: '*'
   exposed-headers: '*'
