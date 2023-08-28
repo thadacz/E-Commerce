@@ -23,7 +23,7 @@ public class RegistrationService {
     private final ConfirmationTokenService confirmationTokenService;
     private final EmailSender emailSender;
     private final CartRepository cartRepository;
-    @Value("${host_not_secured}")
+    @Value("${host}")
     private String HOST;
 
     public RegistrationService(UserService userService, EmailValidator emailValidator, ConfirmationTokenService confirmationTokenService, EmailSender emailSender, CartRepository cartRepository) {

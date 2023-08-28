@@ -96,6 +96,7 @@
         <dependency>
             <groupId>com.azure.spring</groupId>
             <artifactId>spring-cloud-azure-starter-jdbc-postgresql</artifactId>
+            <version>5.4.0</version>
         </dependency>
     </dependencies>
     <dependencyManagement>

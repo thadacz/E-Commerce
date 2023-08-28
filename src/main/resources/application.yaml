@@ -28,7 +28,6 @@ azure:
   storage:
     container-name: s21423
     connection-string: DefaultEndpointsProtocol=https;AccountName=s21423;AccountKey=Hpd2YKqOxaqDwaZ2esEHmf3QDjouLaZpfwuY1jnCGDe7atCQl+v2dnJJkCg0gfYFUJwf0JBXmed5+AStU/pKgQ==;EndpointSuffix=core.windows.net
-host_not_secured: http://localhost:8080
-host: https://localhost:8080
+host: https://hadastore.azurewebsites.net
 JWT_SECRET_KEY: aRbCzQ_987654321_aRbCzQ_987654321_aRbCzQ_987654321_aRbCzQ_987654321
 STRIPE_SECRET_KEY: sk_test_51NWHBKLvtQQG09MJrohc4YUTK2eYb0HHTR1OXr59C1tgrl1xt0FYDgQlXDxAod121P3361DIZJ0CCmvuxisu0Qu900O6EqJk8b
