@@ -1,25 +1,38 @@
-Przed uruchomieniem aplikacji użyj docker compose up do stworzenia bazy danych.
+Link do aplikacji webowej:
 
-Do korzystania z zabezpieczonych Requestow HTTP (wszystkich poza logowaniem i rejestracją)
-używaj w postman autoryzacji Bearer Tokena i wprowadź następujący token:
-eyJhbGciOiJIUzI1NiJ9.eyJzY29wZXMiOlsiVVNFUiJdLCJzdWIiOiJvdG9taS5oZEBnbWFpbC5jb20iLCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo4MDgwIiwiaWF0IjoxNjkwODMwNjYzLCJleHAiOjE2OTIxMjY2NjN9.pZD5RigcxX64reat2Ib9bHsWRvwlmYesUAB4-aoKQBw
+[frontend-iota-flame.vercel.app](https://frontend-iota-flame.vercel.app/)
 
-dla użytkownika:
-otomi.hd@gmail.com
-password
+**Przykładowe konta:**
 
-Przykładowe requesty:
+_**Dane dla konta użytkownika**_
 
-Get All Products
+username: user@test.com
 
-GET http://localhost:8080/api/products
+password: password
 
-Create Product
+**_Dane dla konta admistratora_**
 
-POST http://localhost:8080/api/products
-{
-"name": "ASAP Rocky",
-"price": 39.99,
-"stock": 200
-}
+username: admin@test.com
 
+password: password
+
+
+Aplikacja posiada integracje z systemem płatności **STRIPE**
+Została użyta w wersji testowej, poniżej podaje jak używać testowej karty kredytowej:
+
+**_Email:_**
+
+dowolny@email.com
+
+**_Card information:_**
+
+4242 4242 4242 4242
+
+12/34   567
+
+
+Możliwe niepożądane działania:
+
+Po zarejestrowaniu użytkownika widoczny jest błąd na ekranie strony.
+Pomimo widocznych ostrzeżeń rejestracja przechodzi pomyślnie i na mail zostaje przesłany działający link weryfikacji.
+Po kliknięciu w link zalecam od nowa wejść na aplikacje w celu zalogowania się.
