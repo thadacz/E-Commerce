@@ -37,6 +37,6 @@ Po zarejestrowaniu użytkownika widoczny jest błąd na ekranie strony.
 Pomimo widocznych ostrzeżeń rejestracja przechodzi pomyślnie i na mail zostaje przesłany działający link weryfikacji.
 Po kliknięciu w link zalecam od nowa wejść na aplikacje w celu zalogowania się.
 
-Link do dokumentacji:
+**Link do dokumentacji:**
 
 [https://hadastore.azurewebsites.net/swagger-ui/index.html](https://hadastore.azurewebsites.net/swagger-ui/index.html)
