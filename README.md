@@ -39,4 +39,4 @@ Po kliknięciu w link zalecam od nowa wejść na aplikacje w celu zalogowania si
 
 **Link do dokumentacji:**
 
-[https://hadastore.azurewebsites.net/swagger-ui/index.html](https://hadastore.azurewebsites.net/swagger-ui/index.html)
+[https://hada-store-server.azurewebsites.net/swagger-ui/index.html](https://hadastore.azurewebsites.net/swagger-ui/index.html)
