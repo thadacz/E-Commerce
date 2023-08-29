@@ -50,6 +50,6 @@ public class CategoryService {
     }
 
     public List<Category> findByNameContaining(String name) {
-        return categoryRepository.findByNameContaining(name);
+        return categoryRepository.findByNameStartingWithIgnoreCase(name);
     }
 }
