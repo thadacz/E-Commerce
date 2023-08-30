@@ -35,6 +35,11 @@ public class SecurityFilterChainConfig {
                                 .requestMatchers(
                                         HttpMethod.GET,
                                         "/api/products/**",
+                                        "/api/categories/**"
+                                ).permitAll()
+                                .requestMatchers(
+                                        HttpMethod.GET,
+                                        "/api/products/**",
                                         "/api/categories/**",
                                         "/api/order/**",
                                         "/api/order-ratings/**",
