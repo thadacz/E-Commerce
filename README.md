@@ -1,40 +1,71 @@
-Link do aplikacji webowej:
+# E-commerce Application
 
-[frontend-iota-flame.vercel.app](https://frontend-iota-flame.vercel.app/)
+## Project Description
 
-**Przykładowe konta:**
+The e-commerce application is a comprehensive system designed to facilitate online product sales and purchases. It incorporates various features and role-based functionalities to cater to different users, including guests, regular users, and administrators. Below is an overview of the key features:
 
-_**Dane dla konta użytkownika**_
+### User Roles
 
-username: user@test.com
+- **Guest:** Visitors can register.
+- **User:** Registered users can shop for products and place orders.
+- **Administrator:** Admins have full control over the system, including managing products, categories, and viewing sales statistics.
 
-password: password
+### User Registration and Email Verification
 
-**_Dane dla konta admistratora_**
+- Guests can register with the application, and email verification is required for account activation.
 
-username: admin@test.com
+### Secure Authentication
 
-password: password
+- Both users and administrators can securely log in using JWT tokens for authentication.
 
+### Product Management
 
-Aplikacja posiada integracje z systemem płatności **STRIPE**
-Została użyta w wersji testowej, poniżej podaje jak używać testowej karty kredytowej:
+- Users and administrators can view available products in the system.
+- Adding and removing products from the shopping cart is available for both users and administrators.
 
-**_Email:_**
+### Order Management
 
-dowolny@email.com
+- Users and administrators can place orders, specifying the delivery address.
+- Customer address management supports multiple delivery addresses.
 
-**_Card information:_**
+### Payment Processing
 
-4242 4242 4242 4242
+- Payments are handled securely using the Stripe API.
 
-12/34   567
+### Administrator Privileges
 
+- Administrators can add, edit, and delete products within the system.
+- They can also manage product categories, including adding, editing, and deleting categories.
 
-**Link do dokumentacji:**
+### Category Management
 
-[https://hada-store-server.azurewebsites.net/swagger-ui/index.html](https://hada-store-server.azurewebsites.net/swagger-ui/index.html)
+- Users and administrators can browse products by category.
+- Administrators can add, edit, and delete product categories.
 
-Do uruchomienia części klienckiej lokalnie:
-npm i
-npm run dev
+### Sales Statistics
+
+- Administrators have access to sales statistics, including the ability to select a time range for analysis.
+
+### Order Rating
+
+- Users and administrators can rate orders to provide feedback and enhance the user experience.
+
+## Technologies Used
+
+- **Backend:**
+    - Java 17
+    - Spring Boot 3.1
+    - Azure Blob Storage (for storing product images)
+
+- **Frontend:**
+    - React 18
+    - Bootstrap (for creating the user interface)
+
+- **Authentication:**
+    - JWT Tokens
+
+- **Payments:**
+    - Stripe (for online payment processing)
+
+- **Hosting:**
+    - Azure (the application was hosted on the Azure platform)

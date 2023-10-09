@@ -1,0 +1,842 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="fc1fd325-6adf-4640-a922-66cc74f6dded" name="Changes" comment="fixed">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/pl/hada/ecommerce/EcommerceApplicationTests.java" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+        <option value="Enum" />
+        <option value="JUnit5 Test Class" />
+        <option value="Interface" />
+        <option value="Record" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="azure" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="e338a7ab-9623-485b-b369-f56dcc475d24" />
+        <option name="url" value="https://github.com/thadacz/E-Commerce.git" />
+      </UrlAndAccount>
+    </option>
+  </component>
+  <component name="JpbToolWindowState">
+    <option name="myId2FirstActivated">
+      <map>
+        <entry key="com.haulmont.jpb.jpaInspector" value="true" />
+        <entry key="com.haulmont.jpb.jpaPalette" value="true" />
+        <entry key="com.haulmont.jpb.jpaStructure" value="true" />
+      </map>
+    </option>
+    <option name="myId2Visible">
+      <map>
+        <entry key="com.haulmont.jpb.jpaInspector" value="false" />
+        <entry key="com.haulmont.jpb.jpaPalette" value="false" />
+        <entry key="com.haulmont.jpb.jpaStructure" value="false" />
+      </map>
+    </option>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="Use Maven wrapper" />
+        <option name="useMavenConfig" value="true" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="2RVQ4OLcNTrl73pIxZJoMwmlzMj" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "Git.Branch.Popup.ShowAllRemotes": "true",
+    "JPA.DatabaseSchemaImportDialog": "9e6f4d7b-16d0-4792-b607-a49cf7eb4ae2",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
+    "last_directory_selection": "C:/inz/ecommerce/src/test/java/pl/hada/ecommerce/payment",
+    "last_opened_file_path": "C:/Projects/ecommerce",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Facets",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "spring.configuration.checksum": "db96ff26706a1a3d595ecb67266c2d94",
+    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\IntelliJ IDEA 2022.1\\plugins\\JavaScriptLanguage\\jsLanguageServicesImpl\\external",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "postgresql"
+    ]
+  }
+}]]></component>
+  <component name="ReactorSettings">
+    <option name="notificationShown" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="pl.hada.ecommerce.security" />
+      <recent name="pl.hada.ecommerce.registration.auth" />
+      <recent name="pl.hada.ecommerce.security.auth" />
+      <recent name="pl.hada.ecommerce.security.config" />
+      <recent name="pl.hada.ecommerce.registration" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\inz\ecommerce\src\main\java\pl\hada\ecommerce\stripe" />
+      <recent name="C:\inz\ecommerce\src\main\java\pl\hada\ecommerce" />
+      <recent name="C:\inz\ecommerce\src\main\java\pl\hada\ecommerce\jwt" />
+      <recent name="C:\inz\ecommerce" />
+      <recent name="C:\inz\ecommerce\src\main\resources" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\inz\ecommerce\src" />
+      <recent name="C:\inz\ecommerce\src\main\resources\templates" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="ExtractSuperBase.RECENT_KEYS">
+      <recent name="pl.hada.ecommerce.shop.repository" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="pl.hada.ecommerce.shop.controller" />
+      <recent name="pl.hada.ecommerce.payment.stripe" />
+      <recent name="pl.hada.ecommerce.registration" />
+    </key>
+    <key name="ImportMappingsDialog.RecentPackages">
+      <recent name="" />
+    </key>
+  </component>
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="mvn clean" />
+      <command value="mvn compile" />
+    </option>
+  </component>
+  <component name="RunManager" selected="Spring Boot.EcommerceApplication">
+    <configuration default="true" type="AZURE_FUNCTION_SUPPORT" factoryName="Run Functions">
+      <option name="appName" />
+      <option name="appServicePlanName" />
+      <option name="appServicePlanResourceGroup" />
+      <option name="appSettingsKey" value="f19e8cfe-ef9f-4b32-857f-13bc0d7e7723" />
+      <option name="artifact" />
+      <option name="autoPort" value="true" />
+      <option name="debugOptions" />
+      <option name="deployment" />
+      <option name="deploymentStagingDirectoryPath" />
+      <option name="funcPath" />
+      <option name="funcPort" value="0" />
+      <option name="hostJsonPath" />
+      <option name="insightsName" />
+      <option name="instrumentationKey" />
+      <option name="javaVersion" />
+      <option name="localSettingsJsonPath" />
+      <option name="moduleName" />
+      <option name="os" />
+      <option name="pricingTier" />
+      <option name="providerMap">
+        <map />
+      </option>
+      <option name="region" />
+      <option name="resourceGroup" />
+      <option name="stagingFolder" />
+      <option name="subscription" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CartControllerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ecommerce" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="pl.hada.ecommerce.shop.controller.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="pl.hada.ecommerce.shop.controller" />
+      <option name="MAIN_CLASS_NAME" value="pl.hada.ecommerce.shop.controller.CartControllerTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="StripeServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ecommerce" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="pl.hada.ecommerce.payment.stripe.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="pl.hada.ecommerce.payment.stripe" />
+      <option name="MAIN_CLASS_NAME" value="pl.hada.ecommerce.payment.stripe.StripeServiceTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="StripeServiceTest.itShouldChargeCard" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ecommerce" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="pl.hada.ecommerce.payment.stripe.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="pl.hada.ecommerce.payment.stripe" />
+      <option name="MAIN_CLASS_NAME" value="pl.hada.ecommerce.payment.stripe.StripeServiceTest" />
+      <option name="METHOD_NAME" value="itShouldChargeCard" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="StripeServiceTest.itShouldNotChargeWhenApiThrowsException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ecommerce" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="pl.hada.ecommerce.payment.stripe.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="pl.hada.ecommerce.payment.stripe" />
+      <option name="MAIN_CLASS_NAME" value="pl.hada.ecommerce.payment.stripe.StripeServiceTest" />
+      <option name="METHOD_NAME" value="itShouldNotChargeWhenApiThrowsException" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EcommerceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="ecommerce" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="pl.hada.ecommerce.EcommerceApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Azure Web App: ecommerce:ecommerce" type="com.microsoft.intellij.run.configuration.WebAppConfigurationType" factoryName="Azure Web App">
+      <option name="appServicePlanName" value="" />
+      <option name="appServicePlanResourceGroupName" value="" />
+      <option name="appSettingsKey" value="40698a6b-214a-4d88-ae31-11c1653f9743" />
+      <option name="appSettingsToRemove">
+        <set />
+      </option>
+      <option name="applicationLogLevel" value="Error" />
+      <option name="artifactIdentifier" value="pl.hada:ecommerce:0.0.1-SNAPSHOT" />
+      <option name="azureArtifactType" value="Maven" />
+      <option name="creatingAppServicePlan" value="true" />
+      <option name="creatingNew" value="false" />
+      <option name="creatingResGrp" value="false" />
+      <option name="deployToRoot" value="true" />
+      <option name="deployToSlot" value="false" />
+      <option name="enableApplicationLog" value="true" />
+      <option name="enableDetailedErrorMessage" value="false" />
+      <option name="enableFailedRequestTracing" value="false" />
+      <option name="enableWebServerLogging" value="true" />
+      <option name="newSlotConfigurationSource" />
+      <option name="newSlotName" />
+      <option name="openBrowserAfterDeployment" value="true" />
+      <option name="operatingSystem" value="linux" />
+      <option name="packaging" value="jar" />
+      <option name="pricing" value="B2" />
+      <option name="projectBase" value="" />
+      <option name="projectType" value="" />
+      <option name="region" value="southcentralus" />
+      <option name="resourceGroup" value="" />
+      <option name="slotName" />
+      <option name="slotPanelVisible" value="false" />
+      <option name="subscriptionId" value="e598d8ee-c0ce-49d6-af3e-c14b94506c9a" />
+      <option name="targetName" value="" />
+      <option name="targetPath" value="" />
+      <option name="webAppContainer" value="Java SE" />
+      <option name="webAppId" value="/subscriptions/e598d8ee-c0ce-49d6-af3e-c14b94506c9a/resourceGroups/rg-app-ecommerce-230828045535/providers/Microsoft.Web/sites/hadastore" />
+      <option name="webAppJavaVersion" value="17" />
+      <option name="webAppName" value="" />
+      <option name="webServerLogQuota" value="35" />
+      <option name="webServerRetentionPeriod" value="0" />
+      <method v="2">
+        <option name="Maven.BeforeRunTask" enabled="true" file="$PROJECT_DIR$/pom.xml" goal="package" />
+      </method>
+    </configuration>
+    <configuration default="true" type="com.microsoft.intellij.run.configuration.WebAppConfigurationType" factoryName="Azure Web App">
+      <option name="appServicePlanName" value="" />
+      <option name="appServicePlanResourceGroupName" value="" />
+      <option name="appSettingsKey" value="d621ab69-c76f-41fa-bac6-4f251339726b" />
+      <option name="appSettingsToRemove" />
+      <option name="applicationLogLevel" value="Error" />
+      <option name="artifactIdentifier" />
+      <option name="azureArtifactType" />
+      <option name="creatingAppServicePlan" value="false" />
+      <option name="creatingNew" value="false" />
+      <option name="creatingResGrp" value="false" />
+      <option name="deployToRoot" value="true" />
+      <option name="deployToSlot" value="false" />
+      <option name="enableApplicationLog" value="false" />
+      <option name="enableDetailedErrorMessage" value="false" />
+      <option name="enableFailedRequestTracing" value="false" />
+      <option name="enableWebServerLogging" value="false" />
+      <option name="newSlotConfigurationSource" />
+      <option name="newSlotName" />
+      <option name="openBrowserAfterDeployment" value="true" />
+      <option name="operatingSystem" />
+      <option name="packaging" />
+      <option name="pricing" value="" />
+      <option name="projectBase" value="" />
+      <option name="projectType" value="" />
+      <option name="region" value="" />
+      <option name="resourceGroup" value="" />
+      <option name="slotName" />
+      <option name="slotPanelVisible" value="false" />
+      <option name="subscriptionId" value="" />
+      <option name="targetName" value="" />
+      <option name="targetPath" value="" />
+      <option name="webAppContainer" />
+      <option name="webAppId" value="" />
+      <option name="webAppJavaVersion" />
+      <option name="webAppName" value="" />
+      <option name="webServerLogQuota" value="35" />
+      <option name="webServerRetentionPeriod" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Dockerfile" type="docker-deploy" factoryName="dockerfile" temporary="true" server-name="Docker">
+      <deployment type="dockerfile">
+        <settings>
+          <option name="sourceFilePath" value="Dockerfile" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.StripeServiceTest.itShouldNotChargeWhenApiThrowsException" />
+        <item itemvalue="JUnit.StripeServiceTest.itShouldChargeCard" />
+        <item itemvalue="JUnit.StripeServiceTest" />
+        <item itemvalue="JUnit.CartControllerTest" />
+        <item itemvalue="Docker.Dockerfile" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SQLScriptSettings">
+    <option name="outputPath" value="C:\Users\Hades\Downloads\sql" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="fc1fd325-6adf-4640-a922-66cc74f6dded" name="Changes" comment="" />
+      <created>1687332577064</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1687332577064</updated>
+      <workItem from="1687332578101" duration="211000" />
+      <workItem from="1687333815677" duration="16957000" />
+      <workItem from="1687366061944" duration="957000" />
+      <workItem from="1687952319258" duration="5000" />
+      <workItem from="1688316688496" duration="286000" />
+      <workItem from="1688317087494" duration="645000" />
+      <workItem from="1688583550089" duration="4423000" />
+      <workItem from="1689090154373" duration="5987000" />
+      <workItem from="1689098047254" duration="21882000" />
+      <workItem from="1689591297935" duration="49381000" />
+      <workItem from="1690394814757" duration="10921000" />
+      <workItem from="1690465049454" duration="10236000" />
+      <workItem from="1690643066666" duration="27724000" />
+      <workItem from="1691000176444" duration="12033000" />
+      <workItem from="1691140681011" duration="7419000" />
+      <workItem from="1691148234916" duration="9752000" />
+      <workItem from="1691325001962" duration="46332000" />
+      <workItem from="1691457006969" duration="11351000" />
+      <workItem from="1691588958941" duration="5294000" />
+      <workItem from="1691608141739" duration="10859000" />
+      <workItem from="1691700321074" duration="10712000" />
+      <workItem from="1691771173763" duration="8606000" />
+      <workItem from="1691852517841" duration="13853000" />
+      <workItem from="1691932054884" duration="51910000" />
+      <workItem from="1692067343003" duration="6947000" />
+      <workItem from="1692136327295" duration="5980000" />
+      <workItem from="1692176554935" duration="10146000" />
+      <workItem from="1692188236079" duration="3579000" />
+      <workItem from="1692202049900" duration="32149000" />
+      <workItem from="1692372367044" duration="14548000" />
+      <workItem from="1692417019125" duration="5283000" />
+      <workItem from="1692807479628" duration="18356000" />
+      <workItem from="1692904510018" duration="1285000" />
+      <workItem from="1692906446780" duration="16880000" />
+      <workItem from="1693189037859" duration="80000" />
+      <workItem from="1693189260779" duration="4144000" />
+      <workItem from="1693195448254" duration="200000" />
+      <workItem from="1693196104070" duration="10592000" />
+      <workItem from="1693310068245" duration="11958000" />
+      <workItem from="1693505875736" duration="1363000" />
+      <workItem from="1693567247654" duration="1192000" />
+      <workItem from="1693572067334" duration="413000" />
+      <workItem from="1693572541353" duration="2598000" />
+      <workItem from="1695206688147" duration="697000" />
+      <workItem from="1696848557610" duration="1704000" />
+      <workItem from="1696850391079" duration="1413000" />
+    </task>
+    <task id="LOCAL-00006" summary="jwt completed">
+      <created>1690477088015</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1690477088015</updated>
+    </task>
+    <task id="LOCAL-00007" summary="works">
+      <created>1690883120245</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1690883120246</updated>
+    </task>
+    <task id="LOCAL-00008" summary="works">
+      <created>1691150050698</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1691150050699</updated>
+    </task>
+    <task id="LOCAL-00009" summary="works on docker">
+      <created>1691150124570</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1691150124570</updated>
+    </task>
+    <task id="LOCAL-00010" summary="works">
+      <created>1691278947279</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1691278947279</updated>
+    </task>
+    <task id="LOCAL-00011" summary="not yet">
+      <created>1691454105278</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1691454105278</updated>
+    </task>
+    <task id="LOCAL-00012" summary="ok">
+      <created>1691678353278</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1691678353279</updated>
+    </task>
+    <task id="LOCAL-00013" summary="added frontend and hide secret keys">
+      <created>1691770192587</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1691770192588</updated>
+    </task>
+    <task id="LOCAL-00014" summary="fixed stock error and improvement with base url set up">
+      <created>1691801742617</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1691801742618</updated>
+    </task>
+    <task id="LOCAL-00015" summary="added order rating">
+      <created>1691936280072</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1691936280072</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Added categories and image uploading">
+      <created>1691975669833</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1691975669833</updated>
+    </task>
+    <task id="LOCAL-00017" summary="services and category page">
+      <created>1691975848204</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1691975848204</updated>
+    </task>
+    <task id="LOCAL-00018" summary="services and category page">
+      <created>1692023257932</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1692023257932</updated>
+    </task>
+    <task id="LOCAL-00019" summary="categories completed">
+      <created>1692033258535</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1692033258535</updated>
+    </task>
+    <task id="LOCAL-00020" summary="categories fixed">
+      <created>1692033958828</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1692033958828</updated>
+    </task>
+    <task id="LOCAL-00021" summary="partly works">
+      <created>1692042641597</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1692042641597</updated>
+    </task>
+    <task id="LOCAL-00022" summary="azure works">
+      <created>1692051729143</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1692051729143</updated>
+    </task>
+    <task id="LOCAL-00023" summary="everything works">
+      <created>1692052130985</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1692052130985</updated>
+    </task>
+    <task id="LOCAL-00024" summary="full search started">
+      <created>1692062543553</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1692062543553</updated>
+    </task>
+    <task id="LOCAL-00025" summary="Added searchbar">
+      <created>1692139957638</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1692139957638</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Update product up-to-date">
+      <created>1692141029438</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1692141029438</updated>
+    </task>
+    <task id="LOCAL-00027" summary="Sales View started">
+      <created>1692142151401</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1692142151401</updated>
+    </task>
+    <task id="LOCAL-00028" summary="Works fine">
+      <created>1692179458866</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1692179458866</updated>
+    </task>
+    <task id="LOCAL-00029" summary="Works fine">
+      <created>1692179511694</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1692179511694</updated>
+    </task>
+    <task id="LOCAL-00030" summary="inz final">
+      <created>1692187825306</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1692187825307</updated>
+    </task>
+    <task id="LOCAL-00031" summary="inz final">
+      <created>1692191039048</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1692191039063</updated>
+    </task>
+    <task id="LOCAL-00032" summary="Filter Date Works">
+      <created>1692212612324</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1692212612324</updated>
+    </task>
+    <task id="LOCAL-00033" summary="imports fixed">
+      <created>1692226246644</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1692226246645</updated>
+    </task>
+    <task id="LOCAL-00034" summary="backup">
+      <created>1692323107269</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1692323107270</updated>
+    </task>
+    <task id="LOCAL-00035" summary="backupp">
+      <created>1692352427201</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1692352427202</updated>
+    </task>
+    <task id="LOCAL-00036" summary="workkk">
+      <created>1692390478309</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1692390478309</updated>
+    </task>
+    <task id="LOCAL-00037" summary="final">
+      <created>1692392202072</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1692392202072</updated>
+    </task>
+    <task id="LOCAL-00038" summary="final">
+      <created>1692396650588</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1692396650588</updated>
+    </task>
+    <task id="LOCAL-00039" summary="ok">
+      <created>1692398239083</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1692398239083</updated>
+    </task>
+    <task id="LOCAL-00040" summary="done">
+      <created>1692418300060</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1692418300060</updated>
+    </task>
+    <task id="LOCAL-00041" summary="fixed remove bug in cart">
+      <created>1692727585178</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1692727585178</updated>
+    </task>
+    <task id="LOCAL-00042" summary="fixed total amount calculation added logo and title">
+      <created>1692810657471</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1692810657471</updated>
+    </task>
+    <task id="LOCAL-00043" summary="changed package name">
+      <created>1692863193869</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1692863193869</updated>
+    </task>
+    <task id="LOCAL-00044" summary="changed type">
+      <created>1692899269254</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1692899269254</updated>
+    </task>
+    <task id="LOCAL-00045" summary="postgresql db works">
+      <created>1693186102751</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1693186102751</updated>
+    </task>
+    <task id="LOCAL-00046" summary="complete">
+      <created>1693193063517</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1693193063517</updated>
+    </task>
+    <task id="LOCAL-00047" summary="README updated">
+      <created>1693231347351</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1693231347352</updated>
+    </task>
+    <task id="LOCAL-00048" summary="Added link to documentation">
+      <created>1693232990442</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1693232990442</updated>
+    </task>
+    <task id="LOCAL-00049" summary="Bold font added">
+      <created>1693233027018</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1693233027018</updated>
+    </task>
+    <task id="LOCAL-00050" summary="Fixed deployment">
+      <created>1693309959558</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1693309959560</updated>
+    </task>
+    <task id="LOCAL-00051" summary="Updated README.md">
+      <created>1693310149511</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1693310149513</updated>
+    </task>
+    <task id="LOCAL-00052" summary="Case insensitive while searching fixed">
+      <created>1693325291844</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1693325291845</updated>
+    </task>
+    <task id="LOCAL-00053" summary="fixed">
+      <created>1693408405866</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1693408405868</updated>
+    </task>
+    <task id="LOCAL-00054" summary="fixed">
+      <created>1693572891705</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1693572891706</updated>
+    </task>
+    <option name="localTasksCounter" value="55" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Update product up-to-date" />
+    <MESSAGE value="Sales View started" />
+    <MESSAGE value="Works fine" />
+    <MESSAGE value="inz final" />
+    <MESSAGE value="Filter Date Works" />
+    <MESSAGE value="imports fixed" />
+    <MESSAGE value="backup" />
+    <MESSAGE value="backupp" />
+    <MESSAGE value="workkk" />
+    <MESSAGE value="final" />
+    <MESSAGE value="ok" />
+    <MESSAGE value="done" />
+    <MESSAGE value="fixed remove bug in cart" />
+    <MESSAGE value="fixed total amount calculation added logo and title" />
+    <MESSAGE value="changed package name" />
+    <MESSAGE value="changed type" />
+    <MESSAGE value="postgresql db works" />
+    <MESSAGE value="complete" />
+    <MESSAGE value="README updated" />
+    <MESSAGE value="Added link to documentation" />
+    <MESSAGE value="Bold font added" />
+    <MESSAGE value="Fixed deployment" />
+    <MESSAGE value="Updated README.md" />
+    <MESSAGE value="Case insensitive while searching fixed" />
+    <MESSAGE value="fixed" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/pl/hada/ecommerce/payment/stripe/StripeService.java</url>
+          <line>46</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/pl/hada/ecommerce/payment/stripe/StripeService.java</url>
+          <line>47</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/pl/hada/ecommerce/payment/stripe/StripeService.java</url>
+          <line>49</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/pl/hada/ecommerce/shop/controller/CartControllerTest.java</url>
+          <line>22</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo parentTag="pl.hada.ecommerce.domain.Customer" memberName="carts" />
+        <PinnedItemInfo parentTag="pl.hada.ecommerce.domain.Cart" memberName="id" />
+        <PinnedItemInfo parentTag="pl.hada.ecommerce.domain.Cart" memberName="cartItems" />
+      </pinned-members>
+    </pin-to-top-manager>
+  </component>
+</project>
