@@ -1,5 +1,7 @@
 import React, { useState, useEffect, ChangeEvent } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 import categoryApi from "../services/category.service";
 import ICategoryData from "../types/category.type";
 
@@ -7,35 +9,58 @@ const Category: React.FC = () => {
   const { id } = useParams();
   let navigate = useNavigate();
 
-  const initialCategoryState = {
+  const validationSchema = Yup.object().shape({
+    name: Yup.string()
+      .required("Name is required")
+      .min(3, "Name must be at least 3 characters")
+      .max(50, "Name can't exceed 50 characters"),
+  });
+
+  const [currentCategory, setCurrentCategory] = useState<ICategoryData>({
+    id: "",
     name: "",
-  };
-  const [currentCategory, setCurrentCategory] =
-    useState<ICategoryData>(initialCategoryState);
+  });
   const [message, setMessage] = useState<string>("");
 
-  const getCategory = (id: number) => {
-   categoryApi.getCategoryById(id)
+  useEffect(() => {
+    if (id) {
+      getCategory(Number(id));
+    }
+  }, [id]);
+
+  const getCategory = (categoryId: number) => {
+    categoryApi
+      .getCategoryById(categoryId)
       .then((response: any) => {
         setCurrentCategory(response.data);
-        console.log(response.data);
+        formik.setFieldValue("name", response.data.name);
       })
       .catch((e: Error) => {
         console.log(e);
       });
   };
 
-  useEffect(() => {
-    if (id) getCategory(Number(id));
-  }, [id]);
+  const formik = useFormik({
+    initialValues: {
+      name: currentCategory.name,
+    },
+    validationSchema,
+    onSubmit: (values) => {
+      updateCategoryById(values);
+    },
+  });
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    setCurrentCategory({ ...currentCategory, [name]: value });
+    formik.handleChange(event);
+    setCurrentCategory({
+      ...currentCategory,
+      [event.target.name]: event.target.value,
+    });
   };
 
-  const updateCategoryById = () => {
-    categoryApi.updateCategory(currentCategory.id, currentCategory)
+  const updateCategoryById = (updatedCategory: ICategoryData) => {
+    categoryApi
+      .updateCategory(currentCategory.id, updatedCategory)
       .then((response: any) => {
         console.log(response.data);
         setMessage("The category was updated successfully!");
@@ -46,7 +71,8 @@ const Category: React.FC = () => {
   };
 
   const deleteCategoryById = () => {
-    categoryApi.deleteCategory(currentCategory.id)
+    categoryApi
+      .deleteCategory(currentCategory.id)
       .then((response: any) => {
         console.log(response.data);
         navigate("/categories");
@@ -61,7 +87,7 @@ const Category: React.FC = () => {
       {currentCategory.id ? (
         <div className="edit-form">
           <h4>Category</h4>
-          <form>
+          <form onSubmit={formik.handleSubmit}>
             <div className="form-group">
               <label htmlFor="name">Name</label>
               <input
@@ -69,22 +95,25 @@ const Category: React.FC = () => {
                 className="form-control"
                 id="name"
                 name="name"
-                value={currentCategory.name}
+                value={formik.values.name}
                 onChange={handleInputChange}
+                onBlur={formik.handleBlur}
               />
+              {formik.touched.name && formik.errors.name ? (
+                <div className="error">{formik.errors.name}</div>
+              ) : null}
             </div>
+            <button type="submit" className="btn btn-primary">
+              Update
+            </button>
+            <button
+              className="btn btn-danger ml-2"
+              onClick={deleteCategoryById}
+            >
+              Delete
+            </button>
+            <p>{message}</p>
           </form>
-          <button
-            type="submit"
-            className="btn btn-primary"
-            onClick={updateCategoryById}
-          >
-            Update
-          </button>
-          <button className="btn btn-danger ml-2" onClick={deleteCategoryById}>
-            Delete
-          </button>
-          <p>{message}</p>
         </div>
       ) : (
         <div>

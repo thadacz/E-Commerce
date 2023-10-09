@@ -1,5 +1,7 @@
 import React, { useState, ChangeEvent } from "react";
-import ICategory from "../types/category.type"; 
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import ICategory from "../types/category.type";
 import categoryApi from "../services/category.service";
 
 const AddCategory: React.FC = () => {
@@ -9,17 +11,38 @@ const AddCategory: React.FC = () => {
   const [category, setCategory] = useState<ICategory>(initialCategoryState);
   const [submitted, setSubmitted] = useState<boolean>(false);
 
+  const validationSchema = Yup.object().shape({
+    name: Yup.string()
+      .required("Name is required")
+      .min(3, "Name must be at least 3 characters")
+      .max(50, "Name can't exceed 50 characters"),
+  });
+
+  const formik = useFormik({
+    initialValues: {
+      name: initialCategoryState.name,
+    },
+    validationSchema,
+    onSubmit: (values) => {
+      saveCategory(values);
+    },
+  });
+
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    setCategory({ ...category, [name]: value });
+    formik.handleChange(event);
+    setCategory({
+      ...category,
+      [event.target.name]: event.target.value,
+    });
   };
 
-  const saveCategory = () => {
+  const saveCategory = (values: { name: any; }) => {
     var data = {
-      name: category.name,
+      name: values.name,
     };
 
-    categoryApi.addCategory(data)
+    categoryApi
+      .addCategory(data)
       .then((response: any) => {
         setCategory({
           name: response.data.name,
@@ -35,6 +58,7 @@ const AddCategory: React.FC = () => {
   const newCategory = () => {
     setCategory(initialCategoryState);
     setSubmitted(false);
+    formik.resetForm();
   };
 
   return (
@@ -48,22 +72,30 @@ const AddCategory: React.FC = () => {
         </div>
       ) : (
         <div>
-          <div className="form-group">
-            <label htmlFor="name">Name</label>
-            <input
-              type="text"
-              className="form-control"
-              id="name"
-              required
-              value={category.name}
-              onChange={handleInputChange}
-              name="name"
-            />
-          </div>
+          <form onSubmit={formik.handleSubmit}>
+            <div className="form-group">
+              <label htmlFor="name">Name</label>
+              <input
+                type="text"
+                className={`form-control ${
+                  formik.touched.name && formik.errors.name ? "is-invalid" : ""
+                }`}
+                id="name"
+                required
+                value={formik.values.name}
+                onChange={handleInputChange}
+                onBlur={formik.handleBlur}
+                name="name"
+              />
+              {formik.touched.name && formik.errors.name ? (
+                <div className="invalid-feedback">{formik.errors.name}</div>
+              ) : null}
+            </div>
 
-          <button onClick={saveCategory} className="btn btn-success">
-            Submit
-          </button>
+            <button type="submit" className="btn btn-success">
+              Submit
+            </button>
+          </form>
         </div>
       )}
     </div>

@@ -1,4 +1,6 @@
 import React, { useState, ChangeEvent, useEffect } from "react";
+import * as Yup from "yup";
+import { useFormik } from "formik";
 import productApi from "../services/product.service";
 import IProduct from "../types/product.type";
 import Category from "../types/category.type";
@@ -11,61 +13,65 @@ const AddProduct: React.FC = () => {
     price: 0,
     stock: 0,
     image: null as File | null,
-    category: { id: "",name: "" },
+    category: "",
   };
 
-  const [product, setProduct] = useState<IProduct>(initialProductState);
-  const [submitted, setSubmitted] = useState<boolean>(false);
   const [categoryNames, setCategoryNames] = useState<Category[]>([]);
 
-    useEffect(() => {
-      categoryApi.getCategoriesNames()
-        .then((response: any) => {
-          setCategoryNames(response.data);
-        })
-        .catch((error: Error) => {
-          console.log(error);
-        });
-    }, []);
+  useEffect(() => {
+    categoryApi
+      .getCategoriesNames()
+      .then((response: any) => {
+        setCategoryNames(response.data);
+      })
+      .catch((error: Error) => {
+        console.log(error);
+      });
+  }, []);
 
-  const handleInputChange = (
-    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = event.target;
-    setProduct({ ...product, [name]: value });
-  };
+  const validationSchema = Yup.object({
+    name: Yup.string().required("Name is required"),
+    description: Yup.string().required("Description is required"),
+    category: Yup.string().required("Category is required"),
+    price: Yup.number()
+      .required("Price is required")
+      .positive("Price must be positive"),
+    stock: Yup.number()
+      .required("Stock is required")
+      .integer("Stock must be an integer")
+      .min(0, "Stock must be at least 0"),
+    image: Yup.mixed().required("Image is required"),
+  });
+
+  const formik = useFormik({
+    initialValues: initialProductState,
+    validationSchema: validationSchema,
+    onSubmit: (values) => {
+      saveProduct(values);
+    },
+  });
 
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files.length > 0) {
-      setProduct({ ...product, image: event.target.files[0] });
+      formik.setFieldValue("image", event.target.files[0]);
     }
   };
 
-   const handleCategoryChange = (event: ChangeEvent<HTMLSelectElement>) => {
-     const { value } = event.target;
-     const selectedCategory = categoryNames.find(
-       (category) => category.id.toString() === value
-     );
-     if (selectedCategory) {
-       setProduct({ ...product, category: { id: selectedCategory.id } });
-     }
-   };
-
-  const saveProduct = () => {
+  const saveProduct = (productData: any) => {
     const formData = new FormData();
-    formData.append("name", product.name);
-    formData.append("description", product.description);
-    formData.append("price", product.price.toString());
-    formData.append("stock", product.stock.toString());
-    formData.append("category", product.category?.id);
-    if (product.image) {
-      formData.append("image", product.image);
+    formData.append("name", productData.name);
+    formData.append("description", productData.description);
+    formData.append("price", productData.price.toString());
+    formData.append("stock", productData.stock.toString());
+    formData.append("category", productData.category);
+    if (productData.image) {
+      formData.append("image", productData.image);
     }
 
-    productApi.addProduct(formData)
+    productApi
+      .addProduct(formData)
       .then((response: any) => {
-        setProduct(initialProductState);
-        setSubmitted(true);
+        formik.resetForm();
         console.log(response.data);
       })
       .catch((error: Error) => {
@@ -73,23 +79,11 @@ const AddProduct: React.FC = () => {
       });
   };
 
-  const newProduct = () => {
-    setProduct(initialProductState);
-    setSubmitted(false);
-  };
-
   return (
     <div className="submit-form">
-      {submitted ? (
-        <div>
-          <h4>You submitted successfully!</h4>
-          <button className="btn btn-success" onClick={newProduct}>
-            Add Another Product
-          </button>
-        </div>
-      ) : (
-        <div>
-          <h4>Add new product</h4>
+      <div>
+        <h4>Add new product</h4>
+        <form onSubmit={formik.handleSubmit}>
           <div className="form-group">
             <label htmlFor="name">Name</label>
             <input
@@ -97,32 +91,29 @@ const AddProduct: React.FC = () => {
               className="form-control"
               id="name"
               required
-              value={product.name}
-              onChange={handleInputChange}
-              name="name"
+              {...formik.getFieldProps("name")}
             />
+            {formik.touched.name && formik.errors.name ? (
+              <div className="error">{formik.errors.name}</div>
+            ) : null}
           </div>
-
           <div className="form-group">
             <label htmlFor="description">Description</label>
             <textarea
               className="form-control"
               id="description"
-              value={product.description}
-              onChange={handleInputChange}
-              name="description"
+              {...formik.getFieldProps("description")}
             />
+            {formik.touched.description && formik.errors.description ? (
+              <div className="error">{formik.errors.description}</div>
+            ) : null}
           </div>
-
           <div className="form-group">
             <label htmlFor="category">Category</label>
             <select
               className="form-control"
               id="category"
-              value={product.category?.id || ""}
-              onChange={handleCategoryChange}
-              name="category"
-              required
+              {...formik.getFieldProps("category")}
             >
               <option value="">Select a category</option>
               {categoryNames.map((category) => (
@@ -131,8 +122,10 @@ const AddProduct: React.FC = () => {
                 </option>
               ))}
             </select>
+            {formik.touched.category && formik.errors.category ? (
+              <div className="error">{formik.errors.category}</div>
+            ) : null}
           </div>
-
           <div className="form-group">
             <label htmlFor="price">Price</label>
             <input
@@ -140,12 +133,12 @@ const AddProduct: React.FC = () => {
               className="form-control"
               id="price"
               required
-              value={product.price}
-              onChange={handleInputChange}
-              name="price"
+              {...formik.getFieldProps("price")}
             />
+            {formik.touched.price && formik.errors.price ? (
+              <div className="error">{formik.errors.price}</div>
+            ) : null}
           </div>
-
           <div className="form-group">
             <label htmlFor="stock">Stock</label>
             <input
@@ -153,12 +146,12 @@ const AddProduct: React.FC = () => {
               className="form-control"
               id="stock"
               required
-              value={product.stock}
-              onChange={handleInputChange}
-              name="stock"
+              {...formik.getFieldProps("stock")}
             />
+            {formik.touched.stock && formik.errors.stock ? (
+              <div className="error">{formik.errors.stock}</div>
+            ) : null}
           </div>
-
           <div className="form-group">
             <label htmlFor="image">Image</label>
             <input
@@ -168,13 +161,16 @@ const AddProduct: React.FC = () => {
               id="image"
               onChange={handleImageChange}
             />
+            {formik.touched.image && formik.errors.image ? (
+              <div className="error">{formik.errors.image}</div>
+            ) : null}
           </div>
 
-          <button onClick={saveProduct} className="btn btn-success">
+          <button type="submit" className="btn btn-success">
             Submit
           </button>
-        </div>
-      )}
+        </form>
+      </div>
     </div>
   );
 };

@@ -13,6 +13,7 @@ export function Navbar() {
   const user = authApi.getCurrentUser()
   const token = localStorage.getItem("token")
 
+  
     useEffect(() => {
       fetchCategoriesNames();
     }, []);
@@ -20,11 +21,14 @@ export function Navbar() {
     const fetchCategoriesNames = async () => {
       try {
         const response = await categoryApi.getCategoriesNames();
-        setCategories(response.data); 
+        setCategories(response.data);
       } catch (error) {
         console.error("Error fetching categories:", error);
       }
     };
+  
+
+    
 
     const handleLogout = () => {
       authApi.logout();
@@ -34,11 +38,14 @@ export function Navbar() {
   return (
     <NavbarBs sticky="top" className="bg-white shadow-sm mb-3">
       <Container>
-        <Nav className="me-auto">
-          <Nav.Link to="/" as={NavLink}>
-            Store
-          </Nav.Link>
-        </Nav>
+        {user && (
+          <Nav className="me-auto">
+            <Nav.Link to="/store" as={NavLink}>
+              Store
+            </Nav.Link>
+          </Nav>
+        )}
+        {user && (
         <Nav className="me-auto">
           <NavDropdown title="Category" id="basic-nav-dropdown">
             {categories.map((category) => (
@@ -51,11 +58,14 @@ export function Navbar() {
             ))}
           </NavDropdown>
         </Nav>
+        )}
+        {user && (
         <Nav className="me-auto">
           <Nav.Link to="/history" as={NavLink}>
             Order History
           </Nav.Link>
         </Nav>
+        )}
         {user && token ? (
           user.roles.includes("ADMIN") ? (
             <>
@@ -82,6 +92,7 @@ export function Navbar() {
             </>
           ) : null
         ) : null}
+        {user && (
         <Button
           onClick={handleClick}
           style={{ width: "3rem", height: "3rem", position: "relative" }}
@@ -123,6 +134,7 @@ export function Navbar() {
             </g>
           </svg>
         </Button>
+        )}
         {user && token ? (
           <Button onClick={handleLogout} variant="outline-primary">
             Logout

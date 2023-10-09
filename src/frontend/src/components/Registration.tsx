@@ -46,7 +46,6 @@ const Register: React.FC<Props> = () => {
     authApi.register(firstName, lastName, email, password).then(
       () => {
         navigate("/login");
-        window.location.reload();
       },
       (error) => {
         const resMessage =

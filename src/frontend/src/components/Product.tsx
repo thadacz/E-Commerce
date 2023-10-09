@@ -15,7 +15,7 @@ const Product: React.FC = () => {
     price: 0,
     stock: 0,
     image: null as File | null,
-    category: { id: "" },
+    category: { id: "", name: "" },
   };
 
   const [currentProduct, setCurrentProduct] =
@@ -68,7 +68,7 @@ const Product: React.FC = () => {
     if (selectedCategory) {
       setCurrentProduct((prevProduct) => ({
         ...prevProduct,
-        category: { id: selectedCategory.id },
+        category: { id: selectedCategory.id, name: selectedCategory.name },
       }));
     }
   };
@@ -82,13 +82,28 @@ const Product: React.FC = () => {
     }
   };
 
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault(); 
+    if (
+      !currentProduct.name ||
+      !currentProduct.description ||
+      !currentProduct.category ||
+      currentProduct.price === 0 ||
+      currentProduct.stock === 0
+    ) {
+      setMessage("Please fill in all required fields.");
+      return;
+    }
+    updateProductById();
+  };
+
   const updateProductById = () => {
     const formData = new FormData();
     formData.append("name", currentProduct.name);
     formData.append("description", currentProduct.description);
     formData.append("price", currentProduct.price.toString());
     formData.append("stock", currentProduct.stock.toString());
-    formData.append("category", currentProduct.category?.id);
+    formData.append("category", currentProduct.category?.id || "");
     if (currentProduct.image) {
       formData.append("image", currentProduct.image);
     }
@@ -119,7 +134,7 @@ const Product: React.FC = () => {
       {currentProduct.id ? (
         <div className="edit-form">
           <h4>Product</h4>
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className="form-group">
               <label htmlFor="name">Name</label>
               <input
@@ -191,18 +206,14 @@ const Product: React.FC = () => {
                 onChange={handleImageChange}
               />
             </div>
+            <button type="submit" className="btn btn-primary">
+              Update
+            </button>
+            <button className="btn btn-danger ml-2" onClick={deleteProductById}>
+              Delete
+            </button>
+            <p>{message}</p>
           </form>
-          <button
-            type="submit"
-            className="btn btn-primary"
-            onClick={updateProductById}
-          >
-            Update
-          </button>
-          <button className="btn btn-danger ml-2" onClick={deleteProductById}>
-            Delete
-          </button>
-          <p>{message}</p>
         </div>
       ) : (
         <div>

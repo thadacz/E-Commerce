@@ -34,8 +34,7 @@ const Login: React.FC<Props> = () => {
 
     authApi.login(username, password).then(
       () => {
-        navigate("/");
-        window.location.reload();
+        navigate("/store");
       },
       (error) => {
         const resMessage =
@@ -63,7 +62,7 @@ const Login: React.FC<Props> = () => {
           >
             <Form>
               <div className="form-group">
-                <label htmlFor="username">Username</label>
+                <label htmlFor="username">E-mail</label>
                 <Field name="username" type="text" className="form-control" />
                 <ErrorMessage
                   name="username"
