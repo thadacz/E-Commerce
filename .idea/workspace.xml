@@ -4,15 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fc1fd325-6adf-4640-a922-66cc74f6dded" name="Changes" comment="fixed">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/pl/hada/ecommerce/EcommerceApplicationTests.java" beforeDir="false" />
-    </list>
+    <list default="true" id="fc1fd325-6adf-4640-a922-66cc74f6dded" name="Changes" comment="fixed" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -416,14 +408,7 @@
       <workItem from="1693572541353" duration="2598000" />
       <workItem from="1695206688147" duration="697000" />
       <workItem from="1696848557610" duration="1704000" />
-      <workItem from="1696850391079" duration="1413000" />
-    </task>
-    <task id="LOCAL-00006" summary="jwt completed">
-      <created>1690477088015</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1690477088015</updated>
+      <workItem from="1696850391079" duration="2192000" />
     </task>
     <task id="LOCAL-00007" summary="works">
       <created>1690883120245</created>
@@ -761,7 +746,14 @@
       <option name="project" value="LOCAL" />
       <updated>1693572891706</updated>
     </task>
-    <option name="localTasksCounter" value="55" />
+    <task id="LOCAL-00055" summary="fixed">
+      <created>1696851878497</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1696851878498</updated>
+    </task>
+    <option name="localTasksCounter" value="56" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
