@@ -55,6 +55,7 @@ The e-commerce application is a comprehensive system designed to facilitate onli
 - **Backend:**
     - Java 17
     - Spring Boot 3.1
+    - Postgresql
     - Azure Blob Storage (for storing product images)
 
 - **Frontend:**
